@@ -17,6 +17,10 @@ export default {
 		},
 		handleChange(value,field) {
 			this.$emit('handleChange',value,field)
+		},
+		query(ref) {
+			this.$refs[ref].click()
+			this.$emit('query',ref)
 		}
 	}
 }

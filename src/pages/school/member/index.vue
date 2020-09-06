@@ -15,7 +15,7 @@
 							<el-checkbox-group v-model="search.status" @change="handleStatus">
 								<el-checkbox v-for="(item,index) in status.data" :label="item" :key="item">{{item}}</el-checkbox>
 							</el-checkbox-group>
-							<el-button size='mini' type='primary' class='popover-btn' v-on:click='statusQuery'>确定</el-button>
+							<el-button size='mini' type='primary' class='popover-btn' v-on:click='query("statusTriggle")'>确定</el-button>
 						</el-popover>
 						<cmemsearch v-bind:search='search' v-if='!nameSearch'></cmemsearch>
 						<i class='bar-item f-fsn f-csp' v-if='!nameSearch' ref='ageTriggle'>

@@ -38,6 +38,16 @@ h1,h2,h3,h4,h5,h6{
 	margin-bottom: 0;
 }
 
-.filter-form .el-form-item__label,.filter-form .el-form-item__content{
+.dialog-return .el-dialog__body{
+	padding: 0 20px;
+}
+
+.filter-form .el-form-item__label,.filter-form .el-form-item__content,.form-return .el-form-item__content{
 	line-height: 20px;
 }
+
+.del-confirm.el-button--primary{
+	background-color: #F56C6C;
+	border-color: #F56C6C;
+}
+	

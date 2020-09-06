@@ -6,10 +6,10 @@ import ctimesearch from '@/components/search/time/index.vue'
 import cfilter from '@/components/search/filter/index.vue'
 
 export default {
-	name: 'resultPaper',
+	name: 'resultSoft',
 	data() {
 		return {
-			summary: '论文(77)',
+			summary: '软件著作权(77)',
 			nameSearch: false,
 			search: {
 				name: '',
@@ -19,156 +19,83 @@ export default {
 					data: [],
 					all: true
 				},
-				lang: '',
 				types: [],
-				records: []
+				ranks: []
 			},
-			langs: [
-				{
-					lable: '全部',
-					value: '全部'
-				},
-				{
-					lable: '中文',
-					value: '中文'
-				},
-				{
-					lable: '英文',
-					value: '英文'
-				},
-			],
-			labelW: '70px',
+			labelW: '90px',
 			filters: [
 				{
-					label: '论文类型',
+					label: '著作权类型',
 					field: 'types',
 					isIndeterminate: false,
 					checkAll: false,
 					data: [
-						'期刊论文',
-						'会议论文集',
-						'报纸',
-						'学位论文'
+						'软件制品',
+						'音像制品'
 					]
 				},
 				{
-					label: '收录检索',
-					field: 'records',
+					label: '本单位排名',
+					field: 'ranks',
 					isIndeterminate: false,
 					checkAll: false,
 					data: [
-						'SCI',
-						'SCIE',
-						'SSCI',
-						'ESCI'
+						'第一名',
+						'第二名',
+						'第三名',
+						'第四名',
+						'其他'
 					]
 				}
 			],
-			papers: [
+		  softs: [
 				{
 					uploader: '老夫子',
-					rank: 3,
 					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
+					certno: 'cei',
 					important: 0,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-09-10',
-					number: 2,
-					page: '1-10',
-					author: 1,
-					impact: 0,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 1,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
+					got_at: '2011-01-10',
+					type: '软件制品',
+					owner: '河北经贸大学',
+					rank: 2,
+					finish_at: '2011-02-10',
+					regisno: 'wb890',
 					unitrank: 2,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
 					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 12,
-					field: '自然科学',
 					upload_at: '2019-09-09',
 					updated_at: '2019-09-08'
 				},
 				{
 					uploader: '程咬金',
-					rank: 1,
 					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					important: 1,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-09-11',
-					number: 3,
-					page: '1-10',
-					author: 0,
-					impact: 3,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 0,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
-					unitrank: 10,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
+					certno: 'cei',
+					important: 0,
+					got_at: '2011-01-10',
+					type: '软件制品',
+					owner: '河北经贸大学',
+					rank: 2,
+					finish_at: '2011-01-10',
+					regisno: 'wb890',
+					unitrank: 2,
 					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 10,
-					field: '自然科学',
-					upload_at: '2019-09-19',
-					updated_at: '2019-09-05'
+					upload_at: '2019-09-09',
+					updated_at: '2019-09-08'
 				},
 				{
 					uploader: '公孙离',
-					rank: 2,
 					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					important: 4,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-03-01',
-					number: 1,
-					page: '1-10',
-					author: 0,
-					impact: 6,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 2,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
-					unitrank: 1,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
+					certno: 'cei',
+					important: 0,
+					got_at: '2011-01-10',
+					type: '软件制品',
+					owner: '河北经贸大学',
+					rank: 2,
+					finish_at: '2011-09-10',
+					regisno: 'wb890',
+					unitrank: 2,
 					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 10,
-					field: '自然科学',
-					upload_at: '2019-04-19',
-					updated_at: '2019-07-05'
+					upload_at: '2019-09-09',
+					updated_at: '2019-09-08'
 				},
 			],
 		  returnShow: false,
@@ -203,20 +130,30 @@ export default {
 			})[0]
 			filter.checkAll = value.length == filter.data.length
       filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},	
+		},		
 		searcher() {
 			console.log(this.search)
 		},
 		handlePapers(val) {
 			console.log(val)
 		},
-		createdsort(obj0,obj1) {
+		gotsort(obj0,obj1) {
 			let [
 				date0,
 				date1
 			] = [
-				new Date(obj0.created_at).getTime(),
-				new Date(obj1.created_at).getTime()
+				new Date(obj0.got_at).getTime(),
+				new Date(obj1.got_at).getTime()
+			]
+      return date0 - date1
+		},
+		finishsort(obj0,obj1) {
+			let [
+				date0,
+				date1
+			] = [
+				new Date(obj0.finish_at).getTime(),
+				new Date(obj1.finish_at).getTime()
 			]
       return date0 - date1
 		},

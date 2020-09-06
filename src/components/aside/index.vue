@@ -16,9 +16,9 @@
         </template>
         <el-menu-item index="2-1" route='/result/wait'>待认领成果</el-menu-item>
         <el-menu-item index="2-2" route='/result/paper'>论文</el-menu-item>
-				<el-menu-item index="2-3">纵向课题</el-menu-item>
-				<el-menu-item index="2-4">软件著作权</el-menu-item>
-				<el-menu-item index="2-5">专利</el-menu-item>
+				<el-menu-item index="2-3" route='/result/subjectx'>纵向课题</el-menu-item>
+				<el-menu-item index="2-4" route='/result/soft'>软件著作权</el-menu-item>
+				<el-menu-item index="2-5" route='/result/patent'>专利</el-menu-item>
 				<el-menu-item index="2-6">个人获奖</el-menu-item>
 				<el-menu-item index="2-7">学生获奖</el-menu-item>
 				<el-menu-item index="2-8">继续教育材料</el-menu-item>

@@ -191,8 +191,8 @@ export default {
       this.status.checkAll = value.length === this.status.data.length
       this.status.isIndeterminate = value.length > 0 && value.length < this.status.data.length
     },
-		statusQuery() {
-			this.$refs.statusTriggle.click()
+		query(ref) {
+			this.$refs[ref].click()
 		},
 		searcher() {
 			console.log(this.search)
