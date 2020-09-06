@@ -1,0 +1,43 @@
+.el-submenu__title i.el-submenu__icon-arrow{
+	color: white;
+}
+
+.el-menu--popup-right-start{
+	margin-left: 0!important
+}
+
+h1,h2,h3,h4,h5,h6{
+	margin-block-start: 0em;
+  margin-block-end: 0em;
+	font-size: 14px;
+}
+
+.subcard .el-card__header{
+	padding: 10px 15px;
+}
+
+.card-data .el-card__body{
+	padding-bottom: 0;
+}
+
+.search-name.el-form-item--mini.el-form-item, 
+.search-name.el-form-item--small.el-form-item,
+.filter-form.el-form-item--mini.el-form-item, 
+.filter-form.el-form-item--small.el-form-item{
+	margin-bottom: 0;
+}
+	
+.search-name .el-form-item{
+	margin-bottom: 0;
+}
+
+.filter-form .el-form-item{
+	margin-bottom: 10px;
+}
+.filter-form .el-form-item:last-of-type{
+	margin-bottom: 0;
+}
+
+.filter-form .el-form-item__label,.filter-form .el-form-item__content{
+	line-height: 20px;
+}
