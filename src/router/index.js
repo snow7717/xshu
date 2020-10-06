@@ -4,7 +4,6 @@ import Login from '@/pages/school/login/index.vue'
 import Index from '@/pages/school/index/index.vue'
 import Member from '@/pages/school/member/index/index.vue'
 import MemberImport from '@/pages/school/member/import/index.vue'
-import ResultWait from '@/pages/school/result/wait/index.vue'
 import ResultPaper from '@/pages/school/result/paper/index.vue'
 import ResultSubjectY from '@/pages/school/result/subjectY/index.vue'
 import ResultSoft from '@/pages/school/result/soft/index.vue'
@@ -50,11 +49,6 @@ export default new Router({
 			path: '/member/import',
 			name: 'memberImport',
 			component: MemberImport
-		},
-		{
-			path: '/result/wait',
-      name: 'resultWait',
-      component: ResultWait
 		},
 		{
 			path: '/result/paper',

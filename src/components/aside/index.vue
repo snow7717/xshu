@@ -14,7 +14,6 @@
           <i class="el-icon-s-data" v-bind:class='active == 2 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>成果汇总</span>
         </template>
-        <el-menu-item index="2-1" route='/result/wait'>待认领成果</el-menu-item>
         <el-menu-item index="2-2" route='/result/paper'>论文</el-menu-item>
 				<el-menu-item index="2-3" route='/result/subjecty'>纵向课题</el-menu-item>
 				<el-menu-item index="2-4" route='/result/soft'>软件著作权</el-menu-item>
