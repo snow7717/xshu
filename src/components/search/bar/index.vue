@@ -1,6 +1,6 @@
 <template>
   <el-container class='search-bar f-fs2'>
-		<el-main>
+		<el-main class='bar-main'>
 			<i class='bar-item0 f-fsn'>{{summary}}</i>
 			<i class='bar-item el-icon-search f-fwb f-csp' v-if='!nameSearch' v-on:click='toggleName'></i>
 			<slot name='fields'></slot>

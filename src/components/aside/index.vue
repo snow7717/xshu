@@ -16,57 +16,34 @@
         </template>
         <el-menu-item index="2-1" route='/result/wait'>待认领成果</el-menu-item>
         <el-menu-item index="2-2" route='/result/paper'>论文</el-menu-item>
-				<el-menu-item index="2-3" route='/result/subjectx'>纵向课题</el-menu-item>
+				<el-menu-item index="2-3" route='/result/subjecty'>纵向课题</el-menu-item>
 				<el-menu-item index="2-4" route='/result/soft'>软件著作权</el-menu-item>
 				<el-menu-item index="2-5" route='/result/patent'>专利</el-menu-item>
-				<el-menu-item index="2-6">个人获奖</el-menu-item>
-				<el-menu-item index="2-7">学生获奖</el-menu-item>
-				<el-menu-item index="2-8">继续教育材料</el-menu-item>
-				<el-menu-item index="2-9">著作</el-menu-item>
-				<el-menu-item index="2-10">横向课题</el-menu-item>
-				<el-menu-item index="2-11">新闻报道</el-menu-item>
-				<el-menu-item index="2-12">档案资料</el-menu-item>
-				<el-menu-item index="2-13">其他</el-menu-item>
-				<el-menu-item index="2-14">新型成果</el-menu-item>
-				<el-menu-item index="2-14">
-				  <i class='el-icon-plus'></i>
-				  <span class='menu-text'>添加自定义</span>
-				</el-menu-item>
+				<el-menu-item index="2-6" route='/result/award'>个人获奖</el-menu-item>
+				<el-menu-item index="2-7" route='/result/saward'>学生获奖</el-menu-item>
+				<el-menu-item index="2-8" route='/result/conedu'>继续教育材料</el-menu-item>
+				<el-menu-item index="2-9" route='/result/book'>著作</el-menu-item>
+				<el-menu-item index="2-10" route='/result/subjectx'>横向课题</el-menu-item>
+				<el-menu-item index="2-11" route='/result/news'>新闻报道</el-menu-item>
+				<el-menu-item index="2-12" route='/result/file'>档案资料</el-menu-item>
+				<el-menu-item index="2-13" route='/result/other'>其他</el-menu-item>
+				<el-menu-item index="2-14" route='/result/newresult'>新型成果</el-menu-item>
       </el-submenu>
-			<el-submenu index='3'>
-			  <template slot="title">
-          <i class="el-icon-printer" v-bind:class='active == 3 ? "icon-active" : "icon-default"'></i>
-          <span class='menu-text'>材料生成</span>
-        </template>
-				<el-menu-item index="3-1">新建材料</el-menu-item>
-        <el-menu-item index="3-2">历史材料</el-menu-item>
-			</el-submenu>
 			<el-submenu index='4'>
 			  <template slot="title">
           <i class="el-icon-setting" v-bind:class='active == 4 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>系统设置</span>
         </template>
-				<el-menu-item index="4-1">团队信息</el-menu-item>
-        <el-menu-item index="4-2">团队设置</el-menu-item>
-				<el-menu-item index="4-3">自定义模块</el-menu-item>
+				<el-menu-item index="4-1" route='/setting/teaminfo'>团队信息</el-menu-item>
+        <el-menu-item index="4-2" route='/setting/teamset'>团队设置</el-menu-item>
 			</el-submenu>
 			<el-submenu index='5'>
 			  <template slot="title">
           <i class="el-icon-menu" v-bind:class='active == 5 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>团队工具</span>
         </template>
-				<el-menu-item index="5-1">成果移除箱</el-menu-item>
-        <el-menu-item index="5-2">团队通讯录</el-menu-item>
-				<el-menu-item index="5-3">团队资料夹</el-menu-item>
-			</el-submenu>
-			<el-submenu index='6'>
-			  <template slot="title">
-          <i class="el-icon-question" v-bind:class='active == 6 ? "icon-active" : "icon-default"'></i>
-          <span class='menu-text'>使用帮助</span>
-        </template>
-				<el-menu-item index="5-1">常见问题</el-menu-item>
-        <el-menu-item index="5-2">系统帮助</el-menu-item>
-				<el-menu-item index="5-3">联系我们</el-menu-item>
+				<el-menu-item index="5-1" route='/tool/rembox'>成果移除箱</el-menu-item>
+        <el-menu-item index="5-2" route='/tool/book'>团队通讯录</el-menu-item>
 			</el-submenu>
     </el-menu>
 		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "64px" : "200px"}'>

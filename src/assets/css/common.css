@@ -1,4 +1,4 @@
-.el-submenu__title i.el-submenu__icon-arrow{
+.header-menu .el-submenu__title i.el-submenu__icon-arrow{
 	color: white;
 }
 
@@ -38,7 +38,7 @@ h1,h2,h3,h4,h5,h6{
 	margin-bottom: 0;
 }
 
-.dialog-return .el-dialog__body{
+.dialog-return .el-dialog__body,.admin-add .el-dialog__body,.admin-add-inner .el-dialog__body {
 	padding: 0 20px;
 }
 
@@ -50,4 +50,15 @@ h1,h2,h3,h4,h5,h6{
 	background-color: #F56C6C;
 	border-color: #F56C6C;
 }
+
+.card .el-card__body{
+	padding-bottom: 0;
+}
+
+.depart-add .el-dialog__body,.depart-edit .el-dialog__body{
+	padding: 0 20px 1px 20px;
+}
 	
+.bar-main.el-main,.result-main.el-main{
+	padding: 0;
+}

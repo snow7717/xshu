@@ -9,7 +9,8 @@ export default {
 	name: 'resultPaper',
 	data() {
 		return {
-			summary: '论文(77)',
+			summary: '论文',
+			total: 0,
 			nameSearch: false,
 			search: {
 				name: '',
@@ -64,113 +65,7 @@ export default {
 					]
 				}
 			],
-			papers: [
-				{
-					uploader: '老夫子',
-					rank: 3,
-					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					important: 0,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-09-10',
-					number: 2,
-					page: '1-10',
-					author: 1,
-					impact: 0,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 1,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
-					unitrank: 2,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
-					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 12,
-					field: '自然科学',
-					upload_at: '2019-09-09',
-					updated_at: '2019-09-08'
-				},
-				{
-					uploader: '程咬金',
-					rank: 1,
-					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					important: 1,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-09-11',
-					number: 3,
-					page: '1-10',
-					author: 0,
-					impact: 3,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 0,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
-					unitrank: 10,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
-					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 10,
-					field: '自然科学',
-					upload_at: '2019-09-19',
-					updated_at: '2019-09-05'
-				},
-				{
-					uploader: '公孙离',
-					rank: 2,
-					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					important: 4,
-					book: '公路交通科学',
-					record: 'SCI',
-					created_at: '2011-03-01',
-					number: 1,
-					page: '1-10',
-					author: 0,
-					impact: 6,
-					issn: '1231-1990',
-					jcr: "",
-					cjcr: '',
-					wos: '',
-					cn: '',
-					doi: '',
-					quote: 2,
-					type: '期刊论文',
-					keyword: '',
-					natural: '否',
-					unitrank: 1,
-					firstauthor: '协和医院马超',
-					comauthor: '长城守卫军花木兰',
-					allauthor: '邪恶帝王嬴政',
-					together: '否',
-					single: '是',
-					esi: '',
-					abstract: '',
-					issue: 10,
-					field: '自然科学',
-					upload_at: '2019-04-19',
-					updated_at: '2019-07-05'
-				},
-			],
+			papers: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -185,6 +80,9 @@ export default {
 		cmemsearch,
 		ctimesearch,
 		cfilter
+	},
+	created() {
+		this.index(1)
 	},
 	methods: {
 		toggleName() {
@@ -206,6 +104,13 @@ export default {
 		},	
 		searcher() {
 			console.log(this.search)
+		},
+		/*-- 获取论文列表 --*/
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10/`, {params: {type_id: 1}}).then((res) => {
+				this.total = res.data.result.total
+				this.papers = res.data.result.list
+			})
 		},
 		handlePapers(val) {
 			console.log(val)

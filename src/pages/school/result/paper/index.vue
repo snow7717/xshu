@@ -3,8 +3,8 @@
 	  <cheader></cheader>
 		<el-container>
 		  <caside active='2-2'></caside>
-			<el-main>
-			  <csearch v-bind:summary='summary' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
+			<el-main class='result-main'>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
 				  <div slot='fields' class='f-ib'>
 					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>
 						<cmemsearch v-bind:search='search' v-if='!nameSearch'></cmemsearch>
@@ -69,7 +69,7 @@
 				</el-table>
 				<el-row class='page'>
 				  <el-col :span='24' class='f-tac'>
-					  <el-pagination layout="prev, pager, next" v-bind:total="100"></el-pagination>
+					  <el-pagination layout="prev, pager, next" v-bind:total="total"></el-pagination>
 					</el-col>
 				</el-row>
 				<el-dialog title="确定退回所选成果？" v-bind:visible.sync="returnShow" width='500px' class='dialog-return'>

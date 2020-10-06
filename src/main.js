@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
+import axios from './axios'
 import ElementUI from 'element-ui'
 import ECharts from 'vue-echarts'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -12,6 +14,8 @@ import '@/assets/css/common.css'
 import '@/assets/css/iconfont.css'
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = location.href.indexOf("localhost") > 0 ? "/api" : 'http://39.100.236.213/zqy/yhat/'
+Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.component('v-chart', ECharts)
 
@@ -19,6 +23,7 @@ Vue.component('v-chart', ECharts)
 new Vue({
   el: '#app',
   router,
+	store,
   components: { App },
   template: '<App/>'
 })

@@ -8,15 +8,16 @@ export default {
 	name: 'index',
 	data() {
 		return {
-			name: 'hello',
+			name: '',
 			windowH: 0,
 			dataH: '128px',
+			datas: [],
 			option: {
 				tooltip: {
 					trigger: 'axis'
 				},
 				legend: {
-					data: ['论文', '纵向课题', '专利', '著作', '软件著作权', '个人获奖', '学生获奖', '横向课题', '新闻报道', '档案资料', '继续教育材料'],
+					data: [],
 					top: 'bottom'
 				},
 				grid: {
@@ -40,78 +41,21 @@ export default {
 					type: 'value'
 				},
 				series: [
-				  {
-					  name: '论文',
-						type: 'line',
-					  stack: '总量',
-						data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230]
-					},
-					{
-						name: '纵向课题',
-						type: 'line',
-						stack: '总量',
-						data: [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330]
-					},
-					{
-						name: '专利',
-						type: 'line',
-						stack: '总量',
-						data: [150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190, 330]
-					},
-					{
-						name: '著作',
-						type: 'line',
-						stack: '总量',
-						data: [320, 332, 301, 334, 390, 330, 320, 320, 332, 301, 334, 390, 330, 320, 320, 332, 301, 334, 390, 330]
-					},
-					{
-						name: '软件著作权',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '个人获奖',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '学生获奖',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '横向课题',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '新闻报道',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '档案资料',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					},
-					{
-						name: '继续教育材料',
-						type: 'line',
-						stack: '总量',
-						data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330]
-					}
+				  
 				]
+			},
+			top: {
+				result: [],
+				paper: [],
+				soft: [],
+				patent: []
 			}
 		}
 	},
 	computed: {
-		
+		user() {
+			return this.$store.state.user
+		}
 	},
 	components: {
 		cheader,
@@ -121,11 +65,50 @@ export default {
 		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},
 	created() {
-		
+		this.dataIndex()
+		this.chartIndex()
+		this.topIndex(0)
+		this.topIndex(1)
+		this.topIndex(2)
+		this.topIndex(3)
 	},
 	methods: {
 		toggleData() {
 			this.dataH == 'auto' ? this.dataH = '128px' : this.dataH = 'auto'
+		},
+		dataIndex() {
+			this.$http.post("/achieve/type/analysis").then(res => {
+				this.datas = res.data.result
+			})
+		},
+		chartIndex() {
+			this.$http.post('/achieve/type/chart/line').then(res => {
+				this.option.legend.data = res.data.result.legend
+				this.option.xAxis.data = res.data.result.years
+				for(let item of res.data.result.series) {
+					item.type = 'line'
+					item.stack = '总量'
+				}
+				this.option.series = res.data.result.series
+			})
+		},
+		topIndex(type) {
+			this.$http.post(`/achieve/top/5/${type}`).then(res => {
+				switch(parseInt(type)) {
+					case 0:
+						this.top.result = res.data.result
+						break
+					case 1:
+						this.top.paper = res.data.result
+						break
+					case 2:
+						this.top.soft = res.data.result
+						break
+					case 3:
+						this.top.patent = res.data.result
+						break	
+				}
+			})
 		}
 	}
 }

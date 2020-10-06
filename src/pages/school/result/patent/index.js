@@ -6,7 +6,7 @@ import ctimesearch from '@/components/search/time/index.vue'
 import cfilter from '@/components/search/filter/index.vue'
 
 export default {
-	name: 'resultSoft',
+	name: 'resultPatent',
 	data() {
 		return {
 			summary: '专利(77)',

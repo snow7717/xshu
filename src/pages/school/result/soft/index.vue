@@ -3,7 +3,7 @@
 	  <cheader></cheader>
 		<el-container>
 		  <caside active='2-4'></caside>
-			<el-main>
+			<el-main class='result-main'>
 			  <csearch v-bind:summary='summary' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
 				  <div slot='fields' class='f-ib'>
 					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>

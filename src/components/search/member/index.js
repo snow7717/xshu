@@ -14,109 +14,35 @@ export default {
 				keyword: '',
 				data: [
 					{
-						key: 0,
+						key: '0',
 						label: '全部',
-						children: [
-							{
-								key: 1,
-								label: '电子商务系',
-								children: [
-									{
-										key: '1-1',
-										label: '马保国'
-									},
-									{
-										key: '1-2',
-										label: '貂蝉'
-									}
-								]
-							},
-							{
-								key: '2',
-								label: '物流管理系',
-								children: [
-									{
-										key: '2-1',
-										label: '吕布'
-									},
-									{
-										key: '2-2',
-										label: '狂铁'
-									}
-								]
-							}
-						]
+						children: []
 					}
 				],
-				checkeds: [0]
+				checkeds: []
 			},
 			team: {
 				keyword: '',
 				data: [
 					{
-						key: 0,
+						key: '0',
 						label: '全部',
-						children: [
-							{
-								key: '1',
-								label: '阿里巴巴科研队',
-								children: [
-									{
-										key: '1-1',
-										label: '马保国'
-									},
-									{
-										key: '1-2',
-										label: '貂蝉'
-									}
-								]
-							}
-						]
+						children: []
 					}
 				],
-				checkeds: [0]
+				checkeds: []
 			},
 			tag: {
 				keyword: '',
 				data: [
 					{
-						key: 0,
+						key: '0',
 						label: '全部',
-						children: [
-							{
-								key: '1',
-								label: '长江学者',
-								children: [
-									{
-										key: '1-1',
-										label: '马保国'
-									},
-									{
-										key: '1-2',
-										label: '貂蝉'
-									}
-								]
-							},
-							{
-								key: '2',
-								label: '国家津贴科学家',
-								children: [
-									{
-										key: '2-1',
-										label: '吕布'
-									},
-									{
-										key: '2-2',
-										label: '狂铁'
-									}
-								]
-							}
-						]
+						children: []
 					}
 				],
-				checkeds: [0]
+				checkeds: []
 			},
-			
 		}
 	},
 	watch: {
@@ -130,7 +56,30 @@ export default {
       this.$refs.tagtree.filter(val)
     }
   },
+	mounted() {
+		this.departIndex()
+		this.teamIndex()
+		this.tagIndex()
+	},
 	methods: {
+		/*-- 获取教学系部及其下面的成员 --*/
+		departIndex(){
+			this.$http.get('/member/manage/tree/college').then((res) => {
+				this.department.data[0].children = res.data.result
+			})
+		},
+		/*-- 获取科研团队及其下面的成员 --*/
+		teamIndex() {
+			this.$http.get('/member/manage/tree/team').then((res) => {
+				this.team.data[0].children = res.data.result
+			})
+		},
+		/*-- 获取科研标签及其下面的成员 --*/
+		tagIndex() {
+			this.$http.get('/member/manage/tree/tag').then((res) => {
+				this.tag.data[0].children = res.data.result
+			})
+		},
 		filterTree(value, data) {
 			if(value) {
 				return data.label.indexOf(value) !== -1
@@ -139,8 +88,12 @@ export default {
 			}
     },
 		memberQuery(key) {
-			this.search.member.all = this.$refs[key].getCheckedKeys().indexOf(0) != -1
+			this.search.member.all = this.$refs[key].getCheckedKeys().indexOf(0) != -1 || this.$refs[key].getCheckedKeys().length == 0
+			this.search.member.data = this.$refs[key].getCheckedKeys().filter((item) => {
+				return item.indexOf('member') != -1
+			})
 			this.$refs.memberTriggle.click()
+			this.$emit('search')
 		}
 	}
 }

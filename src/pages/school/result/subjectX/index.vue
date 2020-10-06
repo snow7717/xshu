@@ -2,8 +2,8 @@
   <div class='container'>
 	  <cheader></cheader>
 		<el-container>
-		  <caside active='2-3'></caside>
-			<el-main>
+		  <caside active='2-10'></caside>
+			<el-main class='result-main'>
 			  <csearch v-bind:summary='summary' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
 				  <div slot='fields' class='f-ib'>
 					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>
@@ -17,22 +17,19 @@
 				<el-table v-bind:data="subjects" stripe class='w-100' size='small' @selection-change="handlePapers" >
 				  <el-table-column type="selection" fixed width="40"></el-table-column>
 				  <el-table-column prop='uploader' label="上传者" width='60px'></el-table-column>
-					<el-table-column prop='title' label='论文名' width='200px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='fund' label='基金名称' width='200px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='title' label='课题名称' width='200px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='contract' label='合同来源' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable label='重要程度' width='94px'>
 					  <template slot-scope='scope'>
 						  <el-input type='number' size='mini' v-model='scope.row.important' min='0'></el-input>
 						</template>
 					</el-table-column> 
-					<el-table-column prop='type' label='课题类型' width='100px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='level' label='课题级别' width='80px' show-overflow-tooltip></el-table-column>
-					<el-table-column sortable prop='number' label='课题编号' width='94px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='contractno' label='合同编号' width='100px' show-overflow-tooltip></el-table-column>
+					<el-table-column sortable prop='funding' label='到账经费' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='status' label='课题状态' width='80px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable v-bind:sort-method='createdsort' prop='created_at' label='开始时间' width='100px'></el-table-column>
 					<el-table-column sortable v-bind:sort-method='untilsort' prop='until_at' label='截止时间' width='100px'></el-table-column>
 					<el-table-column sortable prop='rank' label="本人排名" width='94px'></el-table-column>
-					<el-table-column sortable prop='funding' label='到账经费' width='94px' show-overflow-tooltip></el-table-column>
-					<el-table-column sortable prop='unit' label='授予单位' width='120px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='unitrank' label='单位排名' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='allauthor' label='全部作者姓名及单位' width='170px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable v-bind:sort-method='uploadsort'  prop='upload_at' label='上传时间' width='94px' show-overflow-tooltip></el-table-column>

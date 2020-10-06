@@ -14,12 +14,12 @@ export default {
   beforeMount(height) {
     this.windowH = document.documentElement.clientHeight || document.body.clientHeight
   },
+	created() {
+	},
 	methods: {
 		handleOpen(index) {
-			console.log(index)
 		},
 		handleClose(index) {
-			console.log(index)
 		}
 	}
 }

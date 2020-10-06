@@ -4,11 +4,11 @@ export default {
 		return {
 			windowH: 0,
 			form: {
-				account: '',
+				username: '',
 				password: ''
 			},
 			rules: {
-        account: [
+        username: [
           { 
 						required: true, 
 						message: '请输入账号', 
@@ -32,6 +32,11 @@ export default {
 			logged: false
 		}
 	},
+	computed: {
+		user() {
+			return this.$store.state.user
+		}
+	},
 	mounted() {
 		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},
@@ -42,7 +47,25 @@ export default {
 		submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.logged = true
+					this.$http.post("/login", this.form).then((res) => {						
+						if(res.data.returnCode == 0) {
+							this.$message({
+								message: '登录成功',
+								type: 'success'
+							})
+							this.$store.commit('login', res.data.result)
+							if(res.data.result.role.role == 1 || res.data.result.role.role == 2){
+								this.logged = true
+							}else{
+								// 如果是成员直接进入我的成果
+							}
+						}else{
+							this.$message({
+								message: res.data.returnMsg,
+								type: 'warning'
+							})
+						}
+					})
         } else {
           return false
         }
