@@ -2,7 +2,7 @@
   <div class='container'>
 	  <cheader></cheader>
 		<el-container>
-		  <caside active='5-2'></caside>
+		  <caside active='7-2'></caside>
 			<el-main v-bind:style='"height:" + (windowH - 80) + "px"'>
 			  <el-table v-bind:data="members" stripe class='w-100' size='small' @selection-change="handleResults">
 				  <el-table-column prop='name' label="姓名"></el-table-column>

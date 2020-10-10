@@ -2,7 +2,7 @@
   <div class='container'>
 	  <cheader></cheader>
 		<el-container>
-		  <caside active='4-1'></caside>
+		  <caside active='6-1'></caside>
 			<el-main v-bind:style='"height:" + (windowH - 80) + "px"'>
 			  <el-card shadow='never' class='card'>
 				  <header slot="header">团队信息</header>

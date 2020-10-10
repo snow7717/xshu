@@ -2,7 +2,7 @@ import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
 
 export default {
-	name: 'book',
+	name: 'toolbook',
 	data() {
 		return {
 			windowH: 0,

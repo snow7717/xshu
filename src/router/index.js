@@ -4,26 +4,33 @@ import Login from '@/pages/school/login/index.vue'
 import Index from '@/pages/school/index/index.vue'
 import Member from '@/pages/school/member/index/index.vue'
 import MemberImport from '@/pages/school/member/import/index.vue'
-import ResultPaper from '@/pages/school/result/paper/index.vue'
-import ResultSubjectY from '@/pages/school/result/subjectY/index.vue'
-import ResultSoft from '@/pages/school/result/soft/index.vue'
-import ResultPatent from '@/pages/school/result/patent/index.vue'
-import ResultAward from '@/pages/school/result/award/index.vue'
-import ResultSaward from '@/pages/school/result/saward/index.vue'
-import ResultConedu from '@/pages/school/result/conedu/index.vue'
-import ResultBook from '@/pages/school/result/book/index.vue'
-import ResultSubjectX from '@/pages/school/result/subjectX/index.vue'
-import ResultNews from '@/pages/school/result/news/index.vue'
-import ResultFile from '@/pages/school/result/file/index.vue'
-import ResultOther from '@/pages/school/result/other/index.vue'
-import ResultNewresult from '@/pages/school/result/newresult/index.vue'
+import SubjectY from '@/pages/school/research/subjectY/index.vue'
+import SubjectX from '@/pages/school/research/subjectX/index.vue'
+import Award from '@/pages/school/research/award/index.vue'
+import Paper from '@/pages/school/research/paper/index.vue'
+import Book from '@/pages/school/research/book/index.vue'
+import Patent from '@/pages/school/research/patent/index.vue'
+import Soft from '@/pages/school/research/soft/index.vue'
+import Research from '@/pages/school/teaching/research/index.vue'
+import Taward from '@/pages/school/teaching/award/index.vue'
+import Course from '@/pages/school/teaching/course/index.vue'
+import Graduate from '@/pages/school/teaching/graduate/index.vue'
+import Colla from '@/pages/school/teaching/colla/index.vue'
+import Competition from '@/pages/school/student/competition/index.vue'
+import Sresearch from '@/pages/school/student/research/index.vue'
+import Teacher from '@/pages/school/visiting/teacher/index.vue'
+import Student from '@/pages/school/visiting/student/index.vue'
+import Attend from '@/pages/school/visiting/attend/index.vue'
+import Sattend from '@/pages/school/visiting/sattend/index.vue'
+import Cooperation from '@/pages/school/visiting/cooperation/index.vue'
+import Base from '@/pages/school/visiting/base/index.vue'
 import TeamInfo from '@/pages/school/setting/teaminfo/index.vue'
 import TeamSet from '@/pages/school/setting/teamset/index.vue'
 import ToolRembox from '@/pages/school/tool/rembox/index.vue'
 import ToolBook from '@/pages/school/tool/book/index.vue'
 import ToolFolder from '@/pages/school/tool/folder/index.vue'
 import User from '@/pages/school/user/index.vue'
-import Paper from '@/pages/result/paper/index/index.vue'
+import Paper1 from '@/pages/result/paper/index/index.vue'
 import PaperCreate from '@/pages/result/paper/create/index.vue'
 
 Vue.use(Router)
@@ -51,69 +58,104 @@ export default new Router({
 			component: MemberImport
 		},
 		{
-			path: '/result/paper',
-      name: 'resultPaper',
-      component: ResultPaper
+			path: '/research/subjecty',
+			name: 'subjectY',
+			component: SubjectY
 		},
 		{
-			path: '/result/subjecty',
-      name: 'resultSubjectY',
-      component: ResultSubjectY
+			path: '/research/subjectx',
+			name: 'subjectX',
+			component: SubjectX
 		},
 		{
-			path: '/result/soft',
-      name: 'resultSoft',
-      component: ResultSoft
+			path: '/research/award',
+			name: 'award',
+			component: Award
 		},
 		{
-			path: '/result/patent',
-      name: 'resultPatent',
-      component: ResultPatent
+			path: '/research/paper',
+			name: 'paper',
+			component: Paper
 		},
 		{
-			path: '/result/award',
-      name: 'resultAward',
-      component: ResultAward
+			path: '/research/book',
+			name: 'book',
+			component: Book
 		},
 		{
-			path: '/result/saward',
-      name: 'resultSaward',
-      component: ResultSaward
+			path: '/research/patent',
+			name: 'patent',
+			component: Patent
 		},
 		{
-			path: '/result/conedu',
-      name: 'resultConedu',
-      component: ResultConedu
+			path: '/research/soft',
+			name: 'soft',
+			component: Soft
 		},
 		{
-			path: '/result/book',
-      name: 'resultBook',
-      component: ResultBook
+			path: '/teaching/research',
+			name: 'research',
+			component: Research
 		},
 		{
-			path: '/result/subjectx',
-      name: 'resultSubjectX',
-      component: ResultSubjectX
+			path: '/teaching/award',
+			name: 'taward',
+			component: Taward
 		},
 		{
-			path: '/result/news',
-      name: 'resultNews',
-      component: ResultNews
+			path: '/teaching/course',
+			name: 'course',
+			component: Course
 		},
 		{
-			path: '/result/file',
-      name: 'resultFile',
-      component: ResultFile
+			path: '/teaching/graduate',
+			name: 'graduate',
+			component: Graduate
 		},
 		{
-			path: '/result/other',
-      name: 'resultOther',
-      component: ResultOther
+			path: '/teaching/colla',
+			name: 'colla',
+			component: Colla
 		},
 		{
-			path: '/result/newresult',
-      name: 'resultNewresult',
-      component: ResultNewresult
+			path: '/student/competition',
+			name: 'competition',
+			component: Competition
+		},
+		{
+			path: '/student/research',
+			name: 'sresearch',
+			component: Sresearch
+		},
+		{
+			path: '/visiting/teacher',
+			name: 'teacher',
+			component: Teacher
+		},
+		{
+			path: '/visiting/student',
+			name: 'student',
+			component: Student
+		},
+		{
+			path: '/visiting/attend',
+			name: 'attend',
+			component: Attend
+		},
+		{
+			path: '/visiting/sattend',
+			name: 'sattend',
+			component: Sattend
+		},
+		{
+			path: '/visiting/cooperation',
+			name: 'cooperation',
+			component: Cooperation
+		},
+		{
+			path: '/visiting/base',
+			name: 'baser',
+			component: Base
 		},
 		{
 			path: '/setting/teaminfo',
@@ -132,7 +174,7 @@ export default new Router({
 		},
 		{
 			path: '/tool/book',
-      name: 'book',
+      name: 'toolbook',
       component: ToolBook
 		},
 		{
@@ -147,8 +189,8 @@ export default new Router({
 		},
 		{
 			path: '/paper',
-			name: 'paper',
-			component: Paper
+			name: 'paper1',
+			component: Paper1
 		},
 		{
 			path: '/paper/create',

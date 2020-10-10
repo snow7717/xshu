@@ -1,7 +1,7 @@
 <template>
   <el-aside v-bind:width='isCollapse ? "70px" : "206px"' class='f-pr' v-bind:style='"height:" + (windowH-80) + "px"'> 
 	  <el-menu v-bind:default-active="active" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened v-bind:style='"min-height:" + (windowH-80) + "px"' :collapse="isCollapse" style='max-width: 200px' v-bind:collapse-transition='false' router>
-		  <el-menu-item index='0' route='/'>
+		  <el-menu-item index='0' route='/' >
 			  <i class='el-icon-s-home' v-bind:class='active == 0 ? "icon-active" : "icon-default"'></i>
 				<span class='menu-text'>全局总览</span>
 			</el-menu-item>
@@ -9,40 +9,65 @@
 			  <i class='el-icon-s-custom' v-bind:class='active == 1 ? "icon-active" : "icon-default"'></i>
 				<span class='menu-text'>成员管理</span>
 			</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">
+			<el-submenu index='2'>
+			  <template slot="title">
           <i class="el-icon-s-data" v-bind:class='active == 2 ? "icon-active" : "icon-default"'></i>
-          <span class='menu-text'>成果汇总</span>
+          <span class='menu-text'>科研成果</span>
         </template>
-        <el-menu-item index="2-2" route='/result/paper'>论文</el-menu-item>
-				<el-menu-item index="2-3" route='/result/subjecty'>纵向课题</el-menu-item>
-				<el-menu-item index="2-4" route='/result/soft'>软件著作权</el-menu-item>
-				<el-menu-item index="2-5" route='/result/patent'>专利</el-menu-item>
-				<el-menu-item index="2-6" route='/result/award'>个人获奖</el-menu-item>
-				<el-menu-item index="2-7" route='/result/saward'>学生获奖</el-menu-item>
-				<el-menu-item index="2-8" route='/result/conedu'>继续教育材料</el-menu-item>
-				<el-menu-item index="2-9" route='/result/book'>著作</el-menu-item>
-				<el-menu-item index="2-10" route='/result/subjectx'>横向课题</el-menu-item>
-				<el-menu-item index="2-11" route='/result/news'>新闻报道</el-menu-item>
-				<el-menu-item index="2-12" route='/result/file'>档案资料</el-menu-item>
-				<el-menu-item index="2-13" route='/result/other'>其他</el-menu-item>
-				<el-menu-item index="2-14" route='/result/newresult'>新型成果</el-menu-item>
-      </el-submenu>
+				<el-menu-item index="2-1" route='/research/subjecty'>纵向科研项目</el-menu-item>
+				<el-menu-item index="2-2" route='/research/subjectx'>横向科研项目</el-menu-item>
+				<el-menu-item index="2-3" route='/research/award'>科研奖励</el-menu-item>
+				<el-menu-item index="2-4" route='/research/paper'>论文</el-menu-item>
+				<el-menu-item index="2-5" route='/research/book'>著作/教材</el-menu-item>
+				<el-menu-item index="2-6" route='/research/patent'>专利</el-menu-item>
+				<el-menu-item index="2-7" route='/research/soft'>软件著作权</el-menu-item>
+			</el-submenu>
+			<el-submenu index='3'>
+			  <template slot="title">
+          <i class="el-icon-s-platform" v-bind:class='active == 3 ? "icon-active" : "icon-default"'></i>
+          <span class='menu-text'>教学成果</span>
+        </template>
+				<el-menu-item index="3-1" route='/teaching/research'>教研项目</el-menu-item>
+				<el-menu-item index="3-2" route='/teaching/award'>教学奖励</el-menu-item>
+				<el-menu-item index="3-3" route='/teaching/course'>课程</el-menu-item>
+				<el-menu-item index="3-4" route='/teaching/graduate'>研究生课程</el-menu-item>
+				<el-menu-item index="3-5" route='/teaching/colla'>协同育人项目</el-menu-item>
+			</el-submenu>
 			<el-submenu index='4'>
 			  <template slot="title">
-          <i class="el-icon-setting" v-bind:class='active == 4 ? "icon-active" : "icon-default"'></i>
-          <span class='menu-text'>系统设置</span>
+          <i class="el-icon-money" v-bind:class='active == 4 ? "icon-active" : "icon-default"'></i>
+          <span class='menu-text'>学生成果</span>
         </template>
-				<el-menu-item index="4-1" route='/setting/teaminfo'>团队信息</el-menu-item>
-        <el-menu-item index="4-2" route='/setting/teamset'>团队设置</el-menu-item>
+				<el-menu-item index="4-1" route='/student/competition'>学生竞赛获奖</el-menu-item>
+				<el-menu-item index="4-2" route='/student/research'>研究成果获奖</el-menu-item>
 			</el-submenu>
 			<el-submenu index='5'>
 			  <template slot="title">
-          <i class="el-icon-menu" v-bind:class='active == 5 ? "icon-active" : "icon-default"'></i>
+          <i class="el-icon-s-flag" v-bind:class='active == 5 ? "icon-active" : "icon-default"'></i>
+          <span class='menu-text'>交流访学</span>
+        </template>
+				<el-menu-item index="5-1" route='/visiting/teacher'>教师访学</el-menu-item>
+				<el-menu-item index="5-2" route='/visiting/student'>学生访学</el-menu-item>
+				<el-menu-item index="5-3" route='/visiting/attend'>教师参会</el-menu-item>
+				<el-menu-item index="5-4" route='/visiting/sattend'>学生参会</el-menu-item>
+				<el-menu-item index="5-5" route='/visiting/cooperation'>合作协议</el-menu-item>
+				<el-menu-item index="5-6" route='/visiting/base'>实习实践基地</el-menu-item>
+			</el-submenu>
+			<el-submenu index='6'>
+			  <template slot="title">
+          <i class="el-icon-setting" v-bind:class='active == 6 ? "icon-active" : "icon-default"'></i>
+          <span class='menu-text'>系统设置</span>
+        </template>
+				<el-menu-item index="6-1" route='/setting/teaminfo'>团队信息</el-menu-item>
+        <el-menu-item index="6-2" route='/setting/teamset'>团队设置</el-menu-item>
+			</el-submenu>
+			<el-submenu index='7'>
+			  <template slot="title">
+          <i class="el-icon-menu" v-bind:class='active == 7 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>团队工具</span>
         </template>
-				<el-menu-item index="5-1" route='/tool/rembox'>成果移除箱</el-menu-item>
-        <el-menu-item index="5-2" route='/tool/book'>团队通讯录</el-menu-item>
+				<el-menu-item index="7-1" route='/tool/rembox'>成果移除箱</el-menu-item>
+        <el-menu-item index="7-2" route='/tool/book'>团队通讯录</el-menu-item>
 			</el-submenu>
     </el-menu>
 		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "64px" : "200px"}'>
