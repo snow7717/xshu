@@ -6,7 +6,7 @@
 		</header>
 		<el-container>
 			<el-aside width='160px' class='aside f-oa'>
-				<el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :auto-upload="false" accept='image/png,image/jpeg,.pdf' v-bind:on-success='fileSuccess'>
+				<el-upload action="#" list-type="picture-card" v-bind:http-request='uploader' accept='image/png,image/jpeg,.pdf' v-bind:on-success='fileSuccess'>
 				  <i slot="default" class="el-icon-plus"></i>
 					<section slot="file" slot-scope="{file}">
 						<el-image class="el-upload-list__item-thumbnail" :src="file.url"></el-image>
