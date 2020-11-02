@@ -9,41 +9,30 @@ export default {
 	name: 'baser',
 	data() {
 		return {
-			summary: '实习实践基地(77)',
-			nameSearch: false,
+			summary: '实习实践基地',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				status: []
+				name: ''
 			},
 			labelW: '70px',
-			filters: [
-				{
-					label: '课题状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'在研',
-						'结题'
-					]
-				}
-			],
 			bases: [
 				{
+					// 基地名称
 					base: '中国社会科学院',
+					// 专业名称
 					profession: '历史学',
+					//签约时间
 					sign_at: '2019-09-09',
+					// 合作周期
 					cycle: '一年',
+					//基地地点
 					address: '山东泰安',
+					// 实习成就
 					effect: '没有成效'
 				}
 			],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -59,29 +48,23 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 25, condition: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.bases = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		signsort(obj0,obj1) {
 			let [

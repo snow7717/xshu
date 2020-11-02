@@ -9,18 +9,10 @@ export default {
 	name: 'subjectY',
 	data() {
 		return {
-			summary: '纵向科研项目(77)',
-			nameSearch: false,
+			summary: '纵向科研项目',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				levels: [],
-				status: []
+				name: ''
 			},
 			labelW: '70px',
 			filters: [
@@ -47,25 +39,9 @@ export default {
 					]
 				}
 			],
-			subjects: [
-				{
-					cate: '自然科学',
-					source: '社会科学院',
-					number: 2,
-					name: '国家自然科学基金',
-					level: '国家级',
-					unit: '中科院',
-					funding: 1000,
-					created_at: '2011-09-10',
-					until_at: '2019-08-09',
-					status: '结题',
-					type: '重点',
-					principal: '梦奇',
-					result: '无',
-					unitrank: 2,
-					year: '2020'
-				}
-			],
+			subjects: [],
+			selects: [],
+			total: 0,
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -81,7 +57,16 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
+		index(page) {
+			this.$http.get(`/subjects/page/${page}/10`,{params: {xy: 'y', title: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.subjects = res.data.result.list
+			})
+		},
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
@@ -98,12 +83,14 @@ export default {
 			})[0]
 			filter.checkAll = value.length == filter.data.length
       filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
+		},
 		searcher() {
-			console.log(this.search)
+			this.index(1)
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		createdsort(obj0,obj1) {
 			let [

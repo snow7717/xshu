@@ -19,6 +19,7 @@ export default {
 				},
 				age: '0-100'
 			},
+			closeShow: true,
 			total: 0,
 			status: {
 				data: [

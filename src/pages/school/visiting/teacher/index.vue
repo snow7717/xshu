@@ -4,12 +4,7 @@
 		<el-container>
 		  <caside active='5-1'></caside>
 			<el-main class='result-main'>
-			  <csearch v-bind:summary='summary' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
-				  <div slot='fields' class='f-ib'>
-					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>
-						<cmemsearch v-bind:search='search' v-if='!nameSearch'></cmemsearch>
-						<cfilter v-bind:labelW='labelW' v-if='!nameSearch' v-bind:search='search' v-bind:filters='filters' v-on:handleAll='handleAll' v-on:handleChange='handleChange' v-on:query='searcher'></cfilter>
-					</div>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)' placeholder='请输入姓名'>
 					<el-aside width='102px' slot='aside'>
 					  <el-button type="success" size='mini'>导出Excel</el-button>
 					</el-aside>
@@ -37,7 +32,7 @@
 				</el-table>
 				<el-row class='page'>
 				  <el-col :span='24' class='f-tac'>
-					  <el-pagination layout="prev, pager, next" v-bind:total="100"></el-pagination>
+					  <el-pagination layout="prev, pager, next" v-bind:total="total" v-on:current-change='index'></el-pagination>
 					</el-col>
 				</el-row>
 				<el-dialog title="确定退回所选成果？" v-bind:visible.sync="returnShow" width='500px' class='dialog-return'>

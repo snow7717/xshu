@@ -9,17 +9,10 @@ export default {
 	name: 'subjectX',
 	data() {
 		return {
-			summary: '横向课题(77)',
-			nameSearch: false,
+			summary: '横向科研项目',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				status: []
+				name: ''
 			},
 			labelW: '70px',
 			filters: [
@@ -34,28 +27,14 @@ export default {
 					]
 				}
 			],
-			subjects: [
-				{
-					cate: '自然科学',
-					title: '纳米二氧化钛处治汽车尾气效果与应用方法的研究',
-					source: '国家自然科学基金',
-					level: '国家级',
-					principal: '李白',
-					school: '南开大学',
-					funding: 1000,
-					receivefund: 200,
-					created_at: '2011-09-10',
-					until_at: '2019-08-09',
-					status: '结题',
-					member: '张良',
-					year: 2019,
-				}
-			],
+			subjects: [],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
 				description: ''
-			}
+			},
 		}
 	},
 	components: {
@@ -66,29 +45,32 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
+		index(page) {
+			this.$http.get(`/subjects/page/${page}/10`,{params: {xy: 'x', 'title': this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.subjects = res.data.result.list
+			})
+		},
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
-		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
+		},
+		exporter() {
+			if(this.selects.length == 0) {
+				this.$message('请选择要导出的数据')
+			}else{
+				this.$http.get('/export/subject/x',{params: {subjectsIds: this.selects}}).then((res) => {
+					console.log(res)
+				})
+			}
 		},
 		createdsort(obj0,obj1) {
 			let [

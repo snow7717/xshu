@@ -11,60 +11,11 @@ export default {
 		return {
 			summary: '论文',
 			total: 0,
-			nameSearch: false,
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				lang: '',
-				types: [],
-				records: []
+				name: ''
 			},
-			langs: [
-				{
-					lable: '全部',
-					value: '全部'
-				},
-				{
-					lable: '中文',
-					value: '中文'
-				},
-				{
-					lable: '英文',
-					value: '英文'
-				},
-			],
 			labelW: '70px',
-			filters: [
-				{
-					label: '论文类型',
-					field: 'types',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'期刊论文',
-						'会议论文集',
-						'报纸',
-						'学位论文'
-					]
-				},
-				{
-					label: '收录检索',
-					field: 'records',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'SCI',
-						'SCIE',
-						'SSCI',
-						'ESCI'
-					]
-				}
-			],
 			papers: [],
 		  returnShow: false,
 			reason: {
@@ -88,32 +39,15 @@ export default {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},	
-		searcher() {
-			console.log(this.search)
-		},
 		/*-- 获取论文列表 --*/
 		index(page) {
-			this.$http.get(`/achieve/list/${page}/10/`, {params: {type_id: 1}}).then((res) => {
+			this.$http.get(`/achieve/list/${page}/10/`, {params: {type_id: 1,condition: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.papers = res.data.result.list
 			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val
 		},
 		createdsort(obj0,obj1) {
 			let [

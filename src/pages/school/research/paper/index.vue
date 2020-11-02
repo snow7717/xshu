@@ -4,18 +4,7 @@
 		<el-container>
 		  <caside active='2-4'></caside>
 			<el-main class='result-main'>
-			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
-				  <div slot='fields' class='f-ib'>
-					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>
-						<cmemsearch v-bind:search='search' v-if='!nameSearch'></cmemsearch>
-						<i class='bar-item f-fsn f-csp' v-if='!nameSearch' ref='langTriggle'>
-							<font>语言：</font>
-							<el-select v-model="search.lang" placeholder="请选择" size='mini' class='lang'>
-								<el-option v-for="(item,index) in langs" v-bind:key="index" v-bind:label="item.label" v-bind:value="item.value"></el-option>
-							</el-select>
-						</i>
-						<cfilter v-if='!nameSearch' v-bind:labelW='labelW' v-bind:search='search' v-bind:filters='filters' v-on:handleAll='handleAll' v-on:handleChange='handleChange' v-on:query='searcher'></cfilter>
-					</div>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)' placeholder='请输入论文名'>
 					<el-aside width='102px' slot='aside'>
 					  <el-button type="success" size='mini'>导出Excel</el-button>
 					</el-aside>
@@ -69,7 +58,7 @@
 				</el-table>
 				<el-row class='page'>
 				  <el-col :span='24' class='f-tac'>
-					  <el-pagination layout="prev, pager, next" v-bind:total="total"></el-pagination>
+					  <el-pagination layout="prev, pager, next" v-bind:total="total" v-on:current-change='index'></el-pagination>
 					</el-col>
 				</el-row>
 				<el-dialog title="确定退回所选成果？" v-bind:visible.sync="returnShow" width='500px' class='dialog-return'>

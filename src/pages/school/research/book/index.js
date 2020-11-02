@@ -9,75 +9,15 @@ export default {
 	name: 'book',
 	data() {
 		return {
-			summary: '著作/教材(77)',
-			nameSearch: false,
+			summary: '著作/教材',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				identities: [],
-				types: [],
-				unitranks: []
+				name: ''
 			},
 			labelW: '90px',
-			filters: [
-				{
-					label: '身份',
-					field: 'identities',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'总主编',
-						'副主编',
-						'主编',
-						'参编',
-						'其他'
-					]
-				},
-				{
-					label: '著作类型',
-					field: 'types',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'非教材',
-						'普通教材',
-						'省级规划教材',
-						'国家级规划教材',
-						'其他'
-					]
-				},
-				{
-					label: '本单位排名',
-					field: 'unitranks',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'第一名',
-						'第二名',
-						'第三名',
-						'第四名',
-						'其他'
-					]
-				}
-			],
-		  books: [
-				{
-					name: '王者荣耀',
-					editor: '老夫子',
-					secondeditor: '姜子牙',
-					isbn: '23546',
-					type: '教育材料',
-					house: '人民教育出版社',
-					pub_at: '2019-09-09',
-					planning: '是',
-					planame: '第三版语文课本'
-				}
-			],
+		  books: [],
+			selects: [],
+			total: 0,
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -93,29 +33,23 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 13, condition: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.books = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		pubsort(obj0,obj1) {
 			let [

@@ -9,48 +9,16 @@ export default {
 	name: 'sattend',
 	data() {
 		return {
-			summary: '学生参会(77)',
-			nameSearch: false,
+			summary: '学生参会',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				status: []
+				name: ''
 			},
 			labelW: '70px',
-			filters: [
-				{
-					label: '课题状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'在研',
-						'结题'
-					]
-				}
-			],
 			attends: [
-				{
-					name: '百里玄策',
-					school: '新东方学院',
-					profession: '医学系',
-					type: '交换生',
-					grade: '1',
-					department: '山东大学化学部',
-					meetingname: '欧盟峰会',
-					address: '上海',
-					unit: '中国西部战区',
-					start_at: '2019-09-09',
-					back_at: '2020-09-09',
-					speak: '是',
-					topic: '关于削减核武器议题'
-				}
 			],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -66,29 +34,23 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 23, condition: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.attends = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		startsort(obj0,obj1) {
 			let [

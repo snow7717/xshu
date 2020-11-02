@@ -30,8 +30,9 @@ import ToolRembox from '@/pages/school/tool/rembox/index.vue'
 import ToolBook from '@/pages/school/tool/book/index.vue'
 import ToolFolder from '@/pages/school/tool/folder/index.vue'
 import User from '@/pages/school/user/index.vue'
-import Paper1 from '@/pages/result/paper/index/index.vue'
-import PaperCreate from '@/pages/result/paper/create/index.vue'
+
+import Paper1 from '@/pages/result/paper/index.vue'
+import Create from '@/pages/result/create/index.vue'
 
 Vue.use(Router)
 
@@ -193,9 +194,9 @@ export default new Router({
 			component: Paper1
 		},
 		{
-			path: '/paper/create',
-			name: 'papercreate',
-			component: PaperCreate
-		},
+			path: '/create/:type',
+			name: 'create',
+			component: Create
+		}
   ]
 })

@@ -9,43 +9,15 @@ export default {
 	name: 'graduate',
 	data() {
 		return {
-			summary: '研究生课程(77)',
-			nameSearch: false,
+			summary: '研究生课程',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				status: []
+				name: ''
 			},
 			labelW: '70px',
-			filters: [
-				{
-					label: '课题状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'在研',
-						'结题'
-					]
-				}
-			],
-			graduates: [
-				{
-					type: '教学',
-					name: '程咬金教学',
-					coursetype: '法师',
-					principal: '孙悟空',
-					approval: '鲁a0987',
-					approval_at: '2020-09-09',
-					school: '山东财经大学',
-					profession: '生物专业'
-				}
-			],
+			graduates: [],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -61,29 +33,23 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 17, condition: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.graduates = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		approvalsort(obj0,obj1) {
 			let [

@@ -64,20 +64,8 @@
 					<i class='f-fr'>3份</i>
 				</el-menu-item>
 			</el-submenu>	
-			<el-submenu index="3">
-        <template slot="title">团队工具</template>
-        <el-menu-item index="3-1" route='/result/wait'>
-				  <font>团队资料夹</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-        <el-menu-item index="3-2" route='/result/paper'>
-				  <font>团队通讯录</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-			</el-submenu>	
-			<el-menu-item index='4'>回收站</el-menu-item>
 			<el-submenu index="0" class='f-fr'>
-				<template slot="title">张三</template>
+				<template slot="title">{{user.userinfo.name}}</template>
 				<el-menu-item index="0-1" route='/member'>管理团队</el-menu-item>
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>

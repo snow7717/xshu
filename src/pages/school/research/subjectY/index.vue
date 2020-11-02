@@ -4,12 +4,7 @@
 		<el-container>
 		  <caside active='2-1'></caside>
 			<el-main class='result-main'>
-			  <csearch v-bind:summary='summary' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher'>
-				  <div slot='fields' class='f-ib'>
-					  <ctimesearch v-bind:search='search' v-if='!nameSearch'></ctimesearch>
-						<cmemsearch v-bind:search='search' v-if='!nameSearch'></cmemsearch>
-						<cfilter v-bind:labelW='labelW' v-if='!nameSearch' v-bind:search='search' v-bind:filters='filters' v-on:handleAll='handleAll' v-on:handleChange='handleChange' v-on:query='searcher'></cfilter>
-					</div>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher' placeholder='请输入项目名称'>
 					<el-aside width='102px' slot='aside'>
 					  <el-button type="success" size='mini'>导出Excel</el-button>
 					</el-aside>
@@ -19,7 +14,7 @@
 					<el-table-column prop='cate' label='项目类别' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='source' label='项目来源' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='number' label='项目编号' width='94px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='name' label='项目名称' width='94px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='title' label='项目名称' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='level' label='项目级别' width='80px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='unit' label='合同单位' width='120px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='funding' label='到账经费' width='94px' show-overflow-tooltip></el-table-column>
@@ -41,7 +36,7 @@
 				</el-table>
 				<el-row class='page'>
 				  <el-col :span='24' class='f-tac'>
-					  <el-pagination layout="prev, pager, next" v-bind:total="100"></el-pagination>
+					  <el-pagination layout="prev, pager, next" v-bind:total="total" v-on:current-change='index'></el-pagination>
 					</el-col>
 				</el-row>
 				<el-dialog title="确定退回所选成果？" v-bind:visible.sync="returnShow" width='500px' class='dialog-return'>

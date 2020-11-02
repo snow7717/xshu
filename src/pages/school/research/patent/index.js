@@ -9,70 +9,15 @@ export default {
 	name: 'patent',
 	data() {
 		return {
-			summary: '专利(77)',
-			nameSearch: false,
+			summary: '专利',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				types: [],
-				status: [],
-				ranks: []
+				name: ''
 			},
 			labelW: '90px',
-			filters: [
-				{
-					label: '专利类型',
-					field: 'types',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'发明',
-						'实用新型',
-						'外观设计',
-						'国际专利'
-					]
-				},
-				{
-					label: '专利状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'已授权',
-						'已受理',
-						'已申请'
-					]
-				},
-				{
-					label: '本单位排名',
-					field: 'ranks',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'第一名',
-						'第二名',
-						'第三名',
-						'第四名',
-						'其他'
-					]
-				}
-			],
-		  patents: [
-				{
-					name: '原子弹技术',
-					type: '发明',
-					status: '已申请',
-					finisher: '黄忠',
-					member: '小乔、大乔',
-					rank: 1,
-					certno: 'sdeid676'
-				}
-			],
+		  patents: [],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -88,29 +33,23 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 3, condition: this.search.name}}).then((res) => {
+				this.total = res.data.result.total
+				this.patents = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		handleReturn() {
 			this.returnShow = true

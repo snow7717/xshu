@@ -4,7 +4,7 @@
 		<el-container>
 		  <caside active='1'></caside>
 			<el-main>
-			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)'>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-bind:closeShow='closeShow' v-on:search='index(1)'>
 				  <div slot='fields' class='f-ib'>
 						<el-popover width="300" trigger="click" class='bar-item' placement='bottom-start' v-if='!nameSearch'>
 							<i class='f-fsn f-csp' slot="reference" ref='statusTriggle'>

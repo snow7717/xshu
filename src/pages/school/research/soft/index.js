@@ -9,54 +9,16 @@ export default {
 	name: 'soft',
 	data() {
 		return {
-			summary: '软件著作权(77)',
-			nameSearch: false,
+			summary: '软件著作权',
+			nameSearch: true,
 			search: {
-				name: '',
-				time: '',
-				member: {
-					type: '',
-					data: [],
-					all: true
-				},
-				types: [],
-				ranks: []
+				name: ''
 			},
 			labelW: '90px',
-			filters: [
-				{
-					label: '著作权类型',
-					field: 'types',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'软件制品',
-						'音像制品'
-					]
-				},
-				{
-					label: '本单位排名',
-					field: 'ranks',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'第一名',
-						'第二名',
-						'第三名',
-						'第四名',
-						'其他'
-					]
-				}
-			],
 		  softs: [
-				{
-					name: '原子弹技术',
-					finisher: '黄忠',
-					member: '小乔、大乔',
-					rank: 1,
-					certno: 'sdeid676'
-				}
 			],
+			total: 0,
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -72,29 +34,24 @@ export default {
 		ctimesearch,
 		cfilter
 	},
+	created() {
+		this.index(1)
+	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},		
-		searcher() {
-			console.log(this.search)
+		index(page) {
+			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 2, condition: this.search.name}}).then((res) => {
+				console.log(res.data)
+				this.total = res.data.result.total
+				this.softs = res.data.result.list
+			})
 		},
 		handlePapers(val) {
-			console.log(val)
+			this.selects = val.map((item) => {
+				return item.id
+			})
 		},
 		handleReturn() {
 			this.returnShow = true
