@@ -29,43 +29,7 @@ export default {
 					}
 				]
 			},
-			rules: {
-				title: [
-				  { 
-						required: true, 
-						message: '请输入论文名', 
-						trigger: 'blur' 
-					},
-				],
-				type: [
-					{ 
-						required: true, 
-						message: '请选择论文类型', 
-						trigger: 'change' 
-					},
-				],
-				rank: [
-					{ 
-						required: true, 
-						message: '请输入本人排名', 
-						trigger: 'blur' 
-					},
-				],
-				book: [
-					{ 
-						required: true, 
-						message: '请输入刊物名称', 
-						trigger: 'blur' 
-					},
-				],
-				created_at: [
-					{ 
-						required: true, 
-						message: '请选择发表时间', 
-						trigger: 'change' 
-					},
-				]
-			},
+			rules: {},
 			fields: []
 		}
 	},
@@ -80,43 +44,140 @@ export default {
 	},
 	created() {
 		this.init()
+		//this.ruleIndex()
 	},
 	methods: {
 		init() {
-			switch(this.$route.params.type) {
+			switch(this.type) {
 				case '1':
 					this.uptitle = '论文上传'
 					this.upintro = '请上传您发表的论文的重要信息：封面 / 目录 / 文章 / 封底，检索报告等。'
-					this.backurl = '/paper'
+					this.backurl = '/result/research/paper'
 					break
+				case '2':
+					this.uptitle = '软件著作权上传'
+					this.upintro = '请上传您著作权的证书。'
+					this.backurl = '/result/research/soft'
+					break	
+				case '3':
+					this.uptitle = '专利上传'
+					this.upintro = '请上传您获得的专利证书。'
+					this.backurl = '/result/research/patent'
+					break	
+				case '5':
+					this.uptitle = '学生竞赛获奖上传'
+					this.upintro = '请上传您指导学生获奖的荣誉/奖项等。'
+					this.backurl = '/result/student/competition'
+					break		
+				case '7':
+					this.uptitle = '著作上传'
+					this.upintro = '请上传您发表过的著作的重要信息：封面/目录/正文/封底等。'
+					this.backurl = '/result/research/book'
+					break	
+				case '12':
+					this.uptitle = '科研奖励上传'
+					this.upintro = ''
+					this.backurl = '/result/research/award'
+					break
+				case '14':
+					this.uptitle = '教研项目上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/research'
+					break	
+				case '15':
+					this.uptitle = '教学奖励上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/award'
+					break		
+				case '16':
+					this.uptitle = '课程上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/course'
+					break			
+				case '17':
+					this.uptitle = '研究生课程上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/graduate'
+					break				
+				case '18':
+					this.uptitle = '协同育人项目上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/colla'
+					break					
+				case '19':
+					this.uptitle = '研究成果获奖上传'
+					this.upintro = ''
+					this.backurl = '/result/teaching/research'
+					break			
+				case '20':
+					this.uptitle = '教师访学上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/teacher'
+					break			
+				case '21':
+					this.uptitle = '学生访学上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/student'
+					break				
+				case '22':
+					this.uptitle = '教师参会上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/attend'
+					break						
+				case '23':
+					this.uptitle = '学生参会上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/sattend'
+					break						
+				case '24':
+					this.uptitle = '合作协议上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/cooperation'
+					break		
+				case '25':
+					this.uptitle = '实习实践基地上传'
+					this.upintro = ''
+					this.backurl = '/result/visiting/base'
+					break			
 			}
-			this.$http.get('/achieve/elements/1').then((res) => {
+			this.$http.get(`/achieve/elements/${this.type}`).then((res) => {
 				this.fields = res.data.result
-				console.log(this.fields)
+				console.log(res.data.result)
 				for(let item of this.fields) {
 					switch (item.type) {
 						case 'string':
-							this.form[item.key] = ''
+							this.$set(this.form,item.key,'')
 							break
 						case 'array':
-							this.form[item.key] = []
+							this.$set(this.form,item.key,[])
 							break
 						case "bool":
-							this.form[item.key] = false
+							this.$set(this.form,item.key,false)
 							break
 					}
 				}
 			})
 		},
-		addAuthor() {
-			this.form.authors.push({
-				author_seqn: '',
-				author: '',
-				author_identity: '',
-				corres_yn: false,
-				together_yn: false,
-				units: ''
+		ruleIndex() {
+			this.$http.get(`achieve/elements/rules/${this.type}`).then((res) => {
+				this.rules = res.data.result
 			})
+		},
+		addAuthor() {
+			let author
+			switch (this.type) {
+				case '1':
+					author = {
+						author_seqn: '',
+						author: '',
+						author_identity: '',
+						corres_yn: false,
+						together_yn: false,
+						units: ''
+					}
+					break
+			}
+			this.form.authors.push(author)
 		},
 		removeAuthor(i) {
 			this.form.authors.splice(i,1)
@@ -125,7 +186,7 @@ export default {
 			this.$refs[form].validate((valid) => {
         if (valid) {
 					this.form.imgs = this.$refs.upload.srcs
-					this.$http.post('/achieve/save',{type: this.$route.params.type, result: this.form}).then((res) => {
+					this.$http.post('/achieve/save',{type: this.type, result: this.form}).then((res) => {
 						if(res.data.returnCode == 0) {
 							this.$message({
 								message: res.data.returnMsg,

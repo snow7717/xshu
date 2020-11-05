@@ -11,7 +11,7 @@
 					<h2 class='user'>{{user.userinfo.name}}老师</h2>
 					<p class='welcome f-fwb'>欢迎来到成果管理平台</p>
 					<p>
-					  <el-button class='select-btn w-100' type="primary">我的成果</el-button>
+					  <el-button class='select-btn w-100' type="primary" v-on:click='go("/result/research/subjecty")'>我的成果</el-button>
 					</p>
 					<p>
 					  <el-button class='select-btn w-100' type="default" v-on:click='go("/")'>管理学院</el-button>

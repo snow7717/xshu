@@ -4,7 +4,7 @@
 		  <el-menu-item class='f-fl'>
 				<template slot="title">山东财经大学 管科学院</template>
 			</el-menu-item>
-			<el-menu-item index="0" route='/paper'>管理我的成果</el-menu-item>
+			<el-menu-item index="0" route='/result/research/paper'>管理我的成果</el-menu-item>
 			<el-submenu index="1" class='f-fr'>
 				<template slot="title">{{user.userinfo.name}}</template>
 				<el-menu-item index="1-1" route='/user'>个人信息</el-menu-item>

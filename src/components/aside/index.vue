@@ -61,14 +61,6 @@
 				<el-menu-item index="6-1" route='/setting/teaminfo'>团队信息</el-menu-item>
         <el-menu-item index="6-2" route='/setting/teamset'>团队设置</el-menu-item>
 			</el-submenu>
-			<el-submenu index='7'>
-			  <template slot="title">
-          <i class="el-icon-menu" v-bind:class='active == 7 ? "icon-active" : "icon-default"'></i>
-          <span class='menu-text'>团队工具</span>
-        </template>
-				<el-menu-item index="7-1" route='/tool/rembox'>成果移除箱</el-menu-item>
-        <el-menu-item index="7-2" route='/tool/book'>团队通讯录</el-menu-item>
-			</el-submenu>
     </el-menu>
 		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "64px" : "200px"}'>
 			<i v-bind:class='isCollapse ? "el-icon-caret-right" : "el-icon-caret-left"'></i>

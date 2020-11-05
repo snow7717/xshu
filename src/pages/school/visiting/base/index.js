@@ -79,14 +79,30 @@ export default {
 		handleReturn() {
 			this.returnShow = true
 		},
-		del() {
-		  this.$confirm('将这份成果从成果列表中移除后，将不会在学院的列表中显示，并不会删除个人版中老师的文件，如需撤销移除，请前往成果移除回收站。', '提示', {
+		del(id) {
+			this.$confirm('确定删除?', '', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-				confirmButtonClass: 'del-confirm',
         type: 'warning'
       }).then(() => {
-      }).catch(() => {})
+				this.$http.delete(`achieve/delete/${id}`).then((res) => {
+					if(res.data.returnCode == '0') {
+						this.$message({
+							type: 'success',
+							message: '删除成功!'
+						})
+						setTimeout(() => {
+							this.index(1)
+						},1500)
+					}else{
+						this.$message({
+							type: 'success',
+							message: res.data.returnMsg
+						})
+					}
+				})
+      }).catch(() => {         
+      })
 		}
 	}
 }

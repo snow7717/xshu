@@ -26,7 +26,7 @@
 					  <template slot-scope='scope'>
 						  <i class='download f-csp el-icon-download' title='下载'></i>
 							<i class='return iconfont icon-return f-csp' title='退回' v-on:click='handleReturn'></i>
-							<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del'></i>
+							<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
 						</template>
 					</el-table-column>
 				</el-table>

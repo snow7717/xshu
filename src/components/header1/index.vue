@@ -7,62 +7,36 @@
 				</template>
 			</el-menu-item>
 			<el-submenu index="1">
-        <template slot="title">成果管理</template>
-        <el-menu-item index="1-1" route='/paper'>
-				  <font>论文</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-        <el-menu-item index="1-2" route='/result/paper'>
-				  <font>软件著作权</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-3" route='/result/subjecty'>
-				  <font>专利</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-4" route='/result/soft'>
-				  <font>个人获奖</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-5" route='/result/patent'>
-				  <font>学生获奖</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-6" route='/result/award'>
-				  <font>继续教育材料</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-7" route='/result/saward'>
-				  <font>著作</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-8" route='/result/conedu'>
-				  <font>新闻报道</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-9" route='/result/book'>
-				  <font>档案资料</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-10" route='/result/subjectx'>
-				  <font>其他</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-				<el-menu-item index="1-11" route='/result/news'>
-				  <font>新型成果</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
+        <template slot="title">科研成果</template>
+				<el-menu-item index="1-1" route='/result/research/subjecty'>纵向科研项目</el-menu-item>
+        <el-menu-item index="1-2" route='/result/research/subjectx'>横向科研项目</el-menu-item>
+				<el-menu-item index="1-3" route='/result/research/award'>科研奖励</el-menu-item>
+        <el-menu-item index="1-4" route='/result/research/paper'>论文</el-menu-item>
+				<el-menu-item index="1-5" route='/result/research/book'>著作/材料</el-menu-item>
+				<el-menu-item index="1-6" route='/result/research/patent'>专利</el-menu-item>
+        <el-menu-item index="1-2" route='/result/research/soft'>软件著作权</el-menu-item>
       </el-submenu>
 			<el-submenu index="2">
-        <template slot="title">课题管理</template>
-        <el-menu-item index="2-1" route='/result/wait'>
-				  <font>纵向课题</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
-        <el-menu-item index="2-2" route='/result/paper'>
-				  <font>横向课题</font>
-					<i class='f-fr'>3份</i>
-				</el-menu-item>
+			  <template slot="title">教学成果</template>
+			  <el-menu-item index="2-1" route='/result/teaching/research'>教研项目</el-menu-item>
+				<el-menu-item index="2-2" route='/result/teaching/award'>教学奖励</el-menu-item>
+				<el-menu-item index="2-3" route='/result/teaching/course'>课程</el-menu-item>
+				<el-menu-item index="2-4" route='/result/teaching/graduate'>研究生课程</el-menu-item>
+				<el-menu-item index="2-5" route='/result/teaching/colla'>协同育人项目</el-menu-item>
+			</el-submenu>
+			<el-submenu index="3">
+			  <template slot="title">学生成果</template>
+				<el-menu-item index="3-1" route='/result/student/competition'>学生竞赛获奖</el-menu-item>
+				<el-menu-item index="3-1" route='/result/student/research'>研究成果获奖</el-menu-item>
+			</el-submenu>	
+			<el-submenu index="4">
+			  <template slot="title">交流访学</template>
+				<el-menu-item index="4-1" route='/result/visiting/teacher'>教师访学</el-menu-item>
+				<el-menu-item index="4-2" route='/result/visiting/student'>学生访学</el-menu-item>
+				<el-menu-item index="4-3" route='/result/visiting/attend'>教师参会</el-menu-item>
+				<el-menu-item index="4-4" route='/result/visiting/sattend'>学生参会</el-menu-item>
+				<el-menu-item index="4-5" route='/result/visiting/cooperation'>合作协议</el-menu-item>
+				<el-menu-item index="4-6" route='/result/visiting/base'>实习实践基地</el-menu-item>
 			</el-submenu>	
 			<el-submenu index="0" class='f-fr'>
 				<template slot="title">{{user.userinfo.name}}</template>
