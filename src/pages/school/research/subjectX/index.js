@@ -64,13 +64,20 @@ export default {
 			})
 		},
 		exporter() {
-			if(this.selects.length == 0) {
-				this.$message('请选择要导出的数据')
-			}else{
-				this.$http.get('/export/subject/x',{params: {subjectsIds: this.selects}}).then((res) => {
-					console.log(res)
-				})
-			}
+			this.$http.get('/export/subject/x', {params: {subjectsIds: this.selects}}).then((res) => {
+				if(res.data.returnCode == '0') {
+					this.$message({
+						type: 'success',
+						message: '导出成功!'
+					})
+					window.location.href = res.data.result
+				}else{
+					this.$message({
+						type: 'success',
+						message: res.data.returnMsg
+					})
+				}
+			})
 		},
 		createdsort(obj0,obj1) {
 			let [

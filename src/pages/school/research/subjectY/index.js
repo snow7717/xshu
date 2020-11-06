@@ -15,30 +15,6 @@ export default {
 				name: ''
 			},
 			labelW: '70px',
-			filters: [
-				{
-					label: '课题级别',
-					field: 'levels',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'国家级',
-						'省部级',
-						'市厅级',
-						'其他'
-					]
-				},
-				{
-					label: '课题状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'在研',
-						'结题'
-					]
-				}
-			],
 			subjects: [],
 			selects: [],
 			total: 0,
@@ -90,6 +66,22 @@ export default {
 		handlePapers(val) {
 			this.selects = val.map((item) => {
 				return item.id
+			})
+		},
+		exporter() {
+			this.$http.get('/export/subject/y', {params: {subjectsIds: this.selects}}).then((res) => {
+				if(res.data.returnCode == '0') {
+					this.$message({
+						type: 'success',
+						message: '导出成功!'
+					})
+					window.location.href = res.data.result
+				}else{
+					this.$message({
+						type: 'success',
+						message: res.data.returnMsg
+					})
+				}
 			})
 		},
 		createdsort(obj0,obj1) {

@@ -35,7 +35,7 @@
 					<el-table-column prop='cn' label='cn号' width='70px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='doi' label='doi号' width='70px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='quote' label='引用次数' width='94px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='type' label='论文类型' width='94px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='type_zh' label='论文类型' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='natural' label='自然杂志指数' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='keyword' label='关键词' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='together' label='共同一作' width='80px' show-overflow-tooltip></el-table-column>

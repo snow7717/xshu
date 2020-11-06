@@ -6,22 +6,22 @@
 			<el-main class='result-main'>
 			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='searcher' placeholder='请输入项目名称'>
 					<el-aside width='102px' slot='aside'>
-					  <el-button type="success" size='mini'>导出Excel</el-button>
+					  <el-button type="success" size='mini' v-on:click='exporter' v-bind:disabled='selects.length == 0'>导出Excel</el-button>
 					</el-aside>
 				</csearch>
 				<el-table v-bind:data="subjects" stripe class='w-100' size='small' @selection-change="handlePapers" >
 				  <el-table-column type="selection" fixed width="40"></el-table-column>
-					<el-table-column prop='cate' label='项目类别' width='100px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='cate_zh' label='项目类别' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='source' label='项目来源' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='number' label='项目编号' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='title' label='项目名称' width='94px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='level' label='项目级别' width='80px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='level_zh' label='项目级别' width='80px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='unit' label='合同单位' width='120px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='funding' label='到账经费' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable v-bind:sort-method='createdsort' prop='created_at' label='开始时间' width='100px'></el-table-column>
 					<el-table-column sortable v-bind:sort-method='untilsort' prop='until_at' label='截止时间' width='100px'></el-table-column>
-					<el-table-column prop='status' label='状态' width='80px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='type' label='类型' width='60px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='status_zh' label='状态' width='80px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='type_zh' label='类型' width='60px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='principal' label="负责人" width='94px'></el-table-column>
 					<el-table-column prop='result' label="团队成果" width='94px'></el-table-column>
 					<el-table-column sortable prop='unitrank' label='单位排名' width='94px' show-overflow-tooltip></el-table-column>

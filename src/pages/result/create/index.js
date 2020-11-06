@@ -9,6 +9,7 @@ export default {
 			upintro: '',
 			backurl: '',
 			form: {
+				type: '',
 				//附件
 				imgs: [],
 				//作者信息
@@ -142,7 +143,6 @@ export default {
 			}
 			this.$http.get(`/achieve/elements/${this.type}`).then((res) => {
 				this.fields = res.data.result
-				console.log(res.data.result)
 				for(let item of this.fields) {
 					switch (item.type) {
 						case 'string':
@@ -186,7 +186,8 @@ export default {
 			this.$refs[form].validate((valid) => {
         if (valid) {
 					this.form.imgs = this.$refs.upload.srcs
-					this.$http.post('/achieve/save',{type: this.type, result: this.form}).then((res) => {
+					this.form.type = this.type
+					this.$http.post('/achieve/save',{result: this.form}).then((res) => {
 						if(res.data.returnCode == 0) {
 							this.$message({
 								message: res.data.returnMsg,

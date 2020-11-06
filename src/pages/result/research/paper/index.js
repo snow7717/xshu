@@ -32,6 +32,7 @@ export default {
 			this.$http.get(`/achieve/list/${page}/10/`, {params: {type_id: 1,condition: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.papers = res.data.result.list
+				console.log(this.papers)
 			})
 		},
 		handlePapers(val) {

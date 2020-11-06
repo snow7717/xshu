@@ -79,6 +79,7 @@ export default {
 		dataIndex() {
 			this.$http.post("/achieve/type/analysis").then(res => {
 				this.datas = res.data.result
+				console.log(res)
 			})
 		},
 		chartIndex() {

@@ -17,6 +17,7 @@ export default {
 			},
 			labelW: '70px',
 			papers: [],
+			selects: [],
 		  returnShow: false,
 			reason: {
 				type: '数据不全',
@@ -47,7 +48,25 @@ export default {
 			})
 		},
 		handlePapers(val) {
-			this.selects = val
+			this.selects = val.map((item) => {
+				return item.id
+			})
+		},
+		exporter() {
+			this.$http.get('/export/achieve/1', {params: {achieveIds: this.selects}}).then((res) => {
+				if(res.data.returnCode == '0') {
+					this.$message({
+						type: 'success',
+						message: '导出成功!'
+					})
+					window.location.href = res.data.result
+				}else{
+					this.$message({
+						type: 'success',
+						message: res.data.returnMsg
+					})
+				}
+			})
 		},
 		createdsort(obj0,obj1) {
 			let [
