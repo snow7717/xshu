@@ -6,11 +6,8 @@
 		</header>
 		<el-container>
 			<el-aside width='160px' class='aside f-oa'>
-				<el-upload action="#" list-type="picture-card" v-bind:http-request='uploader' accept='image/png,image/jpeg,.pdf' v-bind:on-success='fileSuccess'>
+				<el-upload action="#" v-bind:file-list='srcs' list-type="picture-card" v-bind:http-request='uploader' accept='image/png,image/jpeg,.pdf' v-bind:on-success='fileSuccess' v-bind:on-preview='handlePreview' v-bind:before-remove='beforeRemove'>
 				  <i slot="default" class="el-icon-plus"></i>
-					<section slot="file" slot-scope="{file}">
-						<el-image class="el-upload-list__item-thumbnail" :src="file.url" v-on:click='show(file.url)'></el-image>
-					</section>
 				</el-upload>
 			</el-aside>
 			<el-main>

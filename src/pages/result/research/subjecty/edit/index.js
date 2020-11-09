@@ -2,36 +2,26 @@ import cheader from '@/components/header1/index.vue'
 import cupload from '@/components/upload/index.vue'
 
 export default {
-	name: 'subjectxcreate',
+	name: 'subjectyedit',
 	data() {
 		return {
-			uptitle: '横向科研项目上传',
-			upintro: '请上传您参与的横向课题的重要信息：合同/汇款账单等。',
-			backurl: '/result/research/subjectx',
-			form: {
-				xy: 'x',
-				//附件
-				imgs: [],
-				//作者信息
-				authors: [
-					{
-						//本人排名
-						author_seqn: '',
-						//作者姓名
-						author: '',
-						//作者身份
-						author_identity: '',
-						//单位名称
-						units: ''
-					}
-				]
-			},
+			uptitle: '纵向科研项目上传',
+			upintro: '请上传您参与的纵向课题研究的重要信息：申请书/项目通知/立项名单等。',
+			backurl: '/result/research/subjecty',
+			form: {},
 			rules: {
 				cate: [
 				  { 
 					  required: true, 
 					  message: '请选择项目类别', 
 					  trigger: 'change' 
+				  },
+			  ],
+				number: [
+				  { 
+					  required: true, 
+					  message: '请输入项目编号', 
+					  trigger: 'blur' 
 				  },
 			  ],
 				title: [
@@ -83,14 +73,20 @@ export default {
 				{
 					componetType: 'input',
 					type: 'string',
-					label: '项目名称',
-					key: 'title',
+					label: '项目来源',
+					key: 'source',
 				},
 				{
 					componetType: 'input',
 					type: 'string',
-					label: '项目来源',
-					key: 'source',
+					label: '项目编号',
+					key: 'number',
+				},
+				{
+					componetType: 'input',
+					type: 'string',
+					label: '项目名称',
+					key: 'title',
 				},
 				{
 					componetType: 'select',
@@ -119,26 +115,14 @@ export default {
 				{
 					componetType: 'input',
 					type: 'string',
-					label: '负责人',
-					key: 'principal',
-				},
-				{
-					componetType: 'input',
-					type: 'string',
-					label: '所在学院',
-					key: 'school',
-				},
-				{
-					componetType: 'number',
-					type: 'string',
-					label: '合同经费',
-					key: 'funding',
+					label: '合同单位',
+					key: 'unit',
 				},
 				{
 					componetType: 'number',
 					type: 'string',
 					label: '到账经费',
-					key: 'receivefund',
+					key: 'funding',
 				},
 				{
 					componetType: 'date',
@@ -168,11 +152,55 @@ export default {
 						},
 					]
 				},
+				{ 
+					componetType: 'select',
+					type: 'string',
+					label: '类型',
+					key: 'type',
+					opetionsJson: [
+						{
+							label: '重点',
+							value: '1'
+						},
+						{
+							label: '面上',
+							value: '2'
+						},
+						{
+							label: '青年',
+							value: '3'
+						},
+						{
+							label: '一般',
+							value: '4'
+						},
+						{
+							label: '自筹',
+							value: '5'
+						},
+						{
+							label: '其他',
+							value: '6'
+						},
+					]
+				},
 				{
 					componetType: 'input',
 					type: 'string',
-					label: '团队成员',
-					key: 'member',
+					label: '负责人',
+					key: 'principal',
+				},
+				{
+					componetType: 'input',
+					type: 'string',
+					label: '团队成果',
+					key: 'result',
+				},
+				{
+					componetType: 'number',
+					type: 'string',
+					label: '单位排名',
+					key: 'unitrank',
 				},
 				{
 					componetType: 'number',
@@ -184,8 +212,8 @@ export default {
 		}
 	},
 	computed: {
-		type() {
-			return this.$route.params.type
+		sid() {
+			return this.$route.params.id
 		}
 	},
 	components: {
@@ -193,23 +221,17 @@ export default {
 		cupload
 	},
 	created() {
-		this.init()
+		this.show()
 	},
 	methods: {
-		init() {
-			for(let item of this.fields) {
-				switch (item.type) {
-					case 'string':
-						this.$set(this.form,item.key,'')
-						break
-					case 'array':
-						this.$set(this.form,item.key,[])
-						break
-					case "bool":
-						this.$set(this.form,item.key,false)
-						break
+		show() {
+			this.$http.get(`/subjects/info/${this.sid}`).then((res) => {
+				this.form = res.data.result
+				this.$refs.upload.srcs = this.form.imgs
+				if(this.form.imgs[0]) {
+					this.$refs.upload.src = this.form.imgs[0].url
 				}
-			}
+			})
 		},
 		addAuthor() {
 			this.form.authors.push({

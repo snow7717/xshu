@@ -8,7 +8,7 @@
 					  <router-link to="/create/19">
 						  <el-button type="primary" size='mini'>上传</el-button>
 					  </router-link>
-					  <el-button type='success' size='mini' icon="el-icon-plus">导出Excel</el-button>
+					  <el-button type='success' size='mini' icon="el-icon-plus" v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 					</el-aside>
 				</csearch>
 				<el-table v-bind:data="researches" stripe class='w-100' size='small' @selection-change="handlePapers" >
@@ -26,8 +26,11 @@
 					<el-table-column prop='member' label="团队成员" show-overflow-tooltip></el-table-column>
 					<el-table-column prop='degreetype' label='学位类型' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='degreerank' label="学位层次" show-overflow-tooltip></el-table-column>
-					<el-table-column fixed="right" label='操作' width='50px'>
+					<el-table-column fixed="right" label='操作' width='100px'>
 					  <template slot-scope='scope'>
+						  <router-link v-bind:to='`/edit/19/${scope.row.id}`'>
+						    <i class='delete f-csp el-icon-edit' title='编辑'></i>
+							</router-link>
 							<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
 						</template>
 					</el-table-column>

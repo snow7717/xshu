@@ -1,3 +1,4 @@
+import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
 import csearch from '@/components/search/bar/index.vue'
@@ -43,7 +44,6 @@ export default {
 		},
 		index(page) {
 			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 2, condition: this.search.name}}).then((res) => {
-				console.log(res.data)
 				this.total = res.data.result.total
 				this.softs = res.data.result.list
 			})
@@ -52,6 +52,27 @@ export default {
 			this.selects = val.map((item) => {
 				return item.id
 			})
+		},
+		exporter() {
+			this.$http.get('/export/achieve/2', {
+        params: {achieveIds: this.selects},
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: 'repeat' })
+        }
+      }).then((res) => {
+        if(res.data.returnCode == '0') {
+          this.$message({
+            type: 'success',
+            message: '导出成功!'
+          })
+          window.location.href = res.data.result
+        }else{
+          this.$message({
+            type: 'success',
+            message: res.data.returnMsg
+          })
+        }
+      })
 		},
 		handleReturn() {
 			this.returnShow = true

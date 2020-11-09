@@ -26,7 +26,50 @@ export default {
 					}
 				]
 			},
-			rules: {},
+			rules: {
+				cate: [
+				  { 
+					  required: true, 
+					  message: '请选择项目类别', 
+					  trigger: 'change' 
+				  },
+			  ],
+				number: [
+				  { 
+					  required: true, 
+					  message: '请输入项目编号', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				title: [
+				  { 
+					  required: true, 
+					  message: '请输入项目名称', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				level: [
+				  { 
+					  required: true, 
+					  message: '请选择项目级别', 
+					  trigger: 'change' 
+				  },
+			  ],
+				created_at: [
+				  { 
+					  required: true, 
+					  message: '请选择开始时间', 
+					  trigger: 'change' 
+				  },
+			  ],
+				until_at: [
+				  { 
+					  required: true, 
+					  message: '请选择截止时间', 
+					  trigger: 'change' 
+				  },
+			  ],
+			},
 			fields: [
 				{ 
 					componetType: 'select',

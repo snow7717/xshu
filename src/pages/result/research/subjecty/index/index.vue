@@ -8,7 +8,7 @@
 					  <router-link to="/subjecty/create">
 						  <el-button type="primary" size='mini'>上传</el-button>
 					  </router-link>
-					  <el-button type='success' size='mini' icon="el-icon-plus">导出Excel</el-button>
+					  <el-button type='success' size='mini' icon="el-icon-plus" v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 					</el-aside>
 				</csearch>
 				<el-table v-bind:data="subjects" stripe class='w-100' size='small' @selection-change="handlePapers" >
@@ -30,6 +30,9 @@
 					<el-table-column sortable prop='year' label='立项年度' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column fixed="right" label='操作' width='100px'>
 					  <template slot-scope='scope'>
+						  <router-link v-bind:to='`/subjecty/edit/${scope.row.id}`'>
+						    <i class='delete f-csp el-icon-edit' title='编辑'></i>
+							</router-link>
 							<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
 						</template>
 					</el-table-column>

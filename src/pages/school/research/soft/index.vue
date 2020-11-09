@@ -4,14 +4,14 @@
 		<el-container>
 		  <caside active='2-7'></caside>
 			<el-main class='result-main'>
-			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)' placeholder='请输入专利名称'>
+			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)' placeholder='请输入著作权名称'>
 					<el-aside width='102px' slot='aside'>
-					  <el-button type="success" size='mini'>导出Excel</el-button>
+					  <el-button type="success" size='mini' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 					</el-aside>
 				</csearch>
 				<el-table v-bind:data="softs" stripe class='w-100' size='small' @selection-change="handlePapers" >
 				  <el-table-column type="selection" fixed width="40"></el-table-column>
-				  <el-table-column prop='name' label='专利名称' show-overflow-tooltip></el-table-column>
+				  <el-table-column prop='name' label='著作权名称' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='finisher' label='完成人' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='member' label='团队成员' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='rank' label='位次'></el-table-column>

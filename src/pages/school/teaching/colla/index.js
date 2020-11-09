@@ -1,3 +1,4 @@
+import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
 import csearch from '@/components/search/bar/index.vue'
@@ -15,16 +16,7 @@ export default {
 				name: ''
 			},
 			labelW: '70px',
-			collas: [
-				{
-					number: 110,
-					type: '中单法师教学',
-					name: '貂蝉教学',
-					principal: '花木兰',
-					year: '2019',
-					status: '审核中'
-				}
-			],
+			collas: [],
 			total: 0,
 			selects: [],
 		  returnShow: false,
@@ -59,6 +51,27 @@ export default {
 			this.selects = val.map((item) => {
 				return item.id
 			})
+		},
+		exporter() {
+			this.$http.get('/export/achieve/18', {
+        params: {achieveIds: this.selects},
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: 'repeat' })
+        }
+      }).then((res) => {
+        if(res.data.returnCode == '0') {
+          this.$message({
+            type: 'success',
+            message: '导出成功!'
+          })
+          window.location.href = res.data.result
+        }else{
+          this.$message({
+            type: 'success',
+            message: res.data.returnMsg
+          })
+        }
+      })
 		},
 		approvalsort(obj0,obj1) {
 			let [

@@ -1,3 +1,4 @@
+import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
 import csearch from '@/components/search/bar/index.vue'
@@ -50,6 +51,27 @@ export default {
 			this.selects = val.map((item) => {
 				return item.id
 			})
+		},
+		exporter() {
+			this.$http.get('/export/achieve/24', {
+        params: {achieveIds: this.selects},
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: 'repeat' })
+        }
+      }).then((res) => {
+        if(res.data.returnCode == '0') {
+          this.$message({
+            type: 'success',
+            message: '导出成功!'
+          })
+          window.location.href = res.data.result
+        }else{
+          this.$message({
+            type: 'success',
+            message: res.data.returnMsg
+          })
+        }
+      })
 		},
 		signsort(obj0,obj1) {
 			let [

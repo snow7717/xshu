@@ -33,8 +33,10 @@ import User from '@/pages/school/user/index.vue'
 
 import SubjectY1 from '@/pages/result/research/subjecty/index/index.vue'
 import SubjectYCreate from '@/pages/result/research/subjecty/create/index.vue' 
+import SubjectYEdit from '@/pages/result/research/subjecty/edit/index.vue'
 import SubjectX1 from '@/pages/result/research/subjectx/index/index.vue'
 import SubjectXCreate from '@/pages/result/research/subjectx/create/index.vue'
+import SubjectXEdit from '@/pages/result/research/subjectx/edit/index.vue'
 import Paper1 from '@/pages/result/research/paper/index.vue'
 import Award1 from '@/pages/result/research/award/index.vue'
 import Book1 from '@/pages/result/research/book/index.vue'
@@ -54,6 +56,7 @@ import Sattend1 from '@/pages/result/visiting/sattend/index.vue'
 import Cooperation1 from '@/pages/result/visiting/cooperation/index.vue'
 import Base1 from '@/pages/result/visiting/base/index.vue'
 import Create from '@/pages/result/create/index.vue'
+import Edit from '@/pages/result/edit/index.vue'
 
 Vue.use(Router)
 
@@ -220,6 +223,11 @@ export default new Router({
 			component: SubjectYCreate
 		},
 		{
+			path: '/subjecty/edit/:id',
+			name: 'subjectyedit',
+			component: SubjectYEdit
+		},
+		{
 			path: '/result/research/subjectx',
 			name: 'subjectx1',
 			component: SubjectX1
@@ -228,6 +236,11 @@ export default new Router({
 			path: '/subjectx/create',
 			name: 'subjectxcreate',
 			component: SubjectXCreate
+		},
+		{
+			path: '/subjectx/edit/:id',
+			name: 'subjectxedit',
+			component: SubjectXEdit
 		},
 		{
 			path: '/result/research/paper',
@@ -323,6 +336,11 @@ export default new Router({
 			path: '/create/:type',
 			name: 'create',
 			component: Create
+		},
+		{
+			path: '/edit/:type/:id',
+			name: 'edit',
+			component: Edit
 		}
   ]
 })

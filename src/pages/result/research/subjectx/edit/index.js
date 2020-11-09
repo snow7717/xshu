@@ -2,7 +2,7 @@ import cheader from '@/components/header1/index.vue'
 import cupload from '@/components/upload/index.vue'
 
 export default {
-	name: 'subjectxcreate',
+	name: 'subjectxedit',
 	data() {
 		return {
 			uptitle: '横向科研项目上传',
@@ -13,18 +13,7 @@ export default {
 				//附件
 				imgs: [],
 				//作者信息
-				authors: [
-					{
-						//本人排名
-						author_seqn: '',
-						//作者姓名
-						author: '',
-						//作者身份
-						author_identity: '',
-						//单位名称
-						units: ''
-					}
-				]
+				authors: []
 			},
 			rules: {
 				cate: [
@@ -184,8 +173,8 @@ export default {
 		}
 	},
 	computed: {
-		type() {
-			return this.$route.params.type
+		sid() {
+			return this.$route.params.id
 		}
 	},
 	components: {
@@ -193,23 +182,17 @@ export default {
 		cupload
 	},
 	created() {
-		this.init()
+		this.show()
 	},
 	methods: {
-		init() {
-			for(let item of this.fields) {
-				switch (item.type) {
-					case 'string':
-						this.$set(this.form,item.key,'')
-						break
-					case 'array':
-						this.$set(this.form,item.key,[])
-						break
-					case "bool":
-						this.$set(this.form,item.key,false)
-						break
+		show() {
+			this.$http.get(`/subjects/info/${this.sid}`).then((res) => {
+				this.form = res.data.result
+				this.$refs.upload.srcs = this.form.imgs
+				if(this.form.imgs[0]) {
+					this.$refs.upload.src = this.form.imgs[0].url
 				}
-			}
+			})
 		},
 		addAuthor() {
 			this.form.authors.push({

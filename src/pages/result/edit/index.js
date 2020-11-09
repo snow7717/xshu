@@ -2,7 +2,7 @@ import cheader from '@/components/header1/index.vue'
 import cupload from '@/components/upload/index.vue'
 
 export default {
-	name: 'create',
+	name: 'edit',
 	data() {
 		return {
 			uptitle: '',
@@ -59,6 +59,9 @@ export default {
 	computed: {
 		type() {
 			return this.$route.params.type
+		},
+		sid() {
+			return this.$route.params.id
 		}
 	},
 	components: {
@@ -67,6 +70,7 @@ export default {
 	},
 	created() {
 		this.init()
+		this.show()
 		//this.ruleIndex()
 	},
 	methods: {
@@ -165,7 +169,6 @@ export default {
 			}
 			this.$http.get(`/achieve/elements/${this.type}`).then((res) => {
 				this.fields = res.data.result
-				console.log(this.fields)
 				for(let item of this.fields) {
 					switch (item.type) {
 						case 'string':
@@ -178,6 +181,15 @@ export default {
 							this.$set(this.form,item.key,false)
 							break
 					}
+				}
+			})
+		},
+		show() {
+			this.$http.get(`achieve/info/${this.sid}`).then((res) => {
+				this.form = res.data.result
+				this.$refs.upload.srcs = this.form.imgs
+				if(this.form.imgs[0]) {
+					this.$refs.upload.src = this.form.imgs[0].url
 				}
 			})
 		},

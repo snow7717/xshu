@@ -6,7 +6,7 @@
 			<el-main class='result-main'>
 			  <csearch v-bind:summary='`${summary}(${total})`' v-bind:nameSearch='nameSearch' v-on:toggleName='toggleName' v-bind:search='search' v-on:search='index(1)' placeholder='请输入专利名称'>
 					<el-aside width='102px' slot='aside'>
-					  <el-button type="success" size='mini'>导出Excel</el-button>
+					  <el-button type="success" size='mini' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 					</el-aside>
 				</csearch>
 				<el-table v-bind:data="patents" stripe class='w-100' size='small' @selection-change="handlePapers" >

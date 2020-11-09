@@ -1,3 +1,4 @@
+import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
 import csearch from '@/components/search/bar/index.vue'
@@ -15,18 +16,6 @@ export default {
 				name: ''
 			},
 			labelW: '70px',
-			filters: [
-				{
-					label: '课题状态',
-					field: 'status',
-					isIndeterminate: false,
-					checkAll: false,
-					data: [
-						'在研',
-						'结题'
-					]
-				}
-			],
 			subjects: [],
 			total: 0,
 			selects: [],
@@ -64,18 +53,23 @@ export default {
 			})
 		},
 		exporter() {
-			this.$http.get('/export/subject/x', {params: {subjectsIds: this.selects}}).then((res) => {
+			this.$http.get('/export/subject/x', {
+        params: {subjectsIds: this.selects},
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: 'repeat' })
+        }
+      }).then((res) => {
 				if(res.data.returnCode == '0') {
-					this.$message({
-						type: 'success',
-						message: '导出成功!'
-					})
-					window.location.href = res.data.result
+				  this.$message({
+					  type: 'success',
+					  message: '导出成功!'
+				  })
+				  window.location.href = res.data.result
 				}else{
-					this.$message({
-						type: 'success',
-						message: res.data.returnMsg
-					})
+				  this.$message({
+					  type: 'success',
+					  message: res.data.returnMsg
+				  })
 				}
 			})
 		},
