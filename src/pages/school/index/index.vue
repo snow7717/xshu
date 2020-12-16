@@ -24,10 +24,32 @@
 					</el-row>
 				</el-card>
 				<el-card class='chart-card'>
-				  <header slot="header" class="clearfix f-db">
-						<h4 class='f-ib f-fwn'>成果趋势图</h4>
+				  <header slot="header" class="chart-header clearfix f-db">
+						<el-row>
+						  <el-col :span='4'>
+							  <h4 class='f-ib f-fwn'>成果走势图</h4>
+							</el-col>
+							<el-col :span='20' class='f-tar'>
+							  <el-select size='small' v-model="option.series" multiple placeholder='成果类型' collapse-tags value-key='name' v-on:change='seriesChange'>
+									<el-option v-for="(item,index) in series" v-bind:key="index" v-bind:label="item.name" v-bind:value="item"></el-option>
+								</el-select>
+							</el-col>
+						</el-row>
 					</header>
-					<v-chart class='chart' v-bind:options="option" autoresize theme="light"></v-chart>
+					<v-chart class='chart' v-bind:options="option" autoresize theme="light" ref='chart'></v-chart>
+				</el-card>
+				<el-card class='chart-card'>
+				  <header slot="header" class="chart-header clearfix f-db">
+						<el-row>
+						  <el-col :span='4'>
+							  <h4 class='f-ib f-fwn'>成果统计图</h4>
+							</el-col>
+							<el-col :span='20' class='f-tar'>
+							 <el-date-picker v-model="year" type="year" placeholder="请选择年份" size='small' v-on:change='yearChange' value-format='yyyy'></el-date-picker>
+							</el-col>
+						</el-row>
+					</header>
+					<v-chart class='chart' v-bind:options="option1" autoresize theme="light" ref='chart1'></v-chart>
 				</el-card>
 				<el-row :gutter='20'> 
 				  <el-col :xl='6' :lg='6' :md="6" :sm='12' :xs='12'>

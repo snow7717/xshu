@@ -1,4 +1,5 @@
 import 'echarts/lib/chart/line'
+import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import cheader from '@/components/header/index.vue'
@@ -12,6 +13,7 @@ export default {
 			windowH: 0,
 			dataH: '128px',
 			datas: [],
+			series: [],
 			option: {
 				tooltip: {
 					trigger: 'axis'
@@ -40,8 +42,38 @@ export default {
 				yAxis: {
 					type: 'value'
 				},
+				series: []
+			},
+			year: new Date().getFullYear() + '',
+			option1: {
+				tooltip: {
+					trigger: 'axis'
+				},
+				xAxis: {
+					type: 'category',
+					data: ["论文","软件著作权","专利","学生竞赛获奖","其他","科研奖励","著作教材","教研项目","教学奖励","课程","研究生课程","协同育人项目","研究成果获奖","教师访学","学生访学","教师参会","学生参会","合作协议","实习实践基地"]
+				},
+				yAxis: {
+					type: 'value'
+				},
+				grid: {
+					top: '5%',
+					left: '0%',
+					right: '1.5%',
+					bottom: '0%',
+					containLabel: true
+				},
 				series: [
-				  
+					{
+					  data: [120, 200, 150, 80, 70, 110, 130,120, 200, 150, 80, 70, 110, 130,120, 200, 150, 80, 70, 110, 130],
+					  type: 'bar',
+						label: {
+							normal: {
+								show: true,
+								position: 'top'
+							}
+						}
+				  }
 				]
 			},
 			top: {
@@ -57,6 +89,7 @@ export default {
 			return this.$store.state.user
 		}
 	},
+	watch: {},
 	components: {
 		cheader,
 		caside,
@@ -79,7 +112,6 @@ export default {
 		dataIndex() {
 			this.$http.post("/achieve/type/analysis").then(res => {
 				this.datas = res.data.result
-				console.log(res)
 			})
 		},
 		chartIndex() {
@@ -87,10 +119,17 @@ export default {
 				this.option.legend.data = res.data.result.legend
 				this.option.xAxis.data = res.data.result.years
 				for(let item of res.data.result.series) {
-					item.type = 'line'
-					item.stack = '总量'
+					this.$set(item,'type','line')
+					this.$set(item,'stack','总量')
+					this.$set(item,'label',{
+						normal: {
+              show: true,
+              position: 'top'
+            }
+					})
 				}
-				this.option.series = res.data.result.series
+				this.series = res.data.result.series
+				this.$set(this.option.series,0,this.series[0])
 			})
 		},
 		topIndex(type) {
@@ -107,9 +146,16 @@ export default {
 						break
 					case 3:
 						this.top.patent = res.data.result
+						console.log(res.data.result)
 						break	
 				}
 			})
+		},
+		seriesChange(val) {
+			this.$refs.chart.clear()
+		},
+		yearChange(val) {
+			
 		}
 	}
 }
