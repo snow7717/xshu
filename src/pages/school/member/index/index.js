@@ -144,20 +144,7 @@ export default {
 						department: item.collegeid,
 						tags: item.tags,
 						phone: item.tel,
-						jointime: item.jointime,
-						paper: item.type_1,
-						subjectY: item.subjectY,
-						softbook: item.type_2,
-						patent: item.type_3,
-						awards: item.type_4,
-						sawards: item.type_5,
-						conedu: item.type_6,
-						book: item.type_7,
-						subjectX: item.subjectX,
-						news: item.type_8,
-						file: item.type_9,
-						other: item.type_10,
-						newresult: item.type_11
+						jointime: item.jointime
 					})
 				}
 			})
@@ -193,45 +180,6 @@ export default {
 				new Date(obj1.jointime).getTime()
 			]
       return date0 - date1
-		},
-		papersort(obj0,obj1) {
-			return obj0.paper - obj1.paper
-		},
-		subjectYsort(obj0,obj1) {
-			return obj0.subjectY - obj1.subjectY
-		},
-		softbooksort(obj0,obj1) {
-			return obj0.softbook - obj1.softbook
-		},
-		patentsort(obj0,obj1) {
-			return obj0.patent - obj1.patent
-		},
-		awardsort(obj0,obj1) {
-			return obj0.awards - obj1.awards
-		},
-		sawardsort(obj0,obj1) {
-			return obj0.sawards - obj1.sawards
-		},
-		conedusort(obj0,obj1) {
-			return obj0.conedu - obj1.conedu
-		},
-		booksort(obj0,obj1) {
-			return obj0.book - obj1.book
-		},
-		subjectXsort(obj0,obj1) {
-			return obj0.subjectX - obj1.subjectX
-		},
-		newsort(obj0,obj1) {
-			return obj0.news - obj1.news
-		},
-		filesort(obj0,obj1) {
-			return obj0.file - obj1.file
-		},
-		othersort(obj0,obj1) {
-			return obj0.other - obj1.other
-		},
-		newresultsort(obj0,obj1) {
-			return obj0.newresult - obj1.newresult
 		},
 		/*-- 导出 --*/
 		importer(type) {

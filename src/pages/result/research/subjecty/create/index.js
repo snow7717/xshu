@@ -73,7 +73,7 @@ export default {
 			fields: [
 				{ 
 					componetType: 'select',
-					type: 'string',
+					value: '',
 					label: '项目类别',
 					key: 'cate',
 					opetionsJson: [
@@ -88,26 +88,36 @@ export default {
 					]
 				},
 				{
-					componetType: 'input',
-					type: 'string',
+					componetType: 'select',
+					value: '',
 					label: '项目来源',
 					key: 'source',
+					opetionsJson: [
+						{
+							label: '自然科学',
+							value: '1'
+						},
+						{
+							label: '人文科学',
+							value: '2'
+						}
+					]
 				},
 				{
 					componetType: 'input',
-					type: 'string',
+					value: '',
 					label: '项目编号',
 					key: 'number',
 				},
 				{
 					componetType: 'input',
-					type: 'string',
+					value: '',
 					label: '项目名称',
 					key: 'title',
 				},
 				{
 					componetType: 'select',
-					type: 'string',
+					value: '',
 					label: '项目级别',
 					key: 'level',
 					opetionsJson: [
@@ -131,32 +141,32 @@ export default {
 				},
 				{
 					componetType: 'input',
-					type: 'string',
+					value: '',
 					label: '合同单位',
 					key: 'unit',
 				},
 				{
 					componetType: 'number',
-					type: 'string',
+					value: '',
 					label: '到账经费',
 					key: 'funding',
 				},
 				{
 					componetType: 'date',
-					type: 'string',
+					value: '',
 					label: '开始时间',
 					key: 'created_at',
 				},
 				{
 					componetType: 'date',
-					type: 'string',
+					value: '',
 					label: '截止时间',
 					key: 'until_at',
 				},
 				{
 					componetType: 'select',
-					type: 'string',
-					label: '状态',
+					value: '',
+					label: '项目状态',
 					key: 'status',
 					opetionsJson: [
 						{
@@ -171,8 +181,8 @@ export default {
 				},
 				{ 
 					componetType: 'select',
-					type: 'string',
-					label: '类型',
+					value: '',
+					label: '项目类型',
 					key: 'type',
 					opetionsJson: [
 						{
@@ -202,26 +212,20 @@ export default {
 					]
 				},
 				{
-					componetType: 'input',
-					type: 'string',
-					label: '负责人',
-					key: 'principal',
-				},
-				{
-					componetType: 'input',
-					type: 'string',
-					label: '团队成果',
-					key: 'result',
+					componetType: 'select',
+					value: '',
+					label: '项目负责人',
+					key: 'principal'
 				},
 				{
 					componetType: 'number',
-					type: 'string',
+					value: '',
 					label: '单位排名',
 					key: 'unitrank',
 				},
 				{
 					componetType: 'number',
-					type: 'string',
+					value: '',
 					label: '立项年度',
 					key: 'year'
 				},
@@ -231,6 +235,9 @@ export default {
 	computed: {
 		type() {
 			return this.$route.params.type
+		},
+		user() {
+			return this.$store.state.user
 		}
 	},
 	components: {
@@ -243,17 +250,7 @@ export default {
 	methods: {
 		init() {
 			for(let item of this.fields) {
-				switch (item.type) {
-					case 'string':
-						this.$set(this.form,item.key,'')
-						break
-					case 'array':
-						this.$set(this.form,item.key,[])
-						break
-					case "bool":
-						this.$set(this.form,item.key,false)
-						break
-				}
+				this.$set(this.form,item.key,item.value)
 			}
 		},
 		addAuthor() {

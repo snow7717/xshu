@@ -11,22 +11,26 @@
 				</csearch>
 				<el-table v-bind:data="competitions" stripe class='w-100' size='small' @selection-change="handlePapers" >
 				  <el-table-column type="selection" fixed width="40"></el-table-column>
-					<el-table-column prop='result' label='成果名称' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='competition' label='竞赛名称' width='120px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='level' label='获奖等级'></el-table-column>
-					<el-table-column prop='year' sortable label="年度" width='70px'></el-table-column>
-					<el-table-column prop='finisher' label="第一完成人" width='100px'></el-table-column>
-					<el-table-column prop='grade' label="第一完成人所在年级" width='140px'></el-table-column>
-					<el-table-column prop='education' label="学历层次"></el-table-column>
-					<el-table-column prop='rank' label="本人位次"></el-table-column>
-					<el-table-column prop='department' label="第一完成人所在系部/专业" width='160px'></el-table-column>
-					<el-table-column prop='member' label="团队成员" show-overflow-tooltip></el-table-column>
-					<el-table-column prop='cert' label="证书信息" show-overflow-tooltip></el-table-column>
-					<el-table-column prop='unit' label="单位信息" show-overflow-tooltip></el-table-column>
-					<el-table-column fixed="right" label='操作' width='100px'>
+					<el-table-column type="index" width="50" label='序号'></el-table-column>
+					<el-table-column prop='name' label='姓名' width='60' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='level' label='层次' width='60' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='class' label='班级' width='60'></el-table-column>
+					<el-table-column prop='grade' label="年级" width='70px'></el-table-column>
+					<el-table-column prop='profession' label="专业" width='120px'></el-table-column>
+					<el-table-column prop='competition' label="竞赛名称" width='140px'></el-table-column>
+					<el-table-column prop='project' width='140px' label="作品名称"></el-table-column>
+					<el-table-column prop='awardgrade' width='80' label="获奖等级"></el-table-column>
+					<el-table-column prop='awarded_at' label="获奖时间" width='90px'></el-table-column>
+					<el-table-column prop='year' width='80' label="获奖年度" show-overflow-tooltip></el-table-column>
+					<el-table-column prop='slevel' label="学生位次" width='80' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='teacher' width='80' label="指导教师" show-overflow-tooltip></el-table-column>
+					<el-table-column prop='tschool' label="指导教师所在学院" show-overflow-tooltip width='140'></el-table-column>
+					<el-table-column prop='ecert' width='140' label="是否有电子证书" show-overflow-tooltip></el-table-column>
+					<el-table-column prop='certno' width='100' label="证书编号" show-overflow-tooltip></el-table-column>
+					<el-table-column prop='remark' width='100' label="备注" show-overflow-tooltip></el-table-column>
+					<el-table-column fixed="right" label='操作' width='60px'>
 					  <template slot-scope='scope'>
 						  <i class='download f-csp el-icon-download' title='下载'></i>
-							<i class='return iconfont icon-return f-csp' title='退回' v-on:click='handleReturn'></i>
 							<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
 						</template>
 					</el-table-column>
@@ -36,27 +40,6 @@
 					  <el-pagination layout="prev, pager, next" v-bind:total="total" v-on:current-change='index'></el-pagination>
 					</el-col>
 				</el-row>
-				<el-dialog title="确定退回所选成果？" v-bind:visible.sync="returnShow" width='500px' class='dialog-return'>
-				  <el-form class='form-return' size='small'>
-					  <el-form-item>
-						  将这份成果退回后，除非老师对其重新修改，否则将不会在学院的列表中显示，并不会删除教师端中老师的文件。
-						</el-form-item>
-						<el-form-item>
-						  <el-radio-group v-model="reason.type">
-								<el-radio label="数据不全">数据不全</el-radio>
-								<el-radio label="时间有误">时间有误</el-radio>
-								<el-radio label="其他">其他</el-radio>
-							</el-radio-group>
-						</el-form-item>
-						<el-form-item>
-						  <el-input v-model='reason.description' type="textarea" autosize placeholder='请在此输入退回成果的问题描述'></el-input>
-						</el-form-item>
-						<el-form-item class='f-tar'>
-						  <el-button type='danger' size='mini'>退回</el-button>
-						</el-form-item>
-						<el-form-item></el-form-item>
-					</el-form>
-				</el-dialog>
 			</el-main>
 		</el-container>
 	</div>	

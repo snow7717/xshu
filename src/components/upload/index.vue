@@ -11,7 +11,9 @@
 				</el-upload>
 			</el-aside>
 			<el-main>
-			  <el-image v-bind:src='src'></el-image>
+			  <el-image v-bind:src='src'>
+					<i slot="error" class="el-icon-picture-outline"></i>
+				</el-image>
 			</el-main>
 		</el-container>
 	</el-card>

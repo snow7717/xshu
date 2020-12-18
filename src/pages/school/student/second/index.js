@@ -7,49 +7,33 @@ import ctimesearch from '@/components/search/time/index.vue'
 import cfilter from '@/components/search/filter/index.vue'
 
 export default {
-	name: 'competition',
+	name: 'second',
 	data() {
 		return {
-			summary: '.学生竞赛获奖',
+			summary: '第二课堂实践创新',
 			nameSearch: true,
 			search: {
 				name: ''
 			},
 			labelW: '70px',
-			competitions: [
+			seconds: [
 				{
-					//姓名
-					name: 'lucy',
-					//层次
-					level: '国家级',
-					//班级
-					class: '七班',
-					//年级
-					grade: '一年级',
-					//专业
-					profession: '电子工程',
-					//竞赛名称
-					competition: '算法大赛',
-					//作品或项目名称
-					project: '',
-					//获奖等级
-					awardgrade: '',
-					//获奖时间
-					awarded_at: '2020-09-09',
-					//获奖年度
-					year: '',
-					//学生位次
-					slevel: '',
-					//指导教师
-					teacher: '',
-					//指导教师所在学院
-					tschool: '',
-					//是否有证书电子版
-					ecert: '',
-					//证书编号
-					certno: '',
+					//教工号
+					number: '1',
+					//教师姓名
+					teacher: 'lucy',
+					//校区
+					school: '泰安校区',
+					//院系
+					faculty: '工程院系',
+					//工作量类型
+					type: '电子工程',
+					//工作量
+					works: '70',
+					//是否辅修
+					assist: '否',
 					//备注
-					remark: ''
+					remark: '无'
 				}
 			],
 			total: 0,
@@ -74,7 +58,7 @@ export default {
 		index(page) {
 			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 5, condition: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
-			  this.competitions = res.data.result.list
+			  this.seconds = res.data.result.list
 			})
 		},
 		handlePapers(val) {

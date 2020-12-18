@@ -85,10 +85,9 @@
 								<el-table-column label="作者身份" width='120'>
 								  <template slot-scope='scope'>
 									  <el-select v-model='scope.row.author_identity'>
-										  <el-option label='老师' value='老师'></el-option>
-											<el-option label='博士生' value='博士生'></el-option>
-											<el-option label='硕士生' value='硕士生'></el-option>
-											<el-option label='本科' value='本科'></el-option>
+										  <el-option label='本校教师' value='本校教师'></el-option>
+											<el-option label='学生' value='学生'></el-option>
+											<el-option label='校外人员' value='校外人员'></el-option>
 											<el-option label='其他' value='其他'></el-option>
 										</el-select>
 									</template>

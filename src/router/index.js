@@ -18,6 +18,11 @@ import Graduate from '@/pages/school/teaching/graduate/index.vue'
 import Colla from '@/pages/school/teaching/colla/index.vue'
 import Competition from '@/pages/school/student/competition/index.vue'
 import Sresearch from '@/pages/school/student/research/index.vue'
+import Second from '@/pages/school/student/second/index.vue'
+import Business from '@/pages/school/student/business/index.vue'
+import Thesis from '@/pages/school/student/thesis/index.vue'
+import Honor from '@/pages/school/student/honor/index.vue'
+import Scholarship from '@/pages/school/student/scholarship/index.vue'
 import Teacher from '@/pages/school/visiting/teacher/index.vue'
 import Student from '@/pages/school/visiting/student/index.vue'
 import Attend from '@/pages/school/visiting/attend/index.vue'
@@ -151,6 +156,31 @@ export default new Router({
 			path: '/student/research',
 			name: 'sresearch',
 			component: Sresearch
+		},
+		{
+			path: '/student/second',
+			name: 'second',
+			component: Second
+		},
+		{
+			path: '/student/business',
+			name: 'business',
+			component: Business
+		},
+		{
+			path: '/student/thesis',
+			name: 'thesis',
+			component: Thesis
+		},
+		{
+			path: '/student/honor',
+			name: 'honor',
+			component: Honor
+		},
+		{
+			path: '/student/scholarship',
+			name: 'scholarship',
+			component: Scholarship
 		},
 		{
 			path: '/visiting/teacher',

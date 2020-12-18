@@ -78,19 +78,6 @@
 					</el-table-column>
 					<el-table-column sortable v-bind:sort-method='phonesort' prop="phone" label='电话' width='120px'></el-table-column>
 					<el-table-column sortable v-bind:sort-method='johnsort' prop="jointime" label='加入团队时间' width='140px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='papersort' prop="paper" label='论文' width='80px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='subjectYsort' prop="subjectY" label='纵向课题' width='100px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='softbooksort' prop="softbook" label='软件著作权' width='120px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='patentsort' prop="patent" label='专利' width='80px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='awardsort' prop="awards" label='个人获奖' width='120px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='sawardsort' prop="sawards" label='学生获奖' width='120px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='conedusort' prop="conedu" label='继续教育材料' width='130px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='booksort' prop="book" label='著作' width='80px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='subjectXsort' prop="subjectX" label='横向课题' width='100px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='newsort' prop="news" label='新闻报道' width='100px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='filesort' prop="file" label='档案资料' width='100px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='othersort' prop="other" label='其他' width='80px'></el-table-column>
-					<el-table-column sortable v-bind:sort-method='newresultsort' prop="newresult" label='新型成果' width='100px'></el-table-column>
 				</el-table>
 				<el-row class='page'>
 				  <el-col :span='24' class='f-tac'>
