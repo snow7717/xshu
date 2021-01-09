@@ -4,6 +4,9 @@ import Login from '@/pages/school/login/index.vue'
 import Index from '@/pages/school/index/index.vue'
 import Member from '@/pages/school/member/index/index.vue'
 import MemberImport from '@/pages/school/member/import/index.vue'
+import BasisTeacher from '@/pages/school/basis/teacher/index.vue'
+import BasisStudent from '@/pages/school/basis/student/index.vue'
+import BasisStudent1 from '@/pages/school/basis/student1/index.vue'
 import SubjectY from '@/pages/school/research/subjectY/index.vue'
 import SubjectX from '@/pages/school/research/subjectX/index.vue'
 import Award from '@/pages/school/research/award/index.vue'
@@ -86,6 +89,21 @@ export default new Router({
 			path: '/member/import',
 			name: 'memberImport',
 			component: MemberImport
+		},
+		{
+			path: '/basis/teacher',
+			name: 'basisteacher',
+			component: BasisTeacher
+		},
+		{
+			path: '/basis/student',
+			name: 'basistudent',
+			component: BasisStudent
+		},
+		{
+			path: '/basis/student1',
+			name: 'basistudent1',
+			component: BasisStudent1
 		},
 		{
 			path: '/research/subjecty',

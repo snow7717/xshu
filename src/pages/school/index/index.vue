@@ -45,7 +45,7 @@
 							  <h4 class='f-ib f-fwn'>成果统计图</h4>
 							</el-col>
 							<el-col :span='20' class='f-tar'>
-							 <el-date-picker v-model="year" type="year" placeholder="请选择年份" size='small' v-on:change='yearChange' value-format='yyyy'></el-date-picker>
+							 <el-date-picker v-model="year" type="year" placeholder="请选择年份" size='small' v-on:change='yearChange' value-format='yyyy' v-bind:picker-options="yearoption"></el-date-picker>
 							</el-col>
 						</el-row>
 					</header>

@@ -150,6 +150,8 @@ export default {
 					value: '',
 					label: '到账经费',
 					key: 'funding',
+					min: '0',
+					max: ''
 				},
 				{
 					componetType: 'date',
@@ -215,16 +217,24 @@ export default {
 					componetType: 'select',
 					value: '',
 					label: '项目负责人',
-					key: 'principal'
+					key: 'principal',
+					opetionsJson: [
+						{
+							label: this.$store.state.user.userinfo.name,
+							value: this.$store.state.user.userinfo.userid
+						}
+					]
 				},
 				{
 					componetType: 'number',
-					value: '',
+					value: '1',
 					label: '单位排名',
 					key: 'unitrank',
+					min: '1',
+					max: ''
 				},
 				{
-					componetType: 'number',
+					componetType: 'year',
 					value: '',
 					label: '立项年度',
 					key: 'year'

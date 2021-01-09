@@ -5,10 +5,15 @@
 			  <i class='el-icon-s-home' v-bind:class='active == 0 ? "icon-active" : "icon-default"'></i>
 				<span class='menu-text'>全局总览</span>
 			</el-menu-item>
-			<el-menu-item index='1' route='/member'>
-			  <i class='el-icon-s-custom' v-bind:class='active == 1 ? "icon-active" : "icon-default"'></i>
-				<span class='menu-text'>成员管理</span>
-			</el-menu-item>
+			<el-submenu index='1'>
+				<template slot="title">
+          <i class="el-icon-menu" v-bind:class='active == 1 ? "icon-active" : "icon-default"'></i>
+          <span class='menu-text'>基础信息</span>
+        </template>
+				<el-menu-item index="1-1" route='/basis/teacher'>教师信息</el-menu-item>
+				<el-menu-item index="1-2" route='/basis/student'>本科学信息</el-menu-item>
+				<el-menu-item index="1-3" route='/basis/student1'>研究生信息</el-menu-item>
+			</el-submenu>
 			<el-submenu index='2'>
 			  <template slot="title">
           <i class="el-icon-s-data" v-bind:class='active == 2 ? "icon-active" : "icon-default"'></i>
