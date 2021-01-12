@@ -13,6 +13,7 @@
 						  <el-input v-model='form[item.key]' v-if='item.componetType == "input"' v-bind:placeholder='item.placeholder'></el-input>
 							<el-input v-model='form[item.key]' v-if='item.componetType == "number"' type='number'></el-input>
 							<el-input v-if='item.componetType == "textarea"' type="textarea" v-bind:placeholder="item.placeholder" v-model="form[item.key]"></el-input>
+							<el-date-picker v-model="form[item.key]" v-if='item.componetType == "year"' type="year" placeholder="选择年份" value-format="yyyy"></el-date-picker>
 							<el-date-picker v-model="form[item.key]" v-if='item.componetType == "date"' type="date" placeholder="选择日期" value-format="yyyy-MM-dd"></el-date-picker>
 							<el-select v-model='form[item.key]' v-if='item.componetType == "select"' v-bind:multiple='item.multiple'>
 							  <el-option v-for='(option, i) in item.opetionsJson'v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
@@ -24,7 +25,7 @@
 							  <el-radio v-for='(option, i) in item.opetionsJson' v-bind:key='i' v-model="form[item.key]" v-bind:label="option.value">{{option.label}}</el-radio>
 							</section>	
 						</el-form-item>
-						<el-form-item v-if='type == "1"' label='作者信息'>
+						<el-form-item v-if='type == "1"' label='团队成员'>
 						  <el-table v-bind:data='form.authors'>
 							  <el-table-column label="排序" width="80">
 								  <template slot-scope='scope'>
@@ -70,7 +71,7 @@
 								</el-table-column>
 							</el-table>
 						</el-form-item>
-						<el-form-item label='作者信息'>
+						<el-form-item label='团队成员'>
 						  <el-table v-bind:data='form.authors'>
 							  <el-table-column label="排序" width="80">
 								  <template slot-scope='scope'>

@@ -93,34 +93,17 @@ export default {
 					key: 'source',
 				},
 				{
-					componetType: 'select',
-					type: 'string',
-					label: '项目级别',
-					key: 'level',
-					opetionsJson: [
-						{
-							label: '国家级',
-							value: '0'
-						},
-						{
-							label: '省部级',
-							value: '1'
-						},
-						{
-							label: '市厅级',
-							value: '2'
-						},
-						{
-							label: '其他',
-							value: '3'
-						},
-					]
-				},
-				{
 					componetType: 'input',
 					type: 'string',
-					label: '负责人',
+					label: '项目负责人',
 					key: 'principal',
+				},
+				{
+					componetType: 'number',
+					min: '0',
+					value: '',
+					label: '工号',
+					key: 'no'
 				},
 				{
 					componetType: 'input',
@@ -155,27 +138,25 @@ export default {
 				{
 					componetType: 'select',
 					type: 'string',
-					label: '状态',
+					label: '项目状态',
 					key: 'status',
 					opetionsJson: [
 						{
-							label: '在研',
-							value: '0'
+							label: '项目在施',
+							value: '项目在施'
 						},
 						{
-							label: '结题',
-							value: '1'
+							label: '已结项',
+							value: '已结项'
+						},
+						{
+							label: '在审核',
+							value: '在审核'
 						},
 					]
 				},
 				{
-					componetType: 'input',
-					type: 'string',
-					label: '团队成员',
-					key: 'member',
-				},
-				{
-					componetType: 'number',
+					componetType: 'year',
 					type: 'string',
 					label: '立项年度',
 					key: 'year'
