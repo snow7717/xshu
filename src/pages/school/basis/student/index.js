@@ -35,14 +35,14 @@ export default {
 		cfilter
 	},
 	created() {
-		//this.index(1)
+		this.index(1)
 	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},	
 		index(page) {
-			this.$http.get(`/achieve/list/${page}/10`,{params: {type_id: 12,condition: this.search.name}}).then((res) => {
+			this.$http.get(`/student/${page}/10`,{params: {name: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.basis = res.data.result.list
 			})
@@ -73,16 +73,14 @@ export default {
         }
       })
 		},
-		handleReturn() {
-			this.returnShow = true
-		},
+		
 		del(id) {
 			this.$confirm('确定删除?', '', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-				this.$http.delete(`achieve/delete/${id}`).then((res) => {
+				this.$http.delete(`student/remove/${id}`).then((res) => {
 					if(res.data.returnCode == '0') {
 						this.$message({
 							type: 'success',

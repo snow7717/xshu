@@ -21,7 +21,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-		if(response.data.status == 9) {
+		if(response.data.returnCode == 9) {
 			router.replace({
         path: '/login'
       })

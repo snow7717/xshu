@@ -422,6 +422,7 @@ export default {
 		show() {
 			this.$http.get(`/subjects/info/${this.sid}`).then((res) => {
 				this.form = res.data.result
+				console.log(this.form)
 				this.$refs.upload.srcs = this.form.imgs
 				if(this.form.imgs[0]) {
 					this.$refs.upload.src = this.form.imgs[0].url

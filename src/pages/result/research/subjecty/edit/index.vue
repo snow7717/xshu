@@ -26,7 +26,7 @@
 							  <el-radio v-for='(option, i) in item.opetionsJson' v-bind:key='i' v-model="form[item.key]" v-bind:label="option.value">{{option.label}}</el-radio>
 							</section>	
 						</el-form-item>
-						<el-form-item label='作者信息'>
+						<el-form-item label='团队成员'>
 						  <el-table v-bind:data='form.authors'>
 							  <el-table-column label="排序" width="80">
 								  <template slot-scope='scope'>
