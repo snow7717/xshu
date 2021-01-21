@@ -42,7 +42,7 @@ export default {
 			this.nameSearch = !this.nameSearch
 		},	
 		index(page) {
-			this.$http.get(`/teacher/page/${page}/10`,{params: {type_id: 12,condition: this.search.name}}).then((res) => {
+			this.$http.get(`/teacher/page/${page}/10`,{params: {name: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.basis = res.data.result.list
 			})
@@ -50,6 +50,33 @@ export default {
 		handlePapers(val) {
 			this.selects = val.map((item) => {
 				return item.id
+			})
+		},
+		importer(param) {
+			let formData = new FormData()
+			formData.append('files',param.file)
+			this.$http.post('/teacher/import/pre',formData).then((res) => {
+				if(res.data.returnCode == '0') {
+					this.$http.post('teacher/import/save', {teachers: res.data.result}).then((res1) => {
+						if(res1.data.returnCode == '0') {
+							this.$message({
+								message: res1.data.returnMsg,
+								type: 'success'
+							})
+							this.index(1)
+						}else{
+							this.$message({
+								message: res1.data.returnMsg,
+								type: 'warning'
+							})
+						}
+					})
+				}else{
+					this.$message({
+						message: res.data.returnMsg,
+						type: 'warning'
+					})
+				}
 			})
 		},
 		exporter() {

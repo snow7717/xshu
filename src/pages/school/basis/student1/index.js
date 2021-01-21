@@ -42,14 +42,42 @@ export default {
 			this.nameSearch = !this.nameSearch
 		},	
 		index(page) {
-			this.$http.get(`/student1/${page}/10`,{params: {name: this.search.name}}).then((res) => {
+			this.$http.get(`/student1/page/${page}/10`,{params: {name: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.basis = res.data.result.list
+				console.log(this.basis)
 			})
 		},
 		handlePapers(val) {
 			this.selects = val.map((item) => {
 				return item.id
+			})
+		},
+		importer(param) {
+			let formData = new FormData()
+			formData.append('files',param.file)
+			this.$http.post('/student1/import/pre',formData).then((res) => {
+				if(res.data.returnCode == '0') {
+					this.$http.post('/student1/import/save', {students: res.data.result}).then((res1) => {
+						if(res1.data.returnCode == '0') {
+							this.$message({
+								message: res1.data.returnMsg,
+								type: 'success'
+							})
+							this.index(1)
+						}else{
+							this.$message({
+								message: res1.data.returnMsg,
+								type: 'warning'
+							})
+						}
+					})
+				}else{
+					this.$message({
+						message: res.data.returnMsg,
+						type: 'warning'
+					})
+				}
 			})
 		},
 		exporter() {

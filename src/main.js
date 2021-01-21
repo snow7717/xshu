@@ -14,7 +14,7 @@ import '@/assets/css/common.css'
 import '@/assets/css/iconfont.css'
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = location.href.indexOf("localhost") > 0 ? "/api" : 'http://172.17.14.87:8888/zqy/yhat/'
+axios.defaults.baseURL = location.href.indexOf("localhost") > 0 ? "/api" : /*'http://172.17.14.87:8888/zqy/yhat/'*/ 'http://39.100.236.213/zqy/yhat/'
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.component('v-chart', ECharts)

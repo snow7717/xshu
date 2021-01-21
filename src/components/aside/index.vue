@@ -11,7 +11,7 @@
           <span class='menu-text'>基础信息</span>
         </template>
 				<el-menu-item index="1-1" route='/basis/teacher'>教师信息</el-menu-item>
-				<el-menu-item index="1-2" route='/basis/student'>本科学信息</el-menu-item>
+				<el-menu-item index="1-2" route='/basis/student'>本科生信息</el-menu-item>
 				<el-menu-item index="1-3" route='/basis/student1'>研究生信息</el-menu-item>
 			</el-submenu>
 			<el-submenu index='2'>
