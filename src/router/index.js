@@ -37,7 +37,8 @@ import TeamSet from '@/pages/school/setting/teamset/index.vue'
 import ToolRembox from '@/pages/school/tool/rembox/index.vue'
 import ToolBook from '@/pages/school/tool/book/index.vue'
 import ToolFolder from '@/pages/school/tool/folder/index.vue'
-import User from '@/pages/school/user/index.vue'
+import User from '@/pages/school/user/index/index.vue'
+import Password from '@/pages/school/user/password/index.vue'
 
 import SubjectY1 from '@/pages/result/research/subjecty/index/index.vue'
 import SubjectYCreate from '@/pages/result/research/subjecty/create/index.vue' 
@@ -259,6 +260,11 @@ export default new Router({
 			path: '/user',
 			name: 'user',
 			component: User
+		},
+		{
+			path: '/password',
+			name: 'password',
+			component: Password
 		},
 		{
 			path: '/result/research/subjecty',

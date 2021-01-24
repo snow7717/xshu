@@ -17,12 +17,76 @@ export default {
 			},
 			labelW: '70px',
 			basis: [],
+			page: 1,
 			total: 0,
 			selects: [],
-		  returnShow: false,
-			reason: {
-				type: '数据不全',
-				description: ''
+			editshow: false,
+			classArr: [],
+		  form: {},
+			rules: {
+				number: [
+					{
+						required: true,
+						message: '清输入学号',
+						trigger: 'blur'
+					}
+				],
+        name: [
+          { 
+						required: true, 
+						message: '请输入姓名', 
+						trigger: 'blur' 
+					}
+        ],
+				gender: [
+          { 
+						required: true, 
+						message: '请选择性别', 
+						trigger: 'change' 
+					}
+        ],
+				school: [
+          { 
+						required: true, 
+						message: '请选择学院名称', 
+						trigger: 'change' 
+					}
+        ],
+				profession: [
+          { 
+						required: true, 
+						message: '请选择专业', 
+						trigger: 'change' 
+					}
+        ],
+				class_: [
+          { 
+						required: true, 
+						message: '请选择班级', 
+						trigger: 'change' 
+					}
+        ],
+				grade: [
+          { 
+						required: true, 
+						message: '请选择年级', 
+						trigger: 'change' 
+					}
+        ],
+				birth: [
+          { 
+						required: true, 
+						message: '请选择出生日期', 
+						trigger: 'change' 
+					}
+        ],
+				education: [
+					{
+						required: true,
+						message: '清选择学历层次',
+						trigger: 'change'
+					}
+				]
 			}
 		}
 	},
@@ -35,17 +99,23 @@ export default {
 		cfilter
 	},
 	created() {
-		this.index(1)
+		this.index(this.page)
+		this.classIndex()
 	},
 	methods: {
 		toggleName() {
 			this.nameSearch = !this.nameSearch
 		},	
 		index(page) {
+			this.page = page
 			this.$http.get(`/student/page/${page}/10`,{params: {name: this.search.name}}).then((res) => {
 				this.total = res.data.result.total
 				this.basis = res.data.result.list
-				console.log(this.basis)
+			})
+		},
+		classIndex() {
+			this.$http.get('student/class/list').then((res) => {
+				this.classArr = res.data.result
 			})
 		},
 		handlePapers(val) {
@@ -64,7 +134,7 @@ export default {
 								message: res1.data.returnMsg,
 								type: 'success'
 							})
-							this.index(1)
+							this.index(this.page)
 						}else{
 							this.$message({
 								message: res1.data.returnMsg,
@@ -81,8 +151,8 @@ export default {
 			})
 		},
 		exporter() {
-			this.$http.get('/export/achieve/12', {
-        params: {achieveIds: this.selects},
+			this.$http.get('/export/student', {
+        params: {studentIds: this.selects},
         paramsSerializer: (params) => {
           return qs.stringify(params, { arrayFormat: 'repeat' })
         }
@@ -101,7 +171,37 @@ export default {
         }
       })
 		},
-		
+		edit(id) {
+			this.editshow = true
+			this.$http.get(`/student/info/${id}`).then((res) => {
+				this.form = res.data.result
+			})
+		},
+		submit(form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          this.$http.post('student/save', this.form).then((res) => {
+						if(res.data.returnCode == '0') {
+							this.$message({
+								message: res.data.returnMsg,
+								type: 'success'
+							})
+							setTimeout(() => {
+								this.editshow = false
+								this.index(this.page)
+							}, 1000)
+						}else{
+							this.$message({
+								message: res.data.returnMsg,
+								type: 'warning'
+							})
+						}
+					})
+        } else {
+          return false
+        }
+      })
+    },
 		del(id) {
 			this.$confirm('确定删除?', '', {
         confirmButtonText: '确定',
@@ -115,7 +215,7 @@ export default {
 							message: '删除成功!'
 						})
 						setTimeout(() => {
-							this.index(1)
+							this.index(this.page)
 						},1500)
 					}else{
 						this.$message({

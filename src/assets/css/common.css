@@ -62,3 +62,8 @@ h1,h2,h3,h4,h5,h6{
 .bar-main.el-main,.result-main.el-main{
 	padding: 0;
 }
+
+.edit-basis .el-dialog__body{
+	padding: 0 20px;
+}
+	

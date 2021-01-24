@@ -8,6 +8,7 @@
 			<el-submenu index="1" class='f-fr'>
 				<template slot="title">{{user.userinfo.name}}</template>
 				<el-menu-item index="1-1" route='/user'>个人信息</el-menu-item>
+				<el-menu-item index="1-2" route='/password'>修改密码</el-menu-item>
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>
 			<el-menu-item index="2">
