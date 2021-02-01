@@ -2,16 +2,15 @@
   <el-header>
 		<el-menu class='header-menu' default-active="0" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" router>
 		  <el-menu-item class='f-fl'>
-				<template slot="title">山东财经大学 管科学院</template>
+				<template slot="title">山东财经大学 管理科学与工程学院</template>
 			</el-menu-item>
-			<el-menu-item index="0" route='/result/research/paper'>管理我的成果</el-menu-item>
-			<el-submenu index="1" class='f-fr'>
+			<el-submenu index="0" class='f-fr'>
 				<template slot="title">{{user.userinfo.name}}</template>
-				<el-menu-item index="1-1" route='/user'>个人信息</el-menu-item>
-				<el-menu-item index="1-2" route='/password'>修改密码</el-menu-item>
+				<el-menu-item index="0-1" route='/user'>个人信息</el-menu-item>
+				<el-menu-item index="0-2" route='/password'>修改密码</el-menu-item>
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>
-			<el-menu-item index="2">
+			<el-menu-item index="1">
 			  <i class='icon el-icon-message'></i>
 			</el-menu-item>
 		</el-menu>

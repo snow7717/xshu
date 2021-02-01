@@ -167,6 +167,7 @@ export default {
 				this.fields = res.data.result
 				console.log(this.fields)
 				for(let item of this.fields) {
+					console.log(item.label + ':' + item.key)
 					switch (item.type) {
 						case 'string':
 							this.$set(this.form,item.key,'')

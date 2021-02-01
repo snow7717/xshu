@@ -55,6 +55,41 @@ export default {
 					  trigger: 'change' 
 				  },
 			  ],
+				afunding: [
+				  { 
+					  required: true, 
+					  message: '清输入合同总经费', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				funding: [
+				  { 
+					  required: true, 
+					  message: '清输入实际到账经费', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				source: [
+				  { 
+					  required: true, 
+					  message: '请选择项目来源', 
+					  trigger: 'change' 
+				  },
+			  ],
+				principal: [
+				  { 
+					  required: true, 
+					  message: '请选择项目负责人', 
+					  trigger: 'change' 
+				  },
+			  ],
+				no: [
+				  { 
+					  required: true, 
+					  message: '请输入工号', 
+					  trigger: 'blur' 
+				  },
+			  ],
 				created_at: [
 				  { 
 					  required: true, 
@@ -82,7 +117,7 @@ export default {
 							value: '1'
 						},
 						{
-							label: '人文科学',
+							label: '社会科学',
 							value: '2'
 						}
 					]
@@ -208,6 +243,35 @@ export default {
 					componetType: 'select',
 					value: '',
 					editable: true,
+					label: '项目等级',
+					key: 'leveler',
+					opetionsJson: [
+						{
+							label: '特类',
+							value: '特类'
+						},
+						{
+							label: 'A1',
+							value: 'A1'
+						},
+						{
+							label: 'A2',
+							value: 'A2'
+						},
+						{
+							label: 'B',
+							value: 'B'
+						},
+						{
+							label: 'C',
+							value: 'C'
+						},
+					]
+				},
+				{
+					componetType: 'select',
+					value: '',
+					editable: true,
 					label: '项目级别',
 					key: 'level',
 					opetionsJson: [
@@ -227,6 +291,39 @@ export default {
 							label: '厅局级',
 							value: '3'
 						},
+						{
+							label: '校级',
+							value: '4'
+						},
+					]
+				},
+				{ 
+					componetType: 'select',
+					value: '',
+					editable: true,
+					label: '项目性质',
+					key: 'type',
+					opetionsJson: [
+						{
+							label: '重大',
+							value: '重大'
+						},
+						{
+							label: '重点',
+							value: '重点'
+						},
+						{
+							label: '专项',
+							value: '专项'
+						},
+						{
+							label: '青年',
+							value: '青年'
+						},
+						{
+							label: '一般',
+							value: '一般'
+						}
 					]
 				},
 				{
@@ -319,17 +416,19 @@ export default {
 					]
 				},
 				{
+					required: true,
 					componetType: 'number',
 					value: '',
-					label: '批准经费',
+					label: '合同总经费',
 					key: 'afunding',
 					min: '0',
 					max: ''
 				},
 				{
+					required: true,
 					componetType: 'number',
 					value: '',
-					label: '到账经费',
+					label: '实际到账经费',
 					key: 'funding',
 					min: '0',
 					max: ''
@@ -337,13 +436,13 @@ export default {
 				{
 					componetType: 'date',
 					value: '',
-					label: '开始时间',
+					label: '项目开始时间',
 					key: 'created_at',
 				},
 				{
 					componetType: 'date',
 					value: '',
-					label: '截止时间',
+					label: '项目截止时间',
 					key: 'until_at',
 				},
 				{
@@ -359,39 +458,6 @@ export default {
 						{
 							label: '已结项',
 							value: '已结项'
-						},
-						{
-							label: '项目退回',
-							value: '项目退回'
-						},
-					]
-				},
-				{ 
-					componetType: 'select',
-					value: '',
-					editable: true,
-					label: '项目性质',
-					key: 'type',
-					opetionsJson: [
-						{
-							label: '重大',
-							value: '重大'
-						},
-						{
-							label: '重点',
-							value: '重点'
-						},
-						{
-							label: '专项',
-							value: '专项'
-						},
-						{
-							label: '青年',
-							value: '青年'
-						},
-						{
-							label: '一般',
-							value: '一般'
 						}
 					]
 				},
@@ -411,7 +477,7 @@ export default {
 					componetType: 'number',
 					min: '0',
 					value: '',
-					label: '工号',
+					label: '负责人工号',
 					key: 'no'
 				},
 				{

@@ -13,6 +13,7 @@
 						  <el-input v-model='form[item.key]' v-if='item.componetType == "input"' v-bind:placeholder='item.placeholder'></el-input>
 							<el-input v-model='form[item.key]' v-if='item.componetType == "number"' type='number'></el-input>
 							<el-input v-if='item.componetType == "textarea"' type="textarea" v-bind:placeholder="item.placeholder" v-model="form[item.key]"></el-input>
+							<el-date-picker v-model="form[item.key]" v-if='item.componetType == "year"' type="year" placeholder="选择年份" value-format="yyyy"></el-date-picker>
 							<el-date-picker v-model="form[item.key]" v-if='item.componetType == "date"' type="date" placeholder="选择日期" value-format="yyyy-MM-dd"></el-date-picker>
 							<el-select v-model='form[item.key]' v-if='item.componetType == "select"' v-bind:multiple='item.multiple'>
 							  <el-option v-for='(option, i) in item.opetionsJson'v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
@@ -36,20 +37,19 @@
 									  <el-input v-model='scope.row.author'></el-input>
 									</template>
 								</el-table-column>
-								<el-table-column label="作者身份" width='120'>
+								<el-table-column label="成员类型" width='120'>
 								  <template slot-scope='scope'>
 									  <el-select v-model='scope.row.author_identity'>
-										  <el-option label='老师' value='老师'></el-option>
-											<el-option label='博士生' value='博士生'></el-option>
-											<el-option label='硕士生' value='硕士生'></el-option>
-											<el-option label='本科' value='本科'></el-option>
+										  <el-option label='本校教师' value='本校教师'></el-option>
+											<el-option label='学生' value='学生'></el-option>
+											<el-option label='校外人员' value='校外人员'></el-option>
 											<el-option label='其他' value='其他'></el-option>
 										</el-select>
 									</template>
 								</el-table-column>
 								<el-table-column label="单位名称">
 								  <template slot-scope='scope'>
-									  <el-input type='textarea' v-model='scope.row.units' placeholder='多个单位之间用逗号隔开，如：河北经贸大学商学院，泰安理工大学'></el-input>
+									  <el-input v-model='scope.row.units'></el-input>
 									</template>
 								</el-table-column>
 								<el-table-column label="操作" width='50' align='center'>

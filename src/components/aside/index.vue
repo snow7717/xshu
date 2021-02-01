@@ -10,9 +10,11 @@
           <i class="el-icon-menu" v-bind:class='active == 1 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>基础信息</span>
         </template>
-				<el-menu-item index="1-1" route='/basis/teacher'>教师信息</el-menu-item>
-				<el-menu-item index="1-2" route='/basis/student'>本科生信息</el-menu-item>
-				<el-menu-item index="1-3" route='/basis/student1'>研究生信息</el-menu-item>
+				<el-menu-item index="1-1" route='/basis/school'>学院信息</el-menu-item>
+				<el-menu-item index="1-2" route='/basis/profession'>专业信息</el-menu-item>
+				<el-menu-item index="1-3" route='/basis/teacher'>教师信息</el-menu-item>
+				<el-menu-item index="1-4" route='/basis/student'>本科生信息</el-menu-item>
+				<el-menu-item index="1-5" route='/basis/student1'>研究生信息</el-menu-item>
 			</el-submenu>
 			<el-submenu index='2'>
 			  <template slot="title">
@@ -34,7 +36,7 @@
         </template>
 				<el-menu-item index="3-1" route='/teaching/research'>教研项目</el-menu-item>
 				<el-menu-item index="3-2" route='/teaching/award'>教学奖励</el-menu-item>
-				<el-menu-item index="3-3" route='/teaching/course'>课程</el-menu-item>
+				<el-menu-item index="3-3" route='/teaching/course'>本科课程</el-menu-item>
 				<el-menu-item index="3-4" route='/teaching/graduate'>研究生课程</el-menu-item>
 				<el-menu-item index="3-5" route='/teaching/colla'>协同育人项目</el-menu-item>
 			</el-submenu>

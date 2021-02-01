@@ -48,6 +48,41 @@ export default {
 					  trigger: 'change' 
 				  },
 			  ],
+				source: [
+				  { 
+					  required: true, 
+					  message: '请输入项目来源', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				principal: [
+				  { 
+					  required: true, 
+					  message: '请输入项目负责人', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				no: [
+				  { 
+					  required: true, 
+					  message: '请输入工号', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				funding: [
+				  { 
+					  required: true, 
+					  message: '清输入合同总经费', 
+					  trigger: 'blur' 
+				  },
+			  ],
+				receivefund: [
+				  { 
+					  required: true, 
+					  message: '清输入实际到账经费', 
+					  trigger: 'blur' 
+				  },
+			  ],
 				created_at: [
 				  { 
 					  required: true, 
@@ -75,7 +110,7 @@ export default {
 							value: '1'
 						},
 						{
-							label: '人文科学',
+							label: '社会科学',
 							value: '2'
 						}
 					]
@@ -88,40 +123,80 @@ export default {
 				},
 				{
 					componetType: 'input',
+					value: '',
+					label: '项目编号',
+					key: 'number',
+				},
+				{
+					componetType: 'input',
 					type: 'string',
 					label: '项目来源',
 					key: 'source',
+					placeholder: '项目委托单位名称',
+					required: true
 				},
 				{
 					componetType: 'input',
 					type: 'string',
 					label: '项目负责人',
 					key: 'principal',
+					required: true
 				},
 				{
 					componetType: 'number',
 					min: '0',
+					type: 'string',
 					value: '',
-					label: '工号',
-					key: 'no'
+					label: '负责人工号',
+					key: 'no',
+					required: true
 				},
 				{
 					componetType: 'input',
 					type: 'string',
-					label: '所在学院',
-					key: 'school',
+					label: '所在专业',
+					key: 'profession',
 				},
 				{
 					componetType: 'number',
 					type: 'string',
-					label: '合同经费',
+					label: '合同总经费',
 					key: 'funding',
 				},
 				{
 					componetType: 'number',
 					type: 'string',
-					label: '到账经费',
+					label: '实际到账经费',
 					key: 'receivefund',
+				},
+				{
+					componetType: 'select',
+					value: '',
+					editable: true,
+					label: '项目等级',
+					key: 'leveler',
+					opetionsJson: [
+						{
+							label: '特类',
+							value: '特类'
+						},
+						{
+							label: 'A1',
+							value: 'A1'
+						},
+						{
+							label: 'A2',
+							value: 'A2'
+						},
+						{
+							label: 'B',
+							value: 'B'
+						},
+						{
+							label: 'C',
+							value: 'C'
+						},
+					]
 				},
 				{
 					componetType: 'date',

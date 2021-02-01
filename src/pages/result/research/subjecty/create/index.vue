@@ -33,11 +33,6 @@
 									  <el-input v-model='scope.row.author_seqn' type='number' min='1'></el-input>
 									</template>
 								</el-table-column>
-								<el-table-column label="姓名" width="100">
-								  <template slot-scope='scope'>
-									  <el-input v-model='scope.row.author'></el-input>
-									</template>
-								</el-table-column>
 								<el-table-column label="成员类型" width='120'>
 								  <template slot-scope='scope'>
 									  <el-select v-model='scope.row.author_identity'>
@@ -47,6 +42,11 @@
 											<el-option label='本科' value='本科'></el-option>
 											<el-option label='其他' value='其他'></el-option>
 										</el-select>
+									</template>
+								</el-table-column>
+								<el-table-column label="姓名" width="100">
+								  <template slot-scope='scope'>
+									  <el-input v-model='scope.row.author'></el-input>
 									</template>
 								</el-table-column>
 								<el-table-column label="通讯作者" width='80' align='center'>
@@ -61,7 +61,7 @@
 								</el-table-column>
 								<el-table-column label="单位名称">
 								  <template slot-scope='scope'>
-									  <el-input type='textarea' v-model='scope.row.units' placeholder='多个单位之间用逗号隔开，如：河北经贸大学商学院，泰安理工大学'></el-input>
+									  <el-input v-model='scope.row.units'></el-input>
 									</template>
 								</el-table-column>
 								<el-table-column label="操作" width='50' align='center'>
@@ -79,11 +79,6 @@
 									  <el-input v-model='scope.row.author_seqn' type='number' min='1'></el-input>
 									</template>
 								</el-table-column>
-								<el-table-column label="姓名" width="100">
-								  <template slot-scope='scope'>
-									  <el-input v-model='scope.row.author'></el-input>
-									</template>
-								</el-table-column>
 								<el-table-column label="成员类型" width='120'>
 								  <template slot-scope='scope'>
 									  <el-select v-model='scope.row.author_identity'>
@@ -94,9 +89,14 @@
 										</el-select>
 									</template>
 								</el-table-column>
+								<el-table-column label="姓名" width="100">
+								  <template slot-scope='scope'>
+									  <el-input v-model='scope.row.author'></el-input>
+									</template>
+								</el-table-column>
 								<el-table-column label="单位名称">
 								  <template slot-scope='scope'>
-									  <el-input type='textarea' v-model='scope.row.units' placeholder='多个单位之间用逗号隔开，如：河北经贸大学商学院，泰安理工大学'></el-input>
+									  <el-input v-model='scope.row.units'></el-input>
 									</template>
 								</el-table-column>
 								<el-table-column label="操作" width='50' align='center'>

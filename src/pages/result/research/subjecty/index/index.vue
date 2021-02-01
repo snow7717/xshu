@@ -18,16 +18,18 @@
 					<el-table-column prop='number' label='项目编号' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='title' label='项目名称' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column prop='level_zh' label='项目级别' width='80px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='unit' label='合同单位' width='120px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='unit' label='项目批准单位' width='120px' show-overflow-tooltip></el-table-column>
+					<el-table-column sortable prop='afunding' label='批准经费' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='funding' label='到账经费' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable v-bind:sort-method='createdsort' prop='created_at' label='开始时间' width='100px'></el-table-column>
 					<el-table-column sortable v-bind:sort-method='untilsort' prop='until_at' label='截止时间' width='100px'></el-table-column>
-					<el-table-column prop='status_zh' label='状态' width='80px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='type_zh' label='类型' width='60px' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='principal' label="负责人" width='94px'></el-table-column>
-					<el-table-column prop='result' label="团队成果" width='94px'></el-table-column>
+					<el-table-column prop='status' label='项目状态' width='80px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='type' label='项目性质' width='80px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='principal' label="项目负责人" width='94px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='no' label="工号" width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='unitrank' label='单位排名' width='94px' show-overflow-tooltip></el-table-column>
 					<el-table-column sortable prop='year' label='立项年度' width='100px' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='' label='团队成员' width='100px' show-overflow-tooltip></el-table-column>
 					<el-table-column fixed="right" label='操作' width='100px'>
 					  <template slot-scope='scope'>
 						  <router-link v-bind:to='`/subjecty/edit/${scope.row.id}`'>

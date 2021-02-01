@@ -16,9 +16,7 @@ export default {
 		}
 	},
 	methods: {
-		fileSuccess(response, file, fileList) {
-			
-		},
+		fileSuccess(response, file, fileList) {},
 		uploader(param) {
 			let formData = new FormData()
 			formData.append('files',param.file)

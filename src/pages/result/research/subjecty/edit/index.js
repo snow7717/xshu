@@ -182,6 +182,14 @@ export default {
 					key: 'number',
 				},
 				{
+					componetType: 'number',
+					min: '0',
+					type: 'string',
+					value: '',
+					label: '工号',
+					key: 'no'
+				},
+				{
 					componetType: 'input',
 					type: 'string',
 					label: '项目名称',
@@ -422,7 +430,6 @@ export default {
 		show() {
 			this.$http.get(`/subjects/info/${this.sid}`).then((res) => {
 				this.form = res.data.result
-				console.log(this.form)
 				this.$refs.upload.srcs = this.form.imgs
 				if(this.form.imgs[0]) {
 					this.$refs.upload.src = this.form.imgs[0].url

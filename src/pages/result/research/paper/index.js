@@ -72,26 +72,6 @@ export default {
 			]
       return date0 - date1
 		},
-		uploadsort(obj0,obj1) {
-			let [
-				date0,
-				date1
-			] = [
-				new Date(obj0.upload_at).getTime(),
-				new Date(obj1.upload_at).getTime()
-			]
-      return date0 - date1
-		},
-		updatedsort(obj0,obj1) {
-			let [
-				date0,
-				date1
-			] = [
-				new Date(obj0.updated_at).getTime(),
-				new Date(obj1.updated_at).getTime()
-			]
-      return date0 - date1
-		},
 		del(id) {
 			this.$confirm('确定删除?', '', {
         confirmButtonText: '确定',

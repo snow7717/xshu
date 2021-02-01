@@ -13,15 +13,20 @@
 				</csearch>
 				<el-table v-bind:data="awards" stripe class='w-100' size='small' @selection-change="handlePapers" >
 				  <el-table-column type="selection" fixed width="40"></el-table-column>
-				  <el-table-column prop='number' label='工号' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='name' label='姓名' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='type' label='奖励类型' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='level' label='获奖等级' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='result' label='获奖成果名称' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='year' label='获奖年度' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='certno' label='证书编号' show-overflow-tooltip></el-table-column>
-					<el-table-column prop='unitsort' label='单位位次'></el-table-column>
-					<el-table-column prop='personsort' label='本人位次'></el-table-column>
+				  <el-table-column prop='result' label='获奖成果' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='title' label='获奖名称' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='type' label='奖励级别' width='80' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='level' label='获奖等级' width='80' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='wardunit' label='奖励单位' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='name' label='第一作者姓名' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='number' label='工号' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='year' label='获奖年度' width='80' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='date' label='获奖日期' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='certno' label='证书编号' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='approvenum' label='奖励批准号' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='unitsort' label='单位位次' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='personsort' label='本人位次' width='100' show-overflow-tooltip></el-table-column>
+					<el-table-column prop='authors' label='其他作者' width='100' show-overflow-tooltip></el-table-column>
 					<el-table-column fixed="right" label='操作' width='100px'>
 					  <template slot-scope='scope'>
 						  <router-link v-bind:to='`/edit/12/${scope.row.id}`'>
