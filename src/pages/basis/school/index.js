@@ -1,9 +1,7 @@
-import cheader from '@/components/header/index.vue'
-import caside from '@/components/aside/index.vue'
 import ccontent from '@/components/content/index.vue'
 
 export default {
-	name: 'basischool',
+	name: 'bschool',
 	data() {
 		return {
 			summary: '学院信息',
@@ -59,8 +57,6 @@ export default {
 		}
 	},
 	components: {
-		cheader,
-		caside,
 		ccontent
 	},
 	created() {

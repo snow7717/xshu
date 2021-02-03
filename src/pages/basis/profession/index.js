@@ -1,5 +1,3 @@
-import cheader from '@/components/header/index.vue'
-import caside from '@/components/aside/index.vue'
 import ccontent from '@/components/content/index.vue'
 
 export default {
@@ -52,8 +50,8 @@ export default {
 				school: [
 					{
 						required: true,
-						message: '请输入所在学院',
-						trigger: 'blur'
+						message: '请选择所在学院',
+						trigger: 'change'
 					}
 				],
 				year: [
@@ -67,8 +65,6 @@ export default {
 		}
 	},
 	components: {
-		cheader,
-		caside,
 		ccontent
 	},
 	created() {

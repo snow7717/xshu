@@ -1,6 +1,4 @@
 import qs from 'qs'
-import cheader from '@/components/header/index.vue'
-import caside from '@/components/aside/index.vue'
 import ccontent from '@/components/content/index.vue'
 
 let regphone = (rule, value, callback) => {
@@ -19,7 +17,7 @@ let regemail = (rule, value, callback) => {
 }
 
 export default {
-	name: 'basisteacher',
+	name: 'bteacher',
 	data() {
 		return {
 			summary: '教师信息',
@@ -82,8 +80,6 @@ export default {
 		}
 	},
 	components: {
-		cheader,
-		caside,
 		ccontent
 	},
 	created() {

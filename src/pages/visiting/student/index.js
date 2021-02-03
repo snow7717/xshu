@@ -1,10 +1,10 @@
 import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
-import csearch from '@/components/bar/index.vue'
+import ccontent from '@/components/content/index.vue'
 
 export default {
-	name: 'student',
+	name: 'vstudent',
 	data() {
 		return {
 			summary: '学生访学',
@@ -21,7 +21,7 @@ export default {
 	components: {
 		cheader,
 		caside,
-		csearch,
+		ccontent,
 	},
 	created() {
 		this.index(1)

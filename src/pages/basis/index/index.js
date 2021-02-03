@@ -1,21 +1,23 @@
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
+import ccontent from '@/components/content/index.vue'
 
 export default {
-	name: 'folder',
+	name: 'basis',
 	data() {
 		return {
-			windowH: 0,
+		}
+	},
+	computed: {
+		active() {
+			return this.$route.meta.active
 		}
 	},
 	components: {
 		cheader,
-		caside
+		caside,
+		ccontent
 	},
-	mounted() {
-		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
-	},
-	methods: {
-		
+	created() {
 	}
 }

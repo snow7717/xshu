@@ -65,14 +65,14 @@
 				<el-menu-item index="5-5" route='/visiting/cooperation'>合作协议</el-menu-item>
 				<el-menu-item index="5-6" route='/visiting/base'>实习实践基地</el-menu-item>
 			</el-submenu>
-			<!--<el-submenu index='6'>
+			<el-submenu index='6'>
 			  <template slot="title">
           <i class="el-icon-setting" v-bind:class='active == 6 ? "icon-active" : "icon-default"'></i>
           <span class='menu-text'>系统设置</span>
         </template>
-				<el-menu-item index="6-1" route='/setting/teaminfo'>团队信息</el-menu-item>
-        <el-menu-item index="6-2" route='/setting/teamset'>团队设置</el-menu-item>
-			</el-submenu>-->
+				<el-menu-item index="6-1" route='/setting/role'>角色管理</el-menu-item>
+        <el-menu-item index="6-2" route='/setting/user'>用户设置</el-menu-item>
+			</el-submenu>
     </el-menu>
 		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "64px" : "200px"}'>
 			<i v-bind:class='isCollapse ? "el-icon-caret-right" : "el-icon-caret-left"'></i>

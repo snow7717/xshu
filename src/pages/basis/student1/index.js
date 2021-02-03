@@ -1,7 +1,7 @@
 import qs from 'qs'
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
-import csearch from '@/components/bar/index.vue'
+import ccontent from '@/components/content/index.vue'
 
 let regphone = (rule, value, callback) => {
   if (/^1\d{10}$/.test(value)) {
@@ -12,7 +12,7 @@ let regphone = (rule, value, callback) => {
 }
 
 export default {
-	name: 'basistudent1',
+	name: 'bstudent1',
 	data() {
 		return {
 			summary: '学生信息',
@@ -91,7 +91,7 @@ export default {
 	components: {
 		cheader,
 		caside,
-		csearch
+		ccontent
 	},
 	created() {
 		this.index(this.page)
