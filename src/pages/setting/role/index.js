@@ -19,16 +19,13 @@ export default {
 				}
 			],
 			total: 0,
-			editshow: false,
+			formshow: false,
 			menu: '',
 			props: {
         children: 'children',
 				label: `label`      
 			},
-			form: {
-				name: '',
-				menus: []
-			}
+			form: {}
 		}
 	},
 	computed: {
@@ -61,9 +58,10 @@ export default {
 			
 		},
 		edit(role) {
-			this.editshow = true
+			this.formshow = true
+			this.form = role
 			this.$nextTick(() => {
-				this.$refs.tree.setCheckedKeys(role.permissions)
+				this.$refs.tree.setCheckedKeys(this.form.permissions)
 			})
 		},
 		filterNode(value, data) {
@@ -73,8 +71,5 @@ export default {
 				return true
 			}
     },
-		handleMenus(data, checked, a) {
-			console.log(this.$refs.tree.getCheckedNodes())
-		},
  	}
 }

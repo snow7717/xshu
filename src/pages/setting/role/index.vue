@@ -25,18 +25,18 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<el-dialog v-bind:visible.sync="editshow" v-bind:show-close='false' class='edit-basis'>
+		<el-dialog v-bind:visible.sync="formshow" v-bind:show-close='false' class='edit-basis'>
 		  <el-form ref='form' v-model='form' size='mini' label-width='80px'>
 			  <el-form-item label='角色名称'>
 				  <el-input v-model='form.name'></el-input>
 				</el-form-item>
 				<el-form-item label='菜单权限'>
 				  <el-input placeholder="输入菜单名进行过滤" v-model="menu" size='mini'></el-input>
-					<el-tree class="filter-tree" check-on-click-node node-key='name' v-bind:data="menus" v-bind:props="props" v-bind:filter-node-method="filterNode" ref="tree" show-checkbox v-on:check-change="handleMenus"></el-tree>
+					<el-tree class="filter-tree" check-on-click-node node-key='name' v-bind:data="menus" v-bind:props="props" v-bind:filter-node-method="filterNode" ref="tree" show-checkbox></el-tree>
 				</el-form-item>
 			</el-form> 
 			<footer slot="footer" class="dialog-footer">
-				<el-button size='mini' @click="editshow = false">取 消</el-button>
+				<el-button size='mini' @click="formshow = false">取 消</el-button>
 				<el-button size='mini' type="primary" @click="dialogVisible = false">确 定</el-button>
 			</footer>
 		</el-dialog>
