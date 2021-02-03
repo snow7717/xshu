@@ -20,6 +20,17 @@ h1,h2,h3,h4,h5,h6{
 	padding-bottom: 0;
 }
 
+.search-name.el-form-item--mini.el-form-item, 
+.search-name.el-form-item--small.el-form-item,
+.filter-form.el-form-item--mini.el-form-item, 
+.filter-form.el-form-item--small.el-form-item{
+	margin-bottom: 0;
+}
+	
+.search-name .el-form-item{
+	margin-bottom: 0;
+}
+
 .del-confirm.el-button--primary{
 	background-color: #F56C6C;
 	border-color: #F56C6C;
@@ -29,11 +40,10 @@ h1,h2,h3,h4,h5,h6{
 	padding-bottom: 0;
 }
 	
-.result-main.el-main{
+.bar-main.el-main,.result-main.el-main{
 	padding: 0;
 }
 
 .edit-basis .el-dialog__body{
 	padding: 0 20px;
-}	
-	
+}

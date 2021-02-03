@@ -10,7 +10,7 @@
 	</div>
 </template>
 
-<style lang='stylus' scoped>
+<style lang='stylus'>
   @import './index.styl'
 </style>
 

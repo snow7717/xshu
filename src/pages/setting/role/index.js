@@ -2,53 +2,32 @@ export default {
 	name: 'role',
 	data() {
 		return {
+			summary: '角色管理',
+			search: {
+				name: ''
+			},
 			datas: [
 				{
 					id: '1',
 					name: '超级管理员',
-					menus: [
-						{
-							name: 'login',
-						},
-						{
-							name: 'index'
-						},
-						{
-							name: 'user',
-						},
-						{
-							name: 'password',
-						},
-						{
-							// 一级菜单
-							name: 'basis',
-							// 二级菜单
-							children: [
-								{
-									name: 'bschool',
-									// 菜单按钮权限
-									permissions: [
-										{
-											label: '添加',
-											name: 'bschooladd'
-										}
-									]
-								}
-							]
-						}
-					]
+					permissions: ['login','index','user','password','bschooladd']
 				},
 				{
 					id: '2',
 					name: '老师',
-					menus: []
+					permissions: []
 				}
 			],
+			total: 0,
 			editshow: false,
 			menu: '',
 			props: {
         children: 'children',
 				label: `label`      
+			},
+			form: {
+				name: '',
+				menus: []
 			}
 		}
 	},
@@ -76,29 +55,15 @@ export default {
 	components: {
 	},
 	created() {
-		console.log(this.menus)
 	},
 	methods: {
+		create() {
+			
+		},
 		edit(role) {
 			this.editshow = true
-			let menus = role.menus.map((item) => {
-				if(item.children) {
-					return item.children.map((itemer) => {
-						if(itemer.permissions) {
-							return itemer.permissions.map((itemer1) => {
-								return itemer1.name
-							})[0]
-						}else{
-							return itemer.name
-						}
-						
-					})[0]
-				}else{
-					return item.name
-				}
-			})
 			this.$nextTick(() => {
-				this.$refs.tree.setCheckedKeys(menus)
+				this.$refs.tree.setCheckedKeys(role.permissions)
 			})
 		},
 		filterNode(value, data) {
@@ -108,8 +73,8 @@ export default {
 				return true
 			}
     },
-		handleMenus(data, checked, indeterminate) {
-			
+		handleMenus(data, checked, a) {
+			console.log(this.$refs.tree.getCheckedNodes())
 		},
  	}
 }

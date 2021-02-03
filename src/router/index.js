@@ -51,29 +51,6 @@ import Suser from '@/pages/setting/user/index.vue'
 
 Vue.use(Router)
 
-let permissions = [
-	{
-		label: '添加',
-		name: 'add'
-	},
-	{
-		label: '删除',
-		name: 'del'
-	},
-	{
-		label: '编辑',
-		name: 'modify'
-	},
-	{
-		label: '查询',
-		name: 'list'
-	},
-	{
-		label: '详情',
-		name: 'detail'
-	}
-]
-
 export default new Router({
   routes: [
 		{
