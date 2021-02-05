@@ -1,6 +1,5 @@
 import cheader from '@/components/header/index.vue'
 import caside from '@/components/aside/index.vue'
-import ccontent from '@/components/content/index.vue'
 
 export default {
 	name: 'basis',
@@ -15,8 +14,7 @@ export default {
 	},
 	components: {
 		cheader,
-		caside,
-		ccontent
+		caside
 	},
 	created() {
 	}

@@ -1,7 +1,15 @@
 export default {
 	name: 'cheader',
+	props: {
+		from: {
+			type: String,
+			default: ''
+		}
+	},
 	data() {
-		return {}
+		return {
+			loading: false
+		}
 	},
 	computed: {
 		user() {
@@ -11,6 +19,17 @@ export default {
 	created() {
 	},
 	methods: {
+		handleRole(val) {
+			this.$store.commit('login',this.user)
+			if(this.$route.name == 'user' && this.from == 'login') {
+				this.loading = true
+				location.reload()
+			}else if(this.$route.name == 'user'){
+							 
+			}else{
+				this.$router.push('/user')
+			}
+		},
 		handleSelect(index) {
 		},
 		logout() {

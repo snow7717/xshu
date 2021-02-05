@@ -1,81 +1,119 @@
+import ccontent from '@/components/content/index.vue'
+
 export default {
-	name: 'role',
 	data() {
 		return {
-			datas: [
-				{
-					id: '1',
-					name: '超级管理员',
-					menus: [
-						{
-							name: '/login',
-						},
-						{
-							name: 'index'
-						},
-						{
-							name: 'user',
-						},
-						{
-							name: 'password',
-						},
-						{
-							// 一级菜单
-							name: 'basis',
-							// 二级菜单
-							submenus: [
-								{
-									name: 'school',
-									// 菜单按钮权限
-									permissions: [
-										'add',
-										'del',
-										'modify',
-										'list',
-										'detail',
-										'exp',
-										'imp',
-										'download',
-										'upload'
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					id: '2',
-					name: '老师'
-				}
-			],
-			editshow: false,
-			menu: '',
-			defaultProps: {
-        children: 'children',
-        label: 'name'
-      }
+			url: {
+				index: '/admin/user/page',
+				show: '/admin/user/get',
+				save: '/admin/user/save',
+				del: '/admin/user/delete'
+			},
+			search: {
+				name: ''
+			},
+			datas: [],
+			operawidth: '100',
+			page: 1,
+			total: 0,
+			formshow: false,
+			form: {},
+			rules: {
+				name: [
+					{
+						required: true,
+						message: '清输入用户名',
+						trigger: 'blur'
+					}
+				],
+				account: [
+					{
+						required: true,
+						message: '清输入用户账号',
+						trigger: 'blur'
+					}
+				],
+				school: [
+					{
+						required: true,
+						message: '请选择所属学院',
+						trigger: 'change'
+					}
+				],
+				role: [
+					{
+						required: true,
+						message: '清选择所属角色',
+						trigger: 'change'
+					}
+				]
+			},
+			roles: []
 		}
 	},
 	computed: {
-		menus() {
-			return this.$router.options.routes
-		}
 	},
 	components: {
+		ccontent
 	},
 	created() {
-		console.log(this.menus)
+		this.init()
+		this.roleIndex()
 	},
 	methods: {
-		edit(id) {
-			this.editshow = true
+		init() {
+			this.$options.name = this.$route.name
+		  this.summary = this.$route.meta.label
 		},
-		filterNode(value, data) {
-			if(value) {
-				return data.name.indexOf(value) != -1
-			}else{
-				return false
+		roleIndex() {
+			this.$http.get('/admin/role/all').then((res) => {
+				this.roles = res.data.result
+			})
+		},
+		index(page,total,datas) {
+			for(let item of datas) {
+				item.roles = item.roles.map((role) => {
+					return role.title
+				}).toString()
 			}
-    }
+			[
+				this.page,
+				this.total,
+				this.datas
+			] = [
+				page,
+				total,
+				datas
+			]
+		},
+		showform(role) {
+			this.formshow = true
+			this.form = role
+		},
+		cancel() {
+			this.formshow = false
+		},
+		repass(id) {
+			this.$confirm('确定为该用户重置密码?', '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+				this.$http.get(`/admin/user/reset/pwd/${id}`).then((res) => {
+					if(res.data.returnCode == '0') {
+						this.$message({
+							type: 'success',
+							message: '重置成功!'
+						})
+					}else{
+						this.$message({
+							type: 'success',
+							message: res.data.returnMsg
+						})
+					}
+				})
+      }).catch(() => {         
+      })
+		}
  	}
 }

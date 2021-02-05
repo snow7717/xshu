@@ -47,14 +47,17 @@ export default {
 		submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-					this.$http.post("/login", this.form).then((res) => {						
+					this.$http.post("/admin/log/in", this.form).then((res) => {						
 						if(res.data.returnCode == 0) {
 							this.$message({
 								message: '登录成功',
 								type: 'success'
 							})
+							res.data.result.role = res.data.result.roles.filter((item) => {
+								return item.useYn == true
+							})[0]
 							this.$store.commit('login', res.data.result)
-							this.go('/')
+							this.go('/user')
 						}else{
 							this.$message({
 								message: res.data.returnMsg,

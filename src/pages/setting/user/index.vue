@@ -1,24 +1,39 @@
 <template>
-  <div>
-		<el-table v-bind:data="datas">
-			<el-table-column prop="name" label="角色名称" width='300' show-overflow-tooltip></el-table-column>
-			<el-table-column fixed="right" label='操作'>
-				<template slot-scope='scope'>
-					<i class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id)'></i>
-					<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
-				</template>
-			</el-table-column>
-		</el-table>
-		<el-dialog v-bind:visible.sync="editshow" v-bind:show-close='false' class='edit-basis'>
-		  <el-input placeholder="输入菜单名进行过滤" v-model="menu" size='mini'></el-input>
-			<el-tree class="filter-tree" v-bind:data="menus" v-bind:props="defaultProps" v-bind:filter-node-method="filterNode" ref="tree">
-			</el-tree>
-			<footer slot="footer" class="dialog-footer">
-				<el-button size='mini' @click="editshow = false">取 消</el-button>
-				<el-button size='mini' type="primary" @click="dialogVisible = false">确 定</el-button>
-			</footer>
-		</el-dialog>
-	</div>
+  <ccontent ref='ccontent' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-on:search='index(1)' placeholder='请输入用户名' v-bind:importshow='false' v-bind:exportshow='false' v-bind:datas='datas' v-bind:operawidth='operawidth' v-bind:selectable='false' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-on:index='index' v-on:create='showform({status: "启用",role: []})' v-on:edit='showform' v-on:cancel='cancel'>
+	  <div slot='table' class='f-tal'>
+		  <el-table-column label='账号状态' prop='status_zh' show-overflow-tooltip></el-table-column>
+	    <el-table-column prop="name" label="用户名称" show-overflow-tooltip></el-table-column>
+			<el-table-column prop="account" label="用户账号" show-overflow-tooltip></el-table-column>
+			<el-table-column prop='school' label='所属学院' show-overflow-tooltip></el-table-column>
+			<el-table-column prop="roles" label="所属角色" show-overflow-tooltip></el-table-column>
+			<el-table-column prop="created_at" label="创建时间" show-overflow-tooltip></el-table-column>
+		</div>
+		<template v-slot='data'>
+			<i class='f-csp iconfont icon-repass' title='重置密码' v-on:click='repass(data.data.id)'></i>
+		</template>
+		<div slot='form'>
+		  <el-form-item label='所属学院' prop='school'>
+			  <el-select v-model='form.school'>
+					<el-option value='管理科学与工程学院' label='管理科学与工程学院'></el-option>
+				</el-select>
+			</el-form-item>
+		  <el-form-item label='用户名称' prop='name'>
+				<el-input v-model='form.name'></el-input>
+			</el-form-item>
+			<el-form-item label='用户账号' prop='account'>
+			  <el-input v-model='form.account'></el-input>
+			</el-form-item>
+			<el-form-item label='所属角色' prop='role'>
+			  <el-select v-model='form.role' multiple collapse-tags>
+				  <el-option v-for='(item,index) in roles' v-bind:key='index' v-bind:value='item.roleid' v-bind:label='item.title' v-bind:disabled='!item.useYn || item.roleid == "1"'></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label='账号状态' prop='status'>
+			  <el-radio v-model="form.status" v-bind:label="1">启用</el-radio>
+        <el-radio v-model="form.status" v-bind:label="0">关闭</el-radio>
+			</el-form-item>
+		</div>
+	</ccontent>
 </template>
 
 <style lang='stylus' scoped>

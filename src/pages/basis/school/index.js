@@ -1,10 +1,9 @@
 import ccontent from '@/components/content/index.vue'
 
 export default {
-	name: 'bschool',
 	data() {
 		return {
-			summary: '学院信息',
+			summary: '',
 			url: {
 				index: '',
 				importpre: '',
@@ -60,10 +59,15 @@ export default {
 		ccontent
 	},
 	created() {
+		this.init()
 	},
 	mounted() {
 	},
 	methods: {
+		init() {
+			this.$options.name = this.$route.name
+		  this.summary = this.$route.meta.label
+		},
 		index(page,total,datas) {
 			this.page = page
 			this.total = total

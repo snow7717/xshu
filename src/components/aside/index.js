@@ -12,9 +12,12 @@ export default {
 		}
 	},
 	computed: {
+		user() {
+			return this.$store.state.user
+		},
 		menus() {
 			return this.$router.options.routes.filter((item) => {
-				return item.meta.position == 'left'
+				return item.meta.position == 'left' && (this.user.role.permissions.indexOf(item.name) > -1 || this.user.role.permissions[0] == 'all') 
 			})
 		}
 	},
@@ -22,12 +25,6 @@ export default {
     this.windowH = document.documentElement.clientHeight || document.body.clientHeight
   },
 	created() {
-		console.log(this.menus)
 	},
-	methods: {
-		handleOpen(index) {
-		},
-		handleClose(index) {
-		}
-	}
+	methods: {}
 }

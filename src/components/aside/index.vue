@@ -1,6 +1,6 @@
 <template>
   <el-aside v-bind:width='isCollapse ? "70px" : "206px"' class='f-pr' v-bind:style='"height:" + (windowH-80) + "px"'> 
-	  <el-menu v-bind:default-active="active" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened v-bind:style='"min-height:" + (windowH-80) + "px"' :collapse="isCollapse" style='max-width: 200px' v-bind:collapse-transition='false' router>
+	  <el-menu v-bind:default-active="active" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened v-bind:style='"min-height:" + (windowH-80) + "px"' v-bind:collapse="isCollapse" style='max-width: 200px' v-bind:collapse-transition='false' router>
 		  <section v-for='(item,index) in menus' v-bind:key='index'>
 			  <el-submenu v-bind:index='index + ""' v-if='item.children'>
 					<template slot="title">

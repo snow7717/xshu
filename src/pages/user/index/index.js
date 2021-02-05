@@ -6,6 +6,7 @@ export default {
 	data() {
 		return {
 			windowH: 0,
+			from: '',
 			rules: {
 				name: [
 					{
@@ -113,6 +114,11 @@ export default {
 		cheader,
 		caside
 	},
+	beforeRouteEnter (to, from, next) {
+    next((vm) => {
+			vm.from = from.name
+    })
+  },
 	mounted() {
 		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},

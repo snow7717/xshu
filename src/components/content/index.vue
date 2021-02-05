@@ -15,24 +15,25 @@
 					</el-form-item>
 				</el-form>
 			</el-main>
-			<el-aside width='220px'>
-				<el-button type='default' size='mini' class='f-ib' v-on:click='create'>添加</el-button>
-				<el-upload action="#" v-bind:show-file-list='false' list-type="text" v-bind:http-request='importer' accept=".xls,.xlsx" class='f-ib'>
+			<el-aside width='220px' class='aside f-tar'>
+				<el-button type='default' size='mini' class='f-ib' v-if='hasPerm("add")' v-on:click='create'>添加</el-button>
+				<el-upload v-if='hasPerm("add")' action="#" v-bind:show-file-list='false' list-type="text" v-bind:http-request='importer' accept=".xls,.xlsx" class='import f-ib'>
 					<el-button slot='default' type="primary" size='mini'>导入</el-button>
 				</el-upload>	
-				<el-button type="success" size='mini' class='f-ib' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
+				<el-button type="success" size='mini' class='export f-ib' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 			</el-aside>
 	  </el-container>
     <el-container>
 			<el-row>
 				<el-col :span='24'>
 					<el-table v-bind:data="datas" stripe class='w-100' size='small' @selection-change="handleDatas">
-						<el-table-column type="selection" fixed width="40"></el-table-column>
+						<el-table-column v-if='selectable' type="selection" fixed width="40"></el-table-column>
 						<slot name='table'></slot>
-						<el-table-column fixed="right" label='操作' width='70px'>
+						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
-								<i class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id)'></i>
-								<i class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id)'></i>
+								<slot v-bind:data="scope.row"></slot>
+								<i v-if='scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
+								<i v-if='scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -47,7 +48,7 @@
 				</el-form>
 				<div slot="footer" class="dialog-footer">
 					<el-button @click="cancel" size='mini'>取 消</el-button>
-					<el-button type="primary" size='mini' v-on:click='submit("form")'>确 定</el-button>
+					<el-button type="primary" size='mini' v-on:click='submit("form")' v-bind:disabled='form.delyn == false ? true : false'>确 定</el-button>
 				</div>
 			</el-dialog>
 		</el-container>

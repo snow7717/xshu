@@ -20,6 +20,10 @@ export default {
 		summary: {
 			type: String
 		},
+		pname: {
+			type: String,
+			default: ''
+		},
 		nameSearch: {
 			type: Boolean
 		},
@@ -37,6 +41,10 @@ export default {
 			type: String,
 			default: ''
 		},
+		selectable: {
+			type: Boolean,
+			default: true
+		},
 		selects: {
 			type: Array,
 			default() {
@@ -49,6 +57,10 @@ export default {
 				return []
 			}
 	  },
+		operawidth: {
+			type: String,
+			default: '70px'
+		},
 		page: {
 			type: Number,
 			default: 1
@@ -74,6 +86,11 @@ export default {
 			}
 		}
 	},
+	computed: {
+		user() {
+			return this.$store.state.user
+		},
+	},
 	created() {
 		this.index(this.page)
 	},
@@ -82,7 +99,7 @@ export default {
 			this.$emit('toggleName')
 		},
 		index(page) {
-			this.$http.get(`${this.url.index}/${page}/10`,{params: {name: this.search.name}}).then((res) => {
+			this.$http.get(`${this.url.index}/${page}/10`,{params: this.search}).then((res) => {
         this.$emit('index', page, res.data.result.total, res.data.result.list)
 			})
 		},
@@ -90,6 +107,9 @@ export default {
 			this.$emit('handleDatas',val.map((item) => {
 				return item.id
 			}))
+		},
+		hasPerm(perm) {
+			return this.user.role.permissions[0] == 'all' ||  this.user.role.permissions.indexOf(this.pname + perm) > -1
 		},
 		importer(param) {
 			let formData = new FormData()
@@ -160,7 +180,7 @@ export default {
 								type: 'success'
 							})
 							setTimeout(() => {
-								this.cancelEdit()
+								this.cancel()
 								this.index(this.page)
 							}, 1000)
 						}else{
@@ -181,7 +201,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-				this.$http.delete(this.url.del + id).then((res) => {
+				this.$http.delete(this.url.del + '/' + id).then((res) => {
 					if(res.data.returnCode == '0') {
 						this.$message({
 							type: 'success',

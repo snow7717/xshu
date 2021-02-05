@@ -53,7 +53,20 @@ export default {
 					},
 				]
 			},
-			fields: []
+			fields: [
+				{
+					tag: 'input',
+					type: 'text',
+					key: '',
+					placeholder: '',
+					options: [
+						{
+							value: '',
+							label: ''
+						}
+					],
+				}
+			],
 		}
 	},
 	computed: {

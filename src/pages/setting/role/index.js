@@ -1,23 +1,20 @@
+import ccontent from '@/components/content/index.vue'
+
 export default {
-	name: 'role',
 	data() {
 		return {
-			summary: '角色管理',
-			search: {
-				name: ''
+			url: {
+				index: '/admin/role/list',
+				show: '/admin/role/get',
+				save: '/admin/role/save',
+				del: '/admin/role/delete'
 			},
-			datas: [
-				{
-					id: '1',
-					name: '超级管理员',
-					permissions: ['login','index','user','password','bschooladd']
-				},
-				{
-					id: '2',
-					name: '老师',
-					permissions: []
-				}
-			],
+			search: {
+				title: ''
+			},
+			datas: [],
+			operawidth: '0px',
+			page: 1,
 			total: 0,
 			formshow: false,
 			menu: '',
@@ -25,7 +22,32 @@ export default {
         children: 'children',
 				label: `label`      
 			},
-			form: {}
+			form: {
+				permissions: []
+			},
+			rules: {
+				title: [
+					{
+						required: true,
+						message: '清输入角色名称',
+						trigger: 'blur'
+					}
+				],
+				useYn: [
+					{
+						required: true,
+						message: '清选择角色状态',
+						trigger: 'change'
+					}
+				],
+				scope: [
+					{
+						required: true,
+						message: '请选择权限范围',
+						trigger: 'change'
+					}
+				]
+			}
 		}
 	},
 	computed: {
@@ -41,8 +63,10 @@ export default {
 					}
 				}
 			}
-			return this.$router.options.routes
-		}
+			return this.$router.options.routes.filter((item) => {
+				return item.meta.global == false
+			})
+		},
 	},
 	watch: {
     menu(val) {
@@ -50,14 +74,32 @@ export default {
     }
   },
 	components: {
+		ccontent
 	},
 	created() {
+		this.init()
 	},
 	methods: {
-		create() {
-			
+		init() {
+			this.$options.name = this.$route.name
+		  this.summary = this.$route.meta.label
 		},
-		edit(role) {
+		index(page,total,datas) {
+			for(let item of datas) {
+				this.$set(item,'editable',item.delyn)
+				this.$set(item,'deleteable',item.delyn)
+			}
+			[
+				this.page,
+				this.total,
+				this.datas
+			] = [
+				page,
+				total,
+				datas
+			]
+		},
+		showform(role) {
 			this.formshow = true
 			this.form = role
 			this.$nextTick(() => {
@@ -71,5 +113,11 @@ export default {
 				return true
 			}
     },
+		cancel() {
+			this.formshow = false
+		},
+		handleChecked(data,checkeds) {
+			this.form.permissions = checkeds.checkedKeys
+		}
  	}
 }

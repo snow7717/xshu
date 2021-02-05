@@ -44,6 +44,10 @@ h1,h2,h3,h4,h5,h6{
 	padding: 0;
 }
 
-.edit-basis .el-dialog__body{
+.edit-basis .el-dialog__body,.form .el-dialog__body{
 	padding: 0 20px;
+}
+
+.role-change .el-form-item__label{
+	color: white;
 }

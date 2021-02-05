@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Login from '@/pages/user/login/index.vue'
 import User from '@/pages/user/index/index.vue'
 import Password from '@/pages/user/password/index.vue'
-import Index from '@/pages/index/index.vue'
 
+import Index from '@/pages/index/index.vue'
 import Basis from '@/pages/basis/index/index.vue'
 import Bschool from '@/pages/basis/school/index.vue'
 import Bprofession from '@/pages/basis/profession/index.vue'
@@ -58,7 +58,8 @@ export default new Router({
       name: 'login',
       component: Login,
 			meta: {
-				label: '登录'
+				label: '登录',
+				global: true
 			}
 		},
 		{
@@ -66,7 +67,8 @@ export default new Router({
 			name: 'user',
 			component: User,
 			meta: {
-				label: '个人信息'
+				label: '个人信息',
+				global: true
 			}
 		},
 		{
@@ -74,7 +76,8 @@ export default new Router({
 			name: 'password',
 			component: Password,
 			meta: {
-				label: '修改密码'
+				label: '修改密码',
+				global: true
 			}
 		},
 		{
@@ -84,7 +87,8 @@ export default new Router({
 			meta: {
 				label: '全局总览',
 				position: 'left',
-				icon: 'el-icon-s-home'
+				icon: 'el-icon-s-home',
+				global: false
 			}
 		},
 		{
@@ -94,7 +98,8 @@ export default new Router({
 			meta: {
 				label: '基础信息',
 				position: 'left',
-				icon: 'el-icon-menu'
+				icon: 'el-icon-menu',
+				global: false
 			},
 			children: [
 				{
@@ -104,6 +109,7 @@ export default new Router({
 					meta: {
 						active: '1-1',
 						label: '学院信息',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -116,14 +122,6 @@ export default new Router({
 							{
 								label: '编辑',
 								name: 'bschoolmodify'
-							},
-							{
-								label: '查询',
-								name: 'bschoollist'
-							},
-							{
-								label: '详情',
-								name: 'bschooldetail'
 							}
 						]
 					}
@@ -135,6 +133,7 @@ export default new Router({
 					meta: {
 						active: '1-2',
 						label: '专业信息',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -147,14 +146,6 @@ export default new Router({
 							{
 								label: '编辑',
 								name: 'professionmodify'
-							},
-							{
-								label: '查询',
-								name: 'professionlist'
-							},
-							{
-								label: '详情',
-								name: 'professiondetail'
 							}
 						]
 					}
@@ -166,6 +157,7 @@ export default new Router({
 					meta: {
 						active: '1-3',
 						label: '教师信息',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -178,14 +170,6 @@ export default new Router({
 							{
 								label: '编辑',
 								name: 'bteachermodify'
-							},
-							{
-								label: '查询',
-								name: 'bteacherlist'
-							},
-							{
-								label: '详情',
-								name: 'bteacherdetail'
 							}
 						]
 					}
@@ -197,6 +181,7 @@ export default new Router({
 					meta: {
 						active: '1-4',
 						label: '本科生信息',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -209,14 +194,6 @@ export default new Router({
 							{
 								label: '编辑',
 								name: 'btudentmodify'
-							},
-							{
-								label: '查询',
-								name: 'btudentlist'
-							},
-							{
-								label: '详情',
-								name: 'btudentdetail'
 							}
 						]
 					}
@@ -228,6 +205,7 @@ export default new Router({
 					meta: {
 						active: '1-5',
 						label: '研究生信息',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -240,14 +218,6 @@ export default new Router({
 							{
 								label: '编辑',
 								name: 'btudent1modify'
-							},
-							{
-								label: '查询',
-								name: 'btudent1list'
-							},
-							{
-								label: '详情',
-								name: 'btudent1detail'
 							}
 						]
 					}
@@ -261,7 +231,8 @@ export default new Router({
 			meta: {
 				label: '科研成果',
 				position: 'left',
-				icon: 'el-icon-s-data'
+				icon: 'el-icon-s-data',
+				global: false
 			},
 			children: [
 				{
@@ -271,6 +242,7 @@ export default new Router({
 					meta: {
 						active: '2-1',
 						label: '纵向科研项目',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -285,12 +257,8 @@ export default new Router({
 								name: 'subjectYmodify'
 							},
 							{
-								label: '查询',
-								name: 'subjectYlist'
-							},
-							{
-								label: '详情',
-								name: 'subjectYdetail'
+								label: '审批',
+								name: 'subjectYapprove'
 							}
 						]
 					}
@@ -302,6 +270,7 @@ export default new Router({
 					meta: {
 						active: '2-2',
 						label: '横向科研项目',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -316,12 +285,8 @@ export default new Router({
 								name: 'subjectXmodify'
 							},
 							{
-								label: '查询',
-								name: 'subjectXlist'
-							},
-							{
-								label: '详情',
-								name: 'subjectXdetail'
+								label: '审批',
+								name: 'subjectXapprove'
 							}
 						]
 					}
@@ -333,6 +298,7 @@ export default new Router({
 					meta: {
 						active: '2-3',
 						label: '科研奖励',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -347,12 +313,8 @@ export default new Router({
 								name: 'awardmodify'
 							},
 							{
-								label: '查询',
-								name: 'awardlist'
-							},
-							{
-								label: '详情',
-								name: 'awarddetail'
+								label: '审批',
+								name: 'awardapprove'
 							}
 						]
 					}
@@ -361,6 +323,7 @@ export default new Router({
 					path: 'paper',
 					name: 'paper',
 					component: Paper,
+					global: false,
 					meta: {
 						active: '2-4',
 						label: '论文',
@@ -378,12 +341,8 @@ export default new Router({
 								name: 'papermodify'
 							},
 							{
-								label: '查询',
-								name: 'paperlist'
-							},
-							{
-								label: '详情',
-								name: 'paperdetail'
+								label: '审批',
+								name: 'paperapprove'
 							}
 						]
 					}
@@ -395,6 +354,7 @@ export default new Router({
 					meta: {
 						active: '2-5',
 						label: '著作(教材)',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -409,12 +369,8 @@ export default new Router({
 								name: 'bookmodify'
 							},
 							{
-								label: '查询',
-								name: 'booklist'
-							},
-							{
-								label: '详情',
-								name: 'bookdetail'
+								label: '审批',
+								name: 'bookapprove'
 							}
 						]
 					}
@@ -426,6 +382,7 @@ export default new Router({
 					meta: {
 						active: '2-6',
 						label: '专利',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -440,12 +397,8 @@ export default new Router({
 								name: 'patentmodify'
 							},
 							{
-								label: '查询',
-								name: 'patentlist'
-							},
-							{
-								label: '详情',
-								name: 'patentdetail'
+								label: '审批',
+								name: 'patentapprove'
 							}
 						]
 					}
@@ -457,6 +410,7 @@ export default new Router({
 					meta: {
 						active: '2-7',
 						label: '软件著作权',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -471,12 +425,8 @@ export default new Router({
 								name: 'softmodify'
 							},
 							{
-								label: '查询',
-								name: 'softlist'
-							},
-							{
-								label: '详情',
-								name: 'softdetail'
+								label: '审批',
+								name: 'softapprove'
 							}
 						]
 					}
@@ -490,13 +440,15 @@ export default new Router({
 			meta: {
 				label: '教学成果',
 				position: 'left',
-				icon: 'el-icon-s-platform'
+				icon: 'el-icon-s-platform',
+				global: false
 			},
 			children: [
 				{
 					path: 'research',
 					name: 'tresearch',
 					component: Research,
+					global: false,
 					meta: {
 						active: '3-1',
 						label: '教研项目',
@@ -514,12 +466,8 @@ export default new Router({
 								name: 'tresearchmodify'
 							},
 							{
-								label: '查询',
-								name: 'tresearchlist'
-							},
-							{
-								label: '详情',
-								name: 'tresearchdetail'
+								label: '审批',
+								name: 'tresearchapprove'
 							}
 						]
 					}
@@ -531,6 +479,7 @@ export default new Router({
 					meta: {
 						active: '3-2',
 						label: '教学奖励',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -545,12 +494,8 @@ export default new Router({
 								name: 'tawardmodify'
 							},
 							{
-								label: '查询',
-								name: 'tawardlist'
-							},
-							{
-								label: '详情',
-								name: 'tawarddetail'
+								label: '审批',
+								name: 'tawardapprove'
 							}
 						]
 					}
@@ -562,6 +507,7 @@ export default new Router({
 					meta: {
 						active: '3-3',
 						label: '本科课程',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -576,12 +522,8 @@ export default new Router({
 								name: 'coursemodify'
 							},
 							{
-								label: '查询',
-								name: 'courselist'
-							},
-							{
-								label: '详情',
-								name: 'coursedetail'
+								label: '审批',
+								name: 'courseapprove'
 							}
 						]
 					}
@@ -593,6 +535,7 @@ export default new Router({
 					meta: {
 						active: '3-4',
 						label: '研究生课程',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -607,12 +550,8 @@ export default new Router({
 								name: 'graduatemodify'
 							},
 							{
-								label: '查询',
-								name: 'graduatelist'
-							},
-							{
-								label: '详情',
-								name: 'graduatedetail'
+								label: '审批',
+								name: 'graduateapprove'
 							}
 						]
 					}
@@ -624,6 +563,7 @@ export default new Router({
 					meta: {
 						active: '3-5',
 						label: '协同育人项目',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -638,12 +578,8 @@ export default new Router({
 								name: 'collamodify'
 							},
 							{
-								label: '查询',
-								name: 'collalist'
-							},
-							{
-								label: '详情',
-								name: 'colladetail'
+								label: '审批',
+								name: 'collaapprove'
 							}
 						]
 					}
@@ -657,7 +593,8 @@ export default new Router({
 			meta: {
 				label: '学生成果',
 				position: 'left',
-				icon: 'el-icon-money'
+				icon: 'el-icon-money',
+				global: false
 			},
 			children: [
 				{
@@ -667,6 +604,7 @@ export default new Router({
 					meta: {
 						active: '4-1',
 						label: '学生竞赛获奖',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -681,12 +619,8 @@ export default new Router({
 								name: 'competitionmodify'
 							},
 							{
-								label: '查询',
-								name: 'competitionlist'
-							},
-							{
-								label: '详情',
-								name: 'competitiondetail'
+								label: '审批',
+								name: 'competitionapprove'
 							}
 						]
 					}
@@ -698,6 +632,7 @@ export default new Router({
 					meta: {
 						active: '4-2',
 						label: '研究成果获奖',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -712,12 +647,8 @@ export default new Router({
 								name: 'sresearchmodify'
 							},
 							{
-								label: '查询',
-								name: 'sresearchlist'
-							},
-							{
-								label: '详情',
-								name: 'sresearchdetail'
+								label: '审批',
+								name: 'sresearchapprove'
 							}
 						]
 					}
@@ -729,6 +660,7 @@ export default new Router({
 					meta: {
 						active: '4-3',
 						label: '第二课堂实践创新',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -743,12 +675,8 @@ export default new Router({
 								name: 'secondmodify'
 							},
 							{
-								label: '查询',
-								name: 'secondlist'
-							},
-							{
-								label: '详情',
-								name: 'seconddetail'
+								label: '审批',
+								name: 'secondapprove'
 							}
 						]
 					}
@@ -760,6 +688,7 @@ export default new Router({
 					meta: {
 						active: '4-4',
 						label: '实践创业成果',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -774,12 +703,8 @@ export default new Router({
 								name: 'businessmodify'
 							},
 							{
-								label: '查询',
-								name: 'businesslist'
-							},
-							{
-								label: '详情',
-								name: 'businessdetail'
+								label: '审批',
+								name: 'businessapprove'
 							}
 						]
 					}
@@ -791,6 +716,7 @@ export default new Router({
 					meta: {
 						active: '4-5',
 						label: '优秀学位论文',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -805,12 +731,8 @@ export default new Router({
 								name: 'thesismodify'
 							},
 							{
-								label: '查询',
-								name: 'thesislist'
-							},
-							{
-								label: '详情',
-								name: 'thesisdetail'
+								label: '审批',
+								name: 'thesisapprove'
 							}
 						]
 					}
@@ -822,6 +744,7 @@ export default new Router({
 					meta: {
 						active: '4-6',
 						label: '学生荣誉表彰',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -836,12 +759,8 @@ export default new Router({
 								name: 'honormodify'
 							},
 							{
-								label: '查询',
-								name: 'honorlist'
-							},
-							{
-								label: '详情',
-								name: 'honordetail'
+								label: '审批',
+								name: 'honorapprove'
 							}
 						]
 					}
@@ -853,6 +772,7 @@ export default new Router({
 					meta: {
 						active: '4-7',
 						label: '奖学金情况',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -867,12 +787,8 @@ export default new Router({
 								name: 'scholarshipmodify'
 							},
 							{
-								label: '查询',
-								name: 'scholarshiplist'
-							},
-							{
-								label: '详情',
-								name: 'scholarshipdetail'
+								label: '审批',
+								name: 'scholarshipapprove'
 							}
 						]
 					}
@@ -886,7 +802,8 @@ export default new Router({
 			meta: {
 				label: '交流访学',
 				position: 'left',
-				icon: 'el-icon-s-flag'
+				icon: 'el-icon-s-flag',
+				global: false
 			},
 			children: [
 				{
@@ -896,6 +813,7 @@ export default new Router({
 					meta: {
 						active: '5-1',
 						label: '教师访学',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -910,12 +828,8 @@ export default new Router({
 								name: 'teachermodify'
 							},
 							{
-								label: '查询',
-								name: 'teacherlist'
-							},
-							{
-								label: '详情',
-								name: 'teacherdetail'
+								label: '审批',
+								name: 'teacherapprove'
 							}
 						]
 					}
@@ -927,6 +841,7 @@ export default new Router({
 					meta: {
 						active: '5-2',
 						label: '学生访学',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -941,12 +856,8 @@ export default new Router({
 								name: 'vstudentmodify'
 							},
 							{
-								label: '查询',
-								name: 'vstudentlist'
-							},
-							{
-								label: '详情',
-								name: 'vstudentdetail'
+								label: '审批',
+								name: 'vstudentapprove'
 							}
 						]
 					}
@@ -958,6 +869,7 @@ export default new Router({
 					meta: {
 						active: '5-3',
 						label: '教师参会',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -972,12 +884,8 @@ export default new Router({
 								name: 'attendmodify'
 							},
 							{
-								label: '查询',
-								name: 'attendlist'
-							},
-							{
-								label: '详情',
-								name: 'attenddetail'
+								label: '审批',
+								name: 'attendapprove'
 							}
 						]
 					}
@@ -989,6 +897,7 @@ export default new Router({
 					meta: {
 						active: '5-4',
 						label: '学生参会',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -1007,8 +916,8 @@ export default new Router({
 								name: 'sattendlist'
 							},
 							{
-								label: '详情',
-								name: 'sattenddetail'
+								label: '审批',
+								name: 'sattendapprove'
 							}
 						]
 					}
@@ -1020,6 +929,7 @@ export default new Router({
 					meta: {
 						active: '5-5',
 						label: '合作协议',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -1034,12 +944,8 @@ export default new Router({
 								name: 'cooperationmodify'
 							},
 							{
-								label: '查询',
-								name: 'cooperationlist'
-							},
-							{
-								label: '详情',
-								name: 'cooperationdetail'
+								label: '审批',
+								name: 'copperationapprove'
 							}
 						]
 					}
@@ -1051,6 +957,7 @@ export default new Router({
 					meta: {
 						active: '5-6',
 						label: '实习实践基地',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -1065,12 +972,8 @@ export default new Router({
 								name: 'basermodify'
 							},
 							{
-								label: '查询',
-								name: 'baserlist'
-							},
-							{
-								label: '详情',
-								name: 'baserdetail'
+								label: '审批',
+								name: 'baserapprove'
 							}
 						]
 					}
@@ -1084,7 +987,8 @@ export default new Router({
 			meta: {
 				label: '系统设置',
 				position: 'left',
-				icon: 'el-icon-setting'
+				icon: 'el-icon-setting',
+				global: false
 			},
 			children: [
 				{
@@ -1094,6 +998,7 @@ export default new Router({
 					meta: {
 						active: '6-1',
 						label: '角色管理',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -1107,14 +1012,6 @@ export default new Router({
 								label: '编辑',
 								name: 'rolemodify'
 							},
-							{
-								label: '查询',
-								name: 'rolelist'
-							},
-							{
-								label: '详情',
-								name: 'roledetail'
-							}
 						]
 					}
 				},
@@ -1125,6 +1022,7 @@ export default new Router({
 					meta: {
 						active: '6-2',
 						label: '用户管理',
+						global: false,
 						permissions: [
 							{
 								label: '添加',
@@ -1138,14 +1036,6 @@ export default new Router({
 								label: '编辑',
 								name: 'susermodify'
 							},
-							{
-								label: '查询',
-								name: 'suserlist'
-							},
-							{
-								label: '详情',
-								name: 'suserdetail'
-							}
 						]
 					}
 				},

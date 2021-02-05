@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-	  <cheader></cheader>
+	  <cheader v-bind:from='from'></cheader>
 		<el-container>
 		  <caside active=''></caside>
 			<el-main v-bind:style='"height:" + (windowH - 80) + "px"'>
