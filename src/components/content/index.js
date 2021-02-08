@@ -84,6 +84,10 @@ export default {
 			default() {
 				return {}
 			}
+		},
+		labelWidth: {
+			type: String,
+			default: '80px'
 		}
 	},
 	computed: {
@@ -109,7 +113,7 @@ export default {
 			}))
 		},
 		hasPerm(perm) {
-			return this.user.role.permissions[0] == 'all' ||  this.user.role.permissions.indexOf(this.pname + perm) > -1
+			return this.user.role.permissions.indexOf(this.pname + perm) > -1
 		},
 		importer(param) {
 			let formData = new FormData()

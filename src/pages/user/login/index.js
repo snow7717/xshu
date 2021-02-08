@@ -57,6 +57,24 @@ export default {
 								return item.useYn == true
 							})[0]
 							this.$store.commit('login', res.data.result)
+							this.$http.get('/admin/menu/list').then((res) => {
+								for(let item of res.data.result) {
+									this.$set(item,'path',`/${item.name}`)
+								}
+								let parents = res.data.result.filter((item) => {
+									return item.level == 1
+								})
+								let children
+								for(let item of parents) {
+									children = res.data.result.filter((child) => {
+										return child.parent == item.id
+									})
+									if(children.length > 0) {
+										this.$set(item,'children',children)
+									}
+								}
+								this.$store.commit('menuIndex', parents)
+							})
 							this.go('/user')
 						}else{
 							this.$message({

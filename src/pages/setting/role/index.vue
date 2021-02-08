@@ -1,5 +1,5 @@
 <template>
-  <ccontent ref='ccontent' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-on:search='index(1)' placeholder='请输入角色名' v-bind:importshow='false' v-bind:exportshow='false' v-bind:datas='datas' v-bind:selectable='false' v-bind:operawidth='operawidth' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-on:index='index' v-on:create='showform({permissions: [],delyn: true})' v-on:edit='showform' v-on:cancel='cancel'>
+  <ccontent ref='ccontent' v-bind:pname='$options.name' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-on:search='index(1)' placeholder='请输入角色名' v-bind:importshow='false' v-bind:exportshow='false' v-bind:datas='datas' v-bind:selectable='false' v-bind:operawidth='operawidth' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-on:index='index' v-on:create='showform({permissions: [],delyn: true})' v-on:edit='showform' v-on:cancel='cancel'>
 	  <div slot='table' class='f-tal'>
 		  <el-table-column label='权限范围' show-overflow-tooltip prop='scope'></el-table-column>
 		  <el-table-column label='角色状态' show-overflow-tooltip width='200px'>

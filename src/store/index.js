@@ -4,13 +4,15 @@ import Vuex from 'vuex'
 import VueXAlong from 'vuex-along'
 import config from './modules/config'
 import user from './modules/user'
+import menu from './modules/menu'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
 		config,
-    user
+    user,
+		menu
   },
 	
 	plugins: [VueXAlong()]

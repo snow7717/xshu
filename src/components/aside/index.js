@@ -17,7 +17,7 @@ export default {
 		},
 		menus() {
 			return this.$router.options.routes.filter((item) => {
-				return item.meta.position == 'left' && (this.user.role.permissions.indexOf(item.name) > -1 || this.user.role.permissions[0] == 'all') 
+				return this.user.role.permissions.indexOf(item.name) > -1
 			})
 		}
 	},
@@ -25,6 +25,8 @@ export default {
     this.windowH = document.documentElement.clientHeight || document.body.clientHeight
   },
 	created() {
+		console.log(this.$router.options.routes)
 	},
-	methods: {}
+	methods: {
+	}
 }

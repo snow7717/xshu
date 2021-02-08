@@ -7,7 +7,7 @@
 				<slot name='fields'></slot>
 				<el-form :inline="true" size='small' class='search-name f-ib f-pr' v-if='nameSearch'>
 					<el-form-item>
-						<el-input v-model="search.name" v-bind:placeholder="placeholder" prefix-icon='el-icon-search'></el-input>
+						<el-input v-model="search.name || search.label" v-bind:placeholder="placeholder" prefix-icon='el-icon-search'></el-input>
 					</el-form-item>
 					<el-form-item>
 						<el-button type="primary" v-on:click='index(1)'>查询</el-button>
@@ -32,8 +32,9 @@
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
 								<slot v-bind:data="scope.row"></slot>
-								<i v-if='scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
-								<i v-if='scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
+								<i v-if='hasPerm("approve")' class='approve f-csp el-icon-s-check' title='审批'></i>
+								<i v-if='hasPerm("modify") && scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
+								<i v-if='hasPerm("del") && scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -43,7 +44,7 @@
 				</el-col>
 			</el-row>
 			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false'>
-				<el-form :model="form" label-width='80px' size='mini' v-bind:rules="rules" ref="form">
+				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form">
 					<slot name='form'></slot>	
 				</el-form>
 				<div slot="footer" class="dialog-footer">

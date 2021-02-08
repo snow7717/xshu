@@ -1,5 +1,5 @@
 <template>
-  <ccontent ref='ccontent' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-on:search='index(1)' placeholder='请输入用户名' v-bind:importshow='false' v-bind:exportshow='false' v-bind:datas='datas' v-bind:operawidth='operawidth' v-bind:selectable='false' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-on:index='index' v-on:create='showform({status: "启用",role: []})' v-on:edit='showform' v-on:cancel='cancel'>
+  <ccontent ref='ccontent' v-bind:pname='$options.name' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-on:search='index(1)' placeholder='请输入用户名' v-bind:importshow='false' v-bind:exportshow='false' v-bind:datas='datas' v-bind:operawidth='operawidth' v-bind:selectable='false' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-on:index='index' v-on:create='showform({status: "启用",role: []})' v-on:edit='showform' v-on:cancel='cancel'>
 	  <div slot='table' class='f-tal'>
 		  <el-table-column label='账号状态' prop='status_zh' show-overflow-tooltip></el-table-column>
 	    <el-table-column prop="name" label="用户名称" show-overflow-tooltip></el-table-column>

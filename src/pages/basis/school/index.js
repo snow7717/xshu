@@ -22,13 +22,82 @@ export default {
 					id: '1',
 					number: '1111',
 					name: '山东财经大学',
-					campus: '燕山校区'
+					campus: '燕山校区',
+					editable: true,
+					deleteable: true
 				}
 			],
 			page: 1,
 			total: 0,
 			selects: [],
 			formshow: false,
+			fields: [
+				{
+					tag: 'input',
+					key: 'name',
+					label: '学院名称',
+					type: '',
+					placeholder: '',
+					disabled: false,
+					rows: 2,
+					autosize: true,
+					max: 100,
+					min: 0,
+					step: 1,
+					order: 1,
+					span: 24,
+					show: true,
+					showorder: 1,
+					width: 100
+				},
+				{
+					tag: 'input',
+					key: 'number',
+					label: '学院编号',
+					type: 'number',
+					placeholder: '',
+					disabled: false,
+					rows: 2,
+					autosize: true,
+					max: 100,
+					min: 0,
+					step: 1,
+					order: 2,
+					span: 24,
+					show: true,
+					showorder: 2,
+					width: 100
+				},
+				{
+					tag: 'select',
+					key: 'campus',
+					label: '所在校区',
+					multiple: false,
+					disabled: false,
+					placeholder: '',
+					filterable: false,
+					allowCreate: false,
+					order: 3,
+					span: 24,
+					show: true,
+					showorder: 3,
+					width: 100,
+					options: [
+						{
+							value: '燕山校区',
+							label: '燕山校区'
+						},
+						{
+							value: '舜耕校区',
+							label: '舜耕校区'
+						},
+						{
+							value: '圣井校区',
+							label: '圣井校区'
+						},
+					]
+				}
+			],
 			form: {},
 			rules: {
 				number: [
@@ -69,9 +138,15 @@ export default {
 		  this.summary = this.$route.meta.label
 		},
 		index(page,total,datas) {
-			this.page = page
-			this.total = total
-			this.datas = datas
+			[
+				this.page,
+				this.total,
+				this.datas
+			] = [
+				page,
+				total,
+				datas
+			]
 		},
 		handleDatas(val) {
 			this.selects = val

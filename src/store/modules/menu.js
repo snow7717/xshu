@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 // initial state
 const state = {  
+	datas: []
 }
 
 // getters
@@ -15,6 +16,9 @@ const actions = {
 
 // mutations
 const mutations = {
+	menuIndex(state,menus) {
+		state.datas = menus
+	}
 }
 
 export default {
