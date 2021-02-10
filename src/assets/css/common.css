@@ -51,3 +51,11 @@ h1,h2,h3,h4,h5,h6{
 .role-change .el-form-item__label{
 	color: white;
 }
+
+.field-collapse .el-collapse-item__content{
+	padding-bottom: 0px;
+}
+
+.select-table .el-form-item__content{
+	width: 100%;
+}

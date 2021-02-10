@@ -4,14 +4,14 @@
 		  <section v-for='(item,index) in menus' v-bind:key='index'>
 			  <el-submenu v-bind:index='index + ""' v-if='item.children'>
 					<template slot="title">
-						<!--<i v-bind:class='active == index ? item.icon + " icon-active" : item.icon + " icon-default"'></i>-->
-					  <span class='menu-text'>{{item.label}}</span>
+						<i v-bind:class='active == index ? item.meta.icon + " icon-active" : item.meta.icon + " icon-default"'></i>
+					  <span class='menu-text'>{{item.meta.label}}</span>
 					</template>
-					<el-menu-item v-for='(subitem,i) in item.children' v-bind:key='i' v-bind:index="index + '-' + i" v-bind:route='subitem.path'>{{subitem.label}}</el-menu-item>
+					<el-menu-item v-for='(subitem,i) in item.children' v-bind:key='i' v-bind:index="subitem.meta.active" v-bind:route='`${item.path}/${subitem.path}`'>{{subitem.meta.label}}</el-menu-item>
 				</el-submenu>
 				<el-menu-item v-else v-bind:index='index + ""' v-bind:route='item.path'> 
-					<!--<i v-bind:class='active == index ? item.icon + " icon-active" : item.icon + " icon-default"'></i>-->
-					<span class='menu-text'>{{item.label}}</span>
+					<i v-bind:class='active == index ? item.meta.icon + " icon-active" : item.meta.icon + " icon-default"'></i>
+					<span class='menu-text'>{{item.meta.label}}</span>
 				</el-menu-item>
 			</section>
     </el-menu>
