@@ -1,128 +1,61 @@
 import qs from 'qs'
-import cheader from '@/components/header/index.vue'
-import caside from '@/components/aside/index.vue'
 import ccontent from '@/components/content/index.vue'
 
 export default {
 	name: 'subjectY',
 	data() {
 		return {
-			summary: '纵向科研项目',
+			url: {
+				index: '/subjects/page',
+				importpre: '/teacher/import/pre',
+				importsave: '/teacher/import/save',
+				exporter: '/export/subject/y',
+				show: '/teacher/info',
+				save: '/teacher/save',
+				del: '/subjects/delete'
+			},
 			nameSearch: true,
 			search: {
-				name: ''
+				xy: 'y',
+				title: ''
 			},
-			labelW: '70px',
-			subjects: [],
+			labelW: '130px',
+			datas: [],
+			page: 1,
+			total: 0,
 			selects: [],
-			total: 0
+			formshow: false,
+			fields: [],
+			form: {},
+			rules: {}
 		}
 	},
 	components: {
-		cheader,
-		caside,
 		ccontent
 	},
 	created() {
-		this.index(1)
 	},
 	methods: {
-		index(page) {
-			this.$http.get(`/subjects/page/${page}/10`,{params: {xy: 'y', title: this.search.name}}).then((res) => {
-				this.total = res.data.result.total
-				this.subjects = res.data.result.list
-			})
-		},
-		toggleName() {
-			this.nameSearch = !this.nameSearch
-		},
-		handleAll(value,field){
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			this.search[field] = value ? filter.data : []
-			filter.isIndeterminate = false
-		},
-		handleChange(value,field) {
-			let filter = this.filters.filter((item) => {
-				return item.field == field
-			})[0]
-			filter.checkAll = value.length == filter.data.length
-      filter.isIndeterminate = value.length > 0 && value.length < filter.data.length
-		},
-		searcher() {
-			this.index(1)
-		},
-		handlePapers(val) {
-			this.selects = val.map((item) => {
-				return item.id
-			})
-		},
-		exporter() {
-			this.$http.get('/export/subject/y', {
-        params: {subjectsIds: this.selects},
-        paramsSerializer: (params) => {
-          return qs.stringify(params, { arrayFormat: 'repeat' })
-        }
-      }).then((res) => {
-				if(res.data.returnCode == '0') {
-				  this.$message({
-					  type: 'success',
-					  message: '导出成功!'
-				  })
-				  window.location.href = res.data.result
-				}else{
-				  this.$message({
-					  type: 'success',
-					  message: res.data.returnMsg
-				  })
-				}
-			})
-		},
-		createdsort(obj0,obj1) {
-			let [
-				date0,
-				date1
+		index(page,total,datas) {
+			[
+				this.page,
+				this.total,
+				this.datas
 			] = [
-				new Date(obj0.created_at).getTime(),
-				new Date(obj1.created_at).getTime()
+				page,
+				total,
+				datas
 			]
-      return date0 - date1
 		},
-		untilsort(obj0,obj1) {
-			let [
-				date0,
-				date1
-			] = [
-				new Date(obj0.until_at).getTime(),
-				new Date(obj1.until_at).getTime()
-			]
-      return date0 - date1
+		handleDatas(val) {
+			this.selects = val
 		},
-		del(id) {
-			this.$confirm('确定删除?', '', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-				this.$http.delete(`subjects/delete/${id}`).then((res) => {
-					if(res.data.returnCode == '0') {
-						this.$message({
-							type: 'success',
-							message: '删除成功!'
-						})
-						setTimeout(() => {
-							this.index(1)
-						},1500)
-					}else{
-						this.$message({
-							type: 'success',
-							message: res.data.returnMsg
-						})
-					}
-				})
-      }).catch(() => {         
-      })
+		showform(form) {
+			this.formshow = true
+			this.form = form
+		},
+		cancel() {
+			this.formshow = false
 		}
 	}
 }

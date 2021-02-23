@@ -3,7 +3,6 @@ import ccontent from '@/components/content/index.vue'
 export default {
 	data() {
 		return {
-			summary: '',
 			url: {
 				index: '/admin/menu/page',
 				importpre: '',
@@ -92,16 +91,11 @@ export default {
 		ccontent
 	},
 	created() {
-		this.init()
 		this.parentIndex()
 	},
 	mounted() {
 	},
 	methods: {
-		init() {
-			this.$options.name = this.$route.name
-		  this.summary = this.$route.meta.label
-		},
 		parentIndex() {
 			this.$http.get('/admin/menu/list').then((res) => {
 				this.parents = res.data.result.filter((item) => {

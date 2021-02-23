@@ -1,5 +1,5 @@
 <template>
-  <ccontent ref='ccontent' v-bind:pname='$options.name' v-bind:summary='`${summary}(${total})`' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-bind:selects='selects' v-on:search='index(1)' placeholder='请输入菜单名' v-bind:datas='datas' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-bind:labelWidth='labelWidth' v-on:index='index' v-on:handleDatas='handleDatas' v-on:create='showform({permissions: []})' v-on:edit='showform' v-on:cancel='cancel'>
+  <ccontent ref='ccontent' v-bind:url='url' v-bind:nameSearch='true' v-bind:search='search' v-bind:selects='selects' v-on:search='index(1)' placeholder='请输入菜单名' v-bind:datas='datas' v-bind:customfield='true' v-bind:page='page' v-bind:total='total' v-bind:formshow='formshow' v-bind:rules='rules' v-bind:form='form' v-bind:labelWidth='labelWidth' v-on:index='index' v-on:handleDatas='handleDatas' v-on:create='showform({permissions: []})' v-on:edit='showform' v-on:cancel='cancel'>
 		<div slot='table'>
 			<el-table-column prop='label' label='菜单名称' show-overflow-tooltip></el-table-column>
 			<el-table-column prop='level' label='菜单级别' show-overflow-tooltip>

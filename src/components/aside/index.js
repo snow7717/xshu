@@ -17,7 +17,7 @@ export default {
 		},
 		menus() {
 			return this.$router.options.routes.filter((item) => {
-				return item.meta.position == 'left' && this.user.role.permissions.indexOf(item.name) > -1
+				return item.meta.position == 'left'
 			})
 		}
 	},
@@ -26,5 +26,14 @@ export default {
   },
 	created() {
 	},
-	methods: {}
+	methods: {
+		hashowChild(children) {
+			for(let item of children)  {
+				if(this.user.role.permissions.indexOf(item.name) > -1) {
+					return true
+				}
+			}
+			return false
+		} 
+	}
 }

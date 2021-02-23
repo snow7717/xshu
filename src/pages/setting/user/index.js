@@ -9,46 +9,80 @@ export default {
 				save: '/admin/user/save',
 				del: '/admin/user/delete'
 			},
-			search: {
-				name: ''
-			},
 			datas: [],
 			operawidth: '100',
-			page: 1,
-			total: 0,
-			formshow: false,
 			form: {},
-			rules: {
-				name: [
-					{
-						required: true,
-						message: '清输入用户名',
-						trigger: 'blur'
-					}
-				],
-				account: [
-					{
-						required: true,
-						message: '清输入用户账号',
-						trigger: 'blur'
-					}
-				],
-				school: [
-					{
-						required: true,
-						message: '请选择所属学院',
-						trigger: 'change'
-					}
-				],
-				role: [
-					{
-						required: true,
-						message: '清选择所属角色',
-						trigger: 'change'
-					}
-				]
-			},
-			roles: []
+			fields: [
+				{
+					tag: 'input',
+					keyer: 'name',
+					label: '用户名称',
+					disabled: false,
+					isfilter: true,
+					isrequired: true,
+					span: 24,
+					show: true,
+					showOrder: 1
+				},
+				{
+					tag: 'input',
+					keyer: 'account',
+					label: '用户账号',
+					disabled: false,
+					isfilter: false,
+					isrequired: true,
+					span: 24,
+					show: true,
+					showOrder: 2
+				},
+				{
+					tag: 'select',
+					keyer: 'school',
+					label: '所属学院',
+					disabled: false,
+					isfilter: false,
+					isrequired: true,
+					span: 24,
+					show: true,
+					showOrder: 3,
+					options: []
+				},
+				{
+					tag: 'select',
+					keyer: 'role',
+					label: '所属角色',
+					disabled: false,
+					isfilter: false,
+					isrequired: true,
+					multiple: true,
+					span: 24,
+					show: true,
+					showOrder: 4,
+					options: []
+				},
+				{
+					tag: 'radiogroup',
+					keyer: 'status',
+					label: '账号状态',
+					disabled: false,
+					isrequired: true,
+					isfilter: false,
+					span: 24,
+					show: true,
+					showOrder: 5,
+					options: [
+						{
+							value: 1,
+							label: '启用'
+						},
+						{
+							value: 0,
+							label: '关闭'
+						}
+					]
+				}
+			],
+			rules: {}
 		}
 	},
 	computed: {
@@ -57,41 +91,28 @@ export default {
 		ccontent
 	},
 	created() {
-		this.init()
-		this.roleIndex()
+		this.fieldIndex('/admin/role/all','role','roleid','title')
+		this.fieldIndex('/school/all','school')
 	},
 	methods: {
-		init() {
-			this.$options.name = this.$route.name
-		  this.summary = this.$route.meta.label
-		},
-		roleIndex() {
-			this.$http.get('/admin/role/all').then((res) => {
-				this.roles = res.data.result
+		fieldIndex(url,field,value = 'id', label = 'name') {
+			this.$http.get(url).then((res) => {
+				this.fields.filter((item) => {
+					return item.keyer == field
+				})[0].options = res.data.result.map((item) => {
+					return {value: item[value],label: item[label]}
+				})
 			})
 		},
-		index(page,total,datas) {
+		index(datas) {
 			for(let item of datas) {
-				item.roles = item.roles.map((role) => {
-					return role.title
-				}).toString()
+				item.role = item.role.toString()
+				item.status = item.status == 1 ? '启用' : '关闭'
 			}
-			[
-				this.page,
-				this.total,
-				this.datas
-			] = [
-				page,
-				total,
-				datas
-			]
+			this.datas = datas
 		},
-		showform(role) {
-			this.formshow = true
-			this.form = role
-		},
-		cancel() {
-			this.formshow = false
+		showform(form) {
+			this.form = form
 		},
 		repass(id) {
 			this.$confirm('确定为该用户重置密码?', '', {

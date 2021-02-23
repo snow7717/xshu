@@ -3,42 +3,27 @@ import ccontent from '@/components/content/index.vue'
 export default {
 	data() {
 		return {
-			summary: '',
 			url: {
-				index: '',
+				index: '/school/page',
 				importpre: '',
 				importsave: '',
 				exporter: '',
-				show: '',
-				save: '',
-				del: ''
-			},
-			search: {
-				name: ''
+				show: '/school/get',
+				save: '/school/post',
+				del: '/school/delete'
 			},
 			labelW: '70px',
-			datas: [
-				{
-					id: '1',
-					number: '1111',
-					name: '山东财经大学',
-					campus: '燕山校区',
-					editable: true,
-					deleteable: true
-				}
-			],
-			page: 1,
-			total: 0,
-			selects: [],
-			formshow: false,
+			datas: [],
 			fields: [
 				{
 					tag: 'input',
-					key: 'name',
+					keyer: 'name',
 					label: '学院名称',
 					type: '',
-					placeholder: '',
+					placeholder: '请输入学校名称',
 					disabled: false,
+					isfilter: true,
+					isrequired: true,
 					rows: 2,
 					autosize: true,
 					max: 100,
@@ -47,16 +32,17 @@ export default {
 					order: 1,
 					span: 24,
 					show: true,
-					showorder: 1,
-					width: 100
+					showOrder: 1
 				},
 				{
 					tag: 'input',
-					key: 'number',
+					keyer: 'number',
 					label: '学院编号',
 					type: 'number',
 					placeholder: '',
 					disabled: false,
+					isfilter: false,
+					isrequired: true,
 					rows: 2,
 					autosize: true,
 					max: 100,
@@ -65,97 +51,58 @@ export default {
 					order: 2,
 					span: 24,
 					show: true,
-					showorder: 2,
-					width: 100
+					showOrder: 2,
 				},
 				{
 					tag: 'select',
-					key: 'campus',
+					keyer: 'campusid',
 					label: '所在校区',
 					multiple: false,
 					disabled: false,
-					placeholder: '',
+					isfilter: false,
+					isrequired: true,
+					placeholder: '请选择',
 					filterable: false,
 					allowCreate: false,
 					order: 3,
 					span: 24,
 					show: true,
-					showorder: 3,
-					width: 100,
-					options: [
-						{
-							value: '燕山校区',
-							label: '燕山校区'
-						},
-						{
-							value: '舜耕校区',
-							label: '舜耕校区'
-						},
-						{
-							value: '圣井校区',
-							label: '圣井校区'
-						},
-					]
+					showOrder: 3,
+					options: []
 				}
 			],
-			form: {},
-			rules: {
-				number: [
-					{
-						required: true,
-						message: '清输入学院编号',
-						trigger: 'blur'
-					}
-				],
-				name: [
-          { 
-						required: true, 
-						message: '请输入学院名称', 
-						trigger: 'blur' 
-					}
-        ],
-				campus: [
-					{
-						required: true,
-						message: '请选择所在校区',
-						trigger: 'change'
-					}
-				]
-			}
+			form: {
+				
+			},
 		}
 	},
 	components: {
 		ccontent
 	},
 	created() {
-		this.init()
+		this.fieldIndex('/campus/all','campusid')
 	},
 	mounted() {
 	},
 	methods: {
-		init() {
-			this.$options.name = this.$route.name
-		  this.summary = this.$route.meta.label
+		fieldIndex(url,field) {
+			this.$http.get(url).then((res) => {
+				this.fields.filter((item) => {
+					return item.keyer == field
+				})[0].options = res.data.result.map((item) => {
+					return {value: item.id,label: item.name}
+				})
+			})
 		},
-		index(page,total,datas) {
-			[
-				this.page,
-				this.total,
-				this.datas
-			] = [
-				page,
-				total,
-				datas
-			]
+		index(datas) {
+			for(let item of datas) {
+				this.$set(item,'editable',true)
+				this.$set(item,'deleteable',true)
+				item.campusid = item.campus
+			}
+			this.datas = datas
 		},
-		handleDatas(val) {
-			this.selects = val
-		},
-		create() {
-			this.formshow = true
-		},
-		edit(form) {
-			this.formshow = true
+		showform(form) {
 			this.form = form
 		},
 		cancel() {

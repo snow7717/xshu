@@ -17,39 +17,22 @@ export default {
 				}
 			}
 		},
-		summary: {
-			type: String
-		},
-		pname: {
-			type: String,
-			default: ''
-		},
-		nameSearch: {
-			type: Boolean
-		},
 		search: {
 			type: Object,
 			default() {
-				return {}
+				return {
+				}
 			}
 		},
-		closeShow: {
-			type: Boolean,
-			default: false
-		},
-		placeholder: {
-			type: String,
-			default: ''
-		},
-		selectable: {
-			type: Boolean,
-			default: true
-		},
-		selects: {
+		fields: {
 			type: Array,
 			default() {
 				return []
 			}
+		},
+		selectable: {
+			type: Boolean,
+			default: true
 		},
 		datas: {
 		  type: Array,
@@ -60,24 +43,6 @@ export default {
 		operawidth: {
 			type: String,
 			default: '70px'
-		},
-		page: {
-			type: Number,
-			default: 1
-		},
-		total: {
-			type: Number,
-			default: 1
-		},
-		formshow: {
-			type: Boolean,
-			default: false
-		},
-		rules: {
-			type: Object,
-			default() {
-				return {}
-			}
 		},
 		form: {
 			type: Object,
@@ -90,27 +55,65 @@ export default {
 			default: '80px'
 		}
 	},
+	data() {
+		return {
+			summary: '',
+			pname: '',
+			rules: {},
+			page: 1,
+			total: 0,
+			selects: [],
+			formshow: false
+		}
+	},
 	computed: {
 		user() {
 			return this.$store.state.user
 		},
 	},
 	created() {
+		this.init()
+		this.initRules()
+		this.initSearch()
 		this.index(this.page)
 	},
+	mounted() {},
 	methods: {
-		toggleName() {
-			this.$emit('toggleName')
+		init() {
+			this.pname = this.$route.name
+		  this.summary = this.$route.meta.label
+		},
+		initRules() {
+			let rqueireds = this.fields.filter((item) => {
+				return item.isrequired == true
+			})
+			for(let item of rqueireds) {
+				this.$set(this.rules,item.keyer,[{
+					required: true,
+					message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
+					trigger: item.tag == 'input' ? 'blur' : 'change'
+				}])
+			}
+		},
+		initSearch() {
+			let filters = this.fields.filter((item) => {
+				return item.isfilter == true
+			})
+			for(let item of filters) {
+				this.$set(this.search,item.keyer,'')
+			}
 		},
 		index(page) {
 			this.$http.get(`${this.url.index}/${page}/10`,{params: this.search}).then((res) => {
-        this.$emit('index', page, res.data.result.total, res.data.result.list)
+				this.page = page
+				this.total = res.data.result.total
+        this.$emit('index', res.data.result.list)
 			})
 		},
 		handleDatas(val) {
-			this.$emit('handleDatas',val.map((item) => {
+			this.selects = val.map((item) => {
 				return item.id
-			}))
+			})
 		},
 		hasPerm(perm) {
 			return this.user.role.permissions.indexOf(this.pname + perm) > -1
@@ -164,17 +167,32 @@ export default {
       })
 		},
 		create() {
+			this.formshow = true
 			this.$emit('create')
 		},
 		edit(id) {
+			this.formshow = true
 			this.$http.get(this.url.show + '/' + id).then((res) => {
 				this.$emit('edit',res.data.result)
 			})
 		},
 		cancel() {
-			this.$emit('cancel')
+			this.formshow = false
+		},
+		uploader(param) {
+			let formData = new FormData()
+			formData.append('files',param.file)
+			this.$http.post('/achieve/up',formData).then((res) => {
+				if(this.form[param.filename]) {
+					this.form[param.filename] = this.form[param.filename].concat(res.data.result)
+				}else{
+					this.$set(this.form,param.filename,res.data.result)
+				}
+				console.log(this.form)
+			})
 		},
 		submit(form) {
+			console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.$http.post(this.url.save, this.form).then((res) => {

@@ -5,217 +5,214 @@ export default {
 	name: 'bstudent',
 	data() {
 		return {
-			summary: '学生信息',
-			nameSearch: true,
-			search: {
-				name: ''
+			url: {
+				index: '/student/page/',
+				importpre: '/student/import/pre',
+				importsave: '/student/import/save',
+				exporter: '/export/student',
+				show: '/student/info',
+				save: '/student/save',
+				del: '/student/remove'
 			},
-			labelW: '70px',
-			basis: [],
-			page: 1,
-			total: 0,
-			selects: [],
-			editshow: false,
-			classArr: [],
-		  form: {},
-			rules: {
-				number: [
-					{
-						required: true,
-						message: '清输入学号',
-						trigger: 'blur'
-					}
-				],
-        name: [
-          { 
-						required: true, 
-						message: '请输入姓名', 
-						trigger: 'blur' 
-					}
-        ],
-				gender: [
-          { 
-						required: true, 
-						message: '请选择性别', 
-						trigger: 'change' 
-					}
-        ],
-				school: [
-          { 
-						required: true, 
-						message: '请选择学院名称', 
-						trigger: 'change' 
-					}
-        ],
-				profession: [
-          { 
-						required: true, 
-						message: '请选择专业', 
-						trigger: 'change' 
-					}
-        ],
-				class_: [
-          { 
-						required: true, 
-						message: '请选择班级', 
-						trigger: 'change' 
-					}
-        ],
-				grade: [
-          { 
-						required: true, 
-						message: '请选择年级', 
-						trigger: 'change' 
-					}
-        ],
-				birth: [
-          { 
-						required: true, 
-						message: '请选择出生日期', 
-						trigger: 'change' 
-					}
-        ],
-				education: [
-					{
-						required: true,
-						message: '清选择学历层次',
-						trigger: 'change'
-					}
-				]
-			}
+			labelW: '100px',
+			datas: [],
+			fields: [
+				{
+					tag: 'input',
+					keyer: 'number',
+					label: '学号',
+					type: 'number',
+					placeholder: '',
+					disabled: false,
+					isrequired: true,
+					isfilter: false,
+					rows: 2,
+					autosize: true,
+					max: 100,
+					min: 0,
+					step: 1,
+					order: 2,
+					span: 12,
+					show: true,
+					showOrder: 2,
+				},
+				{
+					tag: 'input',
+					keyer: 'name',
+					label: '学生姓名',
+					type: '',
+					isrequired: true,
+					isfilter: true,
+					placeholder: '',
+					disabled: false,
+					span: 12,
+					show: true,
+					width: 80,
+					showOrder: 1
+				},
+				{
+					tag: 'radiogroup',
+					keyer: 'gender',
+					label: '性别',
+					options: [
+						{
+							value: '男',
+							label: '男'
+						},
+						{
+							value: '女',
+							label: '女'
+						}
+					],
+					isrequired: true,
+					isfilter: false,
+					span: 12,
+					show: true,
+					width: 50,
+					showOrder: 3
+				},
+				{
+					tag: 'datepicker',
+					keyer: 'birthday',
+					label: '出生日期',
+					type: 'date',
+					isrequired: true,
+					isfilter: false,
+					span: 12,
+					show: false,
+					showOrder: 3
+				},
+				{
+					tag: 'select',
+					keyer: 'class_',
+					label: '班级',
+					placeholder: '请选择',
+					isrequired: true,
+					isfilter: false,
+					filterable: true,
+					allowCreate: true,
+					span: 12,
+					show: false,
+					showOrder: 12,
+					options: []
+				},
+				{
+					tag: 'datepicker',
+					keyer: 'grade',
+					label: '年级',
+					type: 'year',
+					placeholder: '请选择',
+					isrequired: true,
+					isfilter: false,
+					filterable: true,
+					allowCreate: true,
+					span: 12,
+					show: false,
+					showOrder: 12,
+					options: []
+				},
+				{
+					tag: 'select',
+					keyer: 'professionid',
+					label: '所在专业',
+					placeholder: '请选择',
+					isrequired: true,
+					isfilter: false,
+					filterable: true,
+					allowCreate: true,
+					span: 12,
+					show: true,
+					showOrder: 16,
+					options: []
+				},
+				{
+					tag: 'select',
+					keyer: 'schoolid',
+					label: '所在学院',
+					multiple: false,
+					disabled: false,
+					isrequired: true,
+					isfilter: false,
+					placeholder: '请选择',
+					filterable: true,
+					allowCreate: true,
+					span: 12,
+					show: true,
+					showorder: 4,
+					options: []
+				},
+				{
+					tag: 'select',
+					keyer: 'education',
+					label: '学历层次',
+					placeholder: '请选择',
+					isrequired: true,
+					isfilter: false,
+					filterable: true,
+					allowCreate: true,
+					span: 12,
+					show: false,
+					showOrder: 12,
+					options: [
+						{
+							value: '本科',
+							label: '本科'
+						},
+						{
+							value: '硕士',
+							label: '硕士'
+						},
+						{
+							value: '博士',
+							label: '博士'
+						},
+					]
+				},
+				{
+					tag: 'input',
+					keyer: 'teacher',
+					label: '导师姓名',
+					placeholder: '',
+					isrequired: false,
+					isfilter: false,
+					span: 12,
+					show: false,
+					showOrder: 13
+				}
+			],
+			form: {},
+			rules: {}
 		}
 	},
 	components: {
 		ccontent
 	},
 	created() {
-		this.index(this.page)
-		this.classIndex()
+		this.fieldIndex('/school/all','schoolid')
+		this.fieldIndex('profession/all','professionid')
+		this.fieldIndex('/student/class/list','class_')
 	},
 	methods: {
-		toggleName() {
-			this.nameSearch = !this.nameSearch
-		},	
-		index(page) {
-			this.page = page
-			this.$http.get(`/student/page/${page}/10`,{params: {name: this.search.name}}).then((res) => {
-				this.total = res.data.result.total
-				this.basis = res.data.result.list
-			})
-		},
-		classIndex() {
-			this.$http.get('student/class/list').then((res) => {
-				this.classArr = res.data.result
-			})
-		},
-		handlePapers(val) {
-			this.selects = val.map((item) => {
-				return item.id
-			})
-		},
-		importer(param) {
-			let formData = new FormData()
-			formData.append('files',param.file)
-			this.$http.post('/student/import/pre',formData).then((res) => {
-				if(res.data.returnCode == '0') {
-					this.$http.post('/student/import/save', {students: res.data.result}).then((res1) => {
-						if(res1.data.returnCode == '0') {
-							this.$message({
-								message: res1.data.returnMsg,
-								type: 'success'
-							})
-							this.index(this.page)
-						}else{
-							this.$message({
-								message: res1.data.returnMsg,
-								type: 'warning'
-							})
-						}
-					})
-				}else{
-					this.$message({
-						message: res.data.returnMsg,
-						type: 'warning'
-					})
-				}
-			})
-		},
-		exporter() {
-			this.$http.get('/export/student', {
-        params: {studentIds: this.selects},
-        paramsSerializer: (params) => {
-          return qs.stringify(params, { arrayFormat: 'repeat' })
-        }
-      }).then((res) => {
-        if(res.data.returnCode == '0') {
-          this.$message({
-            type: 'success',
-            message: '导出成功!'
-          })
-          window.location.href = res.data.result
-        }else{
-          this.$message({
-            type: 'success',
-            message: res.data.returnMsg
-          })
-        }
-      })
-		},
-		edit(id) {
-			this.editshow = true
-			this.$http.get(`/student/info/${id}`).then((res) => {
-				this.form = res.data.result
-			})
-		},
-		submit(form) {
-      this.$refs[form].validate((valid) => {
-        if (valid) {
-          this.$http.post('student/save', this.form).then((res) => {
-						if(res.data.returnCode == '0') {
-							this.$message({
-								message: res.data.returnMsg,
-								type: 'success'
-							})
-							setTimeout(() => {
-								this.editshow = false
-								this.index(this.page)
-							}, 1000)
-						}else{
-							this.$message({
-								message: res.data.returnMsg,
-								type: 'warning'
-							})
-						}
-					})
-        } else {
-          return false
-        }
-      })
-    },
-		del(id) {
-			this.$confirm('确定删除?', '', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-				this.$http.delete(`student/remove/${id}`).then((res) => {
-					if(res.data.returnCode == '0') {
-						this.$message({
-							type: 'success',
-							message: '删除成功!'
-						})
-						setTimeout(() => {
-							this.index(this.page)
-						},1500)
-					}else{
-						this.$message({
-							type: 'success',
-							message: res.data.returnMsg
-						})
-					}
+		fieldIndex(url,field) {
+			this.$http.get(url).then((res) => {
+				this.fields.filter((item) => {
+					return item.keyer == field
+				})[0].options = res.data.result.map((item) => {
+					return {value: item.id,label: item.name}
 				})
-      }).catch(() => {         
-      })
+			})
+		},
+		index(datas) {
+			for(let item of datas) {
+				this.$set(item,'editable',true)
+				this.$set(item,'deleteable',true)
+				item.schoolid = item.school
+				item.professionid = item.profession
+			}
+		  this.datas = datas
+		},
+		showform(form) {
+			this.form = form
 		}
 	}
 }

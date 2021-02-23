@@ -7,6 +7,7 @@ import store from './store'
 import axios from './axios'
 import ElementUI from 'element-ui'
 import ECharts from 'vue-echarts'
+import awe from 'awe-dnd'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
 import '@/assets/css/function.css'
@@ -18,6 +19,7 @@ axios.defaults.baseURL = location.href.indexOf("localhost") > 0 ? "/api" : /*'ht
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
 Vue.component('v-chart', ECharts)
+Vue.use(awe)
 
 /* eslint-disable no-new */
 new Vue({

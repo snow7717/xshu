@@ -9,14 +9,8 @@ export default {
 				save: '/admin/role/save',
 				del: '/admin/role/delete'
 			},
-			search: {
-				title: ''
-			},
 			datas: [],
 			operawidth: '0px',
-			page: 1,
-			total: 0,
-			formshow: false,
 			menu: '',
 			props: {
         children: 'children',
@@ -25,29 +19,60 @@ export default {
 			form: {
 				permissions: []
 			},
-			rules: {
-				title: [
-					{
-						required: true,
-						message: '清输入角色名称',
-						trigger: 'blur'
-					}
-				],
-				useYn: [
-					{
-						required: true,
-						message: '清选择角色状态',
-						trigger: 'change'
-					}
-				],
-				scope: [
-					{
-						required: true,
-						message: '请选择权限范围',
-						trigger: 'change'
-					}
-				]
-			}
+			fields: [
+				{
+					tag: 'input',
+					keyer: 'title',
+					label: '角色名称',
+					disabled: false,
+					isfilter: true,
+					isrequired: true,
+					span: 24,
+					show: true,
+					showOrder: 1
+				},
+				{
+					tag: 'radiogroup',
+					keyer: 'useYn',
+					isfilter: false,
+					isrequired: true,
+					label: '角色状态',
+					options: [
+						{
+							value: true,
+							label: '启用'
+						},
+						{
+							value: false,
+							label: '关闭'
+						}
+					],
+					span: 24,
+					show: true,
+					showOrder: 2
+				},
+				{
+					tag: 'select',
+					keyer: 'scope',
+					label: '权限范围',
+					isfilter: false,
+					isrequired: true,
+					options: [
+						{
+							value: '全院',
+							label: '全院'
+						},
+						{
+							value: '个人',
+							label: '个人'
+						}
+					],
+					span: 24,
+					show: true,
+					showOrder: 3
+				}
+			],
+			rules: {}
 		}
 	},
 	computed: {
@@ -77,30 +102,17 @@ export default {
 		ccontent
 	},
 	created() {
-		this.init()
 	},
 	methods: {
-		init() {
-			this.$options.name = this.$route.name
-		  this.summary = this.$route.meta.label
-		},
-		index(page,total,datas) {
+		index(datas) {
 			for(let item of datas) {
 				this.$set(item,'editable',item.delyn)
 				this.$set(item,'deleteable',item.delyn)
+				item.useYn ? item.useYn = '已启用' : item.useYn = '已关闭'
 			}
-			[
-				this.page,
-				this.total,
-				this.datas
-			] = [
-				page,
-				total,
-				datas
-			]
+			this.datas = datas
 		},
 		showform(role) {
-			this.formshow = true
 			this.form = role
 			this.$nextTick(() => {
 				this.$refs.tree.setCheckedKeys(this.form.permissions)
@@ -113,9 +125,6 @@ export default {
 				return true
 			}
     },
-		cancel() {
-			this.formshow = false
-		},
 		handleChecked(data,checkeds) {
 			this.form.permissions = checkeds.checkedKeys
 		}

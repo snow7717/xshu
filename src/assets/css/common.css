@@ -59,3 +59,24 @@ h1,h2,h3,h4,h5,h6{
 .select-table .el-form-item__content{
 	width: 100%;
 }
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+	width: auto;
+}
+
+.option-table .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item{
+	margin-bottom: 0;
+}
+
+.option-table .el-form-item__error{
+	position: inherit
+}
+
+.field-main.el-main{
+	padding: 0;
+}
+
+.field-table-form_item,.field-table-form_item .el-form-item__content:first-child{
+	width: 100%;
+}
+	

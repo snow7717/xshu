@@ -187,15 +187,15 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'btudentadd'
+								name: 'bstudentadd'
 							},
 							{
 								label: '删除',
-								name: 'btudentdel'
+								name: 'bstudentdel'
 							},
 							{
 								label: '编辑',
-								name: 'btudentmodify'
+								name: 'bstudentmodify'
 							}
 						]
 					}
@@ -211,15 +211,15 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'btudent1add'
+								name: 'bstudent1add'
 							},
 							{
 								label: '删除',
-								name: 'btudent1del'
+								name: 'bstudent1del'
 							},
 							{
 								label: '编辑',
-								name: 'btudent1modify'
+								name: 'bstudent1modify'
 							}
 						]
 					}
@@ -1071,7 +1071,7 @@ export default new Router({
 					component: Field,
 					meta: {
 						active: '6-4',
-						label: '字段管理',
+						label: '成果字段',
 						global: false,
 						permissions: []
 					}
