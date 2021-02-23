@@ -199,9 +199,9 @@
 					<el-col :span='24' v-if='hasProp(item.tag,"fields")'>
 					  <el-form-item class='field-table-form_item'>
 							<el-row class='field-table-label'>
-							  <el-col :span='12' class='f-tal'>设置字段</el-col>
+							  <el-col :span='12' class='f-tal'>设置表格字段</el-col>
 								<el-col :span='12' class='f-tar'>
-								  <el-button type='primary' size='mini' v-on:click='create(index)'>添加字段</el-button>
+								  <el-button type='primary' size='mini' v-on:click='create(index)'>添加</el-button>
 								</el-col>
 							</el-row>
 						  <el-collapse v-model="item.actives">
@@ -241,7 +241,7 @@
 											</el-form-item>
 										</el-col>
 										<el-col :span='8' v-if='hasProp(item1.tag,"datepicker")'>
-											<el-form-item label='日期类型' prop='type' v-bind:prop="'fields.' + index + 'fields.' + index1 + '.type'" v-bind:rules='rules.type'>
+											<el-form-item label='日期类型' prop='type' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.type'" v-bind:rules='rules.type'>
 												<el-select v-model='item1.type'>
 													<el-option v-for='(type,i) in dateTypes' v-bind:key='i' v-bind:value='type.value' v-bind:label='type.label'></el-option>
 												</el-select>
@@ -316,7 +316,7 @@
 											</el-form-item>
 										</el-col>
 										<el-col :span='8' v-if='hasProp(item1.tag,"limit") && item1.multiple'>
-											<el-form-item prop='limit' label='最大上传数' v-bind:prop="'fields.' + index + 'fields.' + index1 + '.limit'" v-bind:rules='rules.limit'>
+											<el-form-item prop='limit' label='最大上传数' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.limit'" v-bind:rules='rules.limit'>
 												<el-input type='number' v-model='item1.limit'></el-input>
 											</el-form-item>
 										</el-col>
@@ -328,7 +328,7 @@
 											</el-form-item>
 										</el-col>
 										<el-col :span='8' v-if='hasProp(item1.tag,"source")'>
-											<el-form-item label='选项来源' prop='source' v-bind:prop="'fields.' + index + 'fields.' + index1 + '.source'" v-bind:rules='rules.source'>
+											<el-form-item label='选项来源' prop='source' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.source'" v-bind:rules='rules.source'>
 												<el-radio-group v-model="item1.source" v-on:change='sourceChange1($event,index,index1)'>
 													<el-radio label="custom">自定义</el-radio>
 													<el-radio label="system">系统字段</el-radio>
@@ -336,33 +336,33 @@
 											</el-form-item>
 										</el-col>
 										<el-col :span='item1.source == "custom" ? 24 : 8'>
-											<el-form-item label='选项' v-if='hasProp(item1.tag,"options") && item1.source == "custom"' prop='options' v-bind:class='item1.source == "custom" ? "select-table" : ""' v-bind:prop="'fields.' + index + 'fields.' + index1 + '.options'" v-bind:rules='rules.options'>
+											<el-form-item label='选项' v-if='hasProp(item1.tag,"options") && item1.source == "custom"' prop='options' v-bind:class='item1.source == "custom" ? "select-table" : ""' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.options'" v-bind:rules='rules.options'>
 												<el-table v-bind:data="item1.options" size='mini' class='option-table w-100'>
 													<el-table-column label="显示文字">
-														<template slot-scope="scope1">
-															<el-form-item v-bind:prop="'fields.' + index + '.fields.' + index1 + '.options.' + scope1.$index + '.label'" v-bind:rules='rules.optionlabel'>
-																<el-input v-model='scope1.row.label'></el-input>
+														<template slot-scope="scope">
+															<el-form-item v-bind:prop="'fields.' + index + '.fields.' + index1 + '.options.' + scope.$index + '.label'"  v-bind:rules='rules.optionlabel'>
+																<el-input v-model='scope.row.label'></el-input>
 															</el-form-item>
 														</template>
 													</el-table-column>
 													<el-table-column label="保存值">
-														<template slot-scope="scope1">
-															<el-form-item v-bind:prop="'fields.' + index + '.fields.' + index1 + '.options.' + scope1.$index + '.value'" v-bind:rules='rules.optionvalue'>
-																<el-input v-model='scope1.row.value'></el-input>
+														<template slot-scope="scope">
+															<el-form-item v-bind:prop="'fields.' + index + '.fields.' + index1 + '.options.' + scope.$index + '.value'" v-bind:rules='rules.optionvalue'>
+																<el-input v-model='scope.row.value'></el-input>
 															</el-form-item>	
 														</template>
 													</el-table-column>
 													<el-table-column label="操作">
-														<template slot="header" slot-scope="scope1">
+														<template slot="header" slot-scope="scope">
 															<i class='el-icon-plus f-csp' title='添加' v-on:click='addOption(index,index1)'></i>
 														</template>
-														<template slot-scope="scope1">
-															<i class='el-icon-minus f-csp' title='删除' v-if='form.fields[index].fields[index1].options.length > 1' v-on:click='delOption1(index,index1,scope1.$index)'></i>
+														<template slot-scope="scope">
+															<i class='el-icon-minus f-csp' title='删除' v-if='form.fields[index].fields[index1].options.length > 1' v-on:click='delOption1(index,index1,scope.$index)'></i>
 														</template>
 													</el-table-column>
 												</el-table>
 											</el-form-item>
-											<el-form-item v-if='hasProp(item1.tag,"optionsource") && item1.source == "system"' label='选择来源' prop='optionsource' v-bind:prop="'fields.' + index + 'fields.' + index1 + '.optionsource'" v-bind:rules='rules.optionsource'>
+											<el-form-item v-if='hasProp(item1.tag,"optionsource") && item1.source == "system"' label='选择来源' prop='optionsource' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.optionsource'" v-bind:rules='rules.optionsource'>
 												<el-select v-model='item1.optionsource'>
 													<el-option v-for='(option,i) in sources' v-bind:key='i' v-bind:label='option.title' v-bind:value='option.id'></el-option>
 												</el-select>

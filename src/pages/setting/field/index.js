@@ -13,7 +13,7 @@ export default {
 					callback(new Error('同一菜单下的字段key值不能重复'))
 				}
 			} else {
-				callback(new Error('key值必填且只能输入英文字母'))
+				callback(new Error('key值必填且只能输入英文字母或下划线'))
 			}
 		}
 		let reglimit = (rule, value, callback) => {
@@ -332,13 +332,7 @@ export default {
 		menuChange(val) {
 			let mid = val[val.length - 1]
 			this.$http.get(`/form/elements/${mid}`).then((res) => {
-				for(let item of res.data.result) {
-					if(item.options == ''){
-						item.options = []
-					}
-				}
 				this.form.fields = res.data.result
-				console.log(this.form.fields)
 			})
 		},
 		sourceIndex() {
@@ -438,7 +432,6 @@ export default {
 			this.form.fields[index].fields[index1].options.splice(oindex,1)
 		},
 		submit(form) {
-			console.log(this.form)
       this.$refs[form].validate((valid,field) => {
         if (valid) {
 					for(let i = 0; i < this.form.fields.length; i++) {
