@@ -509,19 +509,19 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'courseadd'
+								name: 'caseadd'
 							},
 							{
 								label: '删除',
-								name: 'coursedel'
+								name: 'casedel'
 							},
 							{
 								label: '编辑',
-								name: 'coursemodify'
+								name: 'casemodify'
 							},
 							{
 								label: '审批',
-								name: 'courseapprove'
+								name: 'caseapprove'
 							}
 						]
 					}
@@ -537,19 +537,19 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'courseadd'
+								name: 'textbookadd'
 							},
 							{
 								label: '删除',
-								name: 'coursedel'
+								name: 'textbookdel'
 							},
 							{
 								label: '编辑',
-								name: 'coursemodify'
+								name: 'textbookmodify'
 							},
 							{
 								label: '审批',
-								name: 'courseapprove'
+								name: 'textbookapprove'
 							}
 						]
 					}
@@ -565,19 +565,19 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'courseadd'
+								name: 'buildingadd'
 							},
 							{
 								label: '删除',
-								name: 'coursedel'
+								name: 'buildingdel'
 							},
 							{
 								label: '编辑',
-								name: 'coursemodify'
+								name: 'buildingmodify'
 							},
 							{
 								label: '审批',
-								name: 'courseapprove'
+								name: 'buildingapprove'
 							}
 						]
 					}
@@ -593,19 +593,19 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'courseadd'
+								name: 'teachawardadd'
 							},
 							{
 								label: '删除',
-								name: 'coursedel'
+								name: 'teachawarddel'
 							},
 							{
 								label: '编辑',
-								name: 'coursemodify'
+								name: 'teachawardmodify'
 							},
 							{
 								label: '审批',
-								name: 'courseapprove'
+								name: 'teachawardapprove'
 							}
 						]
 					}
@@ -621,19 +621,19 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
-								name: 'courseadd'
+								name: 'titleadd'
 							},
 							{
 								label: '删除',
-								name: 'coursedel'
+								name: 'titledel'
 							},
 							{
 								label: '编辑',
-								name: 'coursemodify'
+								name: 'titlemodify'
 							},
 							{
 								label: '审批',
-								name: 'courseapprove'
+								name: 'titleapprove'
 							}
 						]
 					}
