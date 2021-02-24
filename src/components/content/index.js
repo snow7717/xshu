@@ -74,6 +74,7 @@ export default {
 	created() {
 		this.init()
 		this.initRules()
+		this.initTableRules()
 		this.initSearch()
 		this.index(this.page)
 	},
@@ -93,6 +94,22 @@ export default {
 					message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
 					trigger: item.tag == 'input' ? 'blur' : 'change'
 				}])
+			}
+		},
+		initTableRules() {
+			let tables = this.fields.filter((item) => {
+				return item.tag == 'table'
+			})
+			for(let item of tables) {
+				for(let item1 of item.fields) {
+					if(item1.isrequired) {
+						this.$set(this.rules,item1.keyer,[{
+							required: true,
+							message: item1.tag == 'input' ? `请输入${item1.label}` : `请选择${item1.label}`,
+							trigger: item1.tag == 'input' ? 'blur' : 'change'
+						}])
+					}
+				}
 			}
 		},
 		initSearch() {
@@ -188,11 +205,23 @@ export default {
 				}else{
 					this.$set(this.form,param.filename,res.data.result)
 				}
-				console.log(this.form)
 			})
 		},
+		addtable(index) {
+			let keyer = this.fields[index].keyer
+			let props = this.fields[index].fields.map((item) => {
+				return item.keyer
+			})
+			let obj = {}
+			for(let item of props) {
+				this.$set(obj,item,'')
+			}
+			this.form[keyer].push(obj)
+		},
+		deltable(keyer,index1) {
+			this.form[keyer].splice(index1,1)
+		},
 		submit(form) {
-			console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.$http.post(this.url.save, this.form).then((res) => {

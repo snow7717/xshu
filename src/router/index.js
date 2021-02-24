@@ -449,7 +449,7 @@ export default new Router({
 				{
 					path: 'research',
 					name: 'tresearch',
-					component: Research,
+					component: Tresearch,
 					global: false,
 					meta: {
 						active: '3-1',

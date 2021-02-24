@@ -63,7 +63,7 @@ export default {
 							label: '女'
 						}
 					],
-					isrequired: true,
+					isrequired: false,
 					isfilter: false,
 					span: 12,
 					show: true,
@@ -74,7 +74,7 @@ export default {
 					keyer: 'birthday',
 					label: '出生日期',
 					type: 'date',
-					isrequired: true,
+					isrequired: false,
 					isfilter: false,
 					span: 12,
 					show: false,

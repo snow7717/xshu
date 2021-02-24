@@ -123,15 +123,9 @@ export default {
 		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},
 	created() {
-		this.departIndex()
 	},
 	methods: {
-		/*--获取所有系部--*/
-		departIndex() {
-			this.$http.get('/team/college/list',{params: {name: '', type: 2, superior: ''}}).then((res) => {
-				this.departs = res.data.result
-			})
-		},
+		
 		submit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {

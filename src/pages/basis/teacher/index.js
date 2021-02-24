@@ -91,7 +91,7 @@ export default {
 					keyer: 'birthmonth',
 					label: '出生年月',
 					type: 'month',
-					isrequired: true,
+					isrequired: false,
 					isfilter: false,
 					span: 12,
 					show: false,
@@ -142,7 +142,7 @@ export default {
 				},
 				{
 					tag: 'input',
-					keyer: 'hightprofession',
+					keyer: 'highprofession',
 					label: '最高学位专业',
 					type: '',
 					placeholder: '',

@@ -119,7 +119,7 @@ export default {
 						'keyer',
 						'label',
 						'placeholder',
-						'type',
+						'datatype',
 						'diasbled',
 						'isrequired',
 						'span',
@@ -222,6 +222,10 @@ export default {
 				{
 					value: '.doc',
 					label: 'word文档'
+				},
+				{
+					value: '.xlsx',
+					label: 'excel表格'
 				}
 			],
 			sources: [],
@@ -366,8 +370,7 @@ export default {
 					options: [],
 					span: 12
 				})
-				this.form.fields[index].actives.push(this.form.fields[index].fields.length - 1)
-				
+				this.form.fields[index].actives.push(this.form.fields[index].fields.length - 1)				
 			}
 		},
 		del(i,i0 = 'none') {

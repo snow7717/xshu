@@ -29,7 +29,7 @@ export default {
 	methods: {
 		hashowChild(children) {
 			for(let item of children)  {
-				if(this.user.role.permissions.indexOf(item.name) > -1) {
+				if(this.user.role.mpermissions.indexOf(item.name) > -1) {
 					return true
 				}
 			}

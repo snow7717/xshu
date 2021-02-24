@@ -1,9 +1,15 @@
 <template>
   <el-form v-bind:model='form' ref='form' size='mini' class='form' inline v-bind:style='"max-height:" + (windowH - 101) + "px"'>
-	  <el-form-item label='选择成果'>
-		  <el-cascader v-model="form.menu" v-bind:options="menus" v-on:change='menuChange'></el-cascader>
-		</el-form-item>
-		<el-button class='f-fr' v-bind:disabled='form.menu.length == 0' type='primary' size='mini' v-on:click='create("none")'>添加字段</el-button>
+	  <el-row class='menu'>
+		  <el-col :span='16'>
+			  <el-form-item label='选择成果'>
+					<el-cascader v-model="form.menu" v-bind:options="menus" v-on:change='menuChange'></el-cascader>
+				</el-form-item>
+			</el-col>
+			<el-col :span='8' class='f-tar'>
+				<el-button v-bind:disabled='form.menu.length == 0' type='primary' size='mini' v-on:click='create("none")'>添加字段</el-button>
+			</el-col>
+		</el-row>
 		<el-collapse v-model="actives">
 		  <el-collapse-item v-for='(item,index) in form.fields' v-bind:key='index' v-dragging="{ item: item, list: form.fields}" v-bind:name="index" class='field-collapse'>
 			  <template slot="title">
@@ -40,9 +46,9 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
-					<el-col :span='8' v-if='hasProp(item.tag,"datepicker")'>
-					  <el-form-item label='日期类型' prop='type' v-bind:prop="'fields.' + index + '.type'" v-bind:rules='rules.type'>
-							<el-select v-model='item.type'>
+					<el-col :span='8' v-if='hasProp(item.tag,"datatype")'>
+					  <el-form-item label='日期类型' prop='datatype' v-bind:prop="'fields.' + index + '.datatype'" v-bind:rules='rules.datatype'>
+							<el-select v-model='item.datatype'>
 								<el-option v-for='(type,i) in dateTypes' v-bind:key='i' v-bind:value='type.value' v-bind:label='type.label'></el-option>
 							</el-select>
 						</el-form-item>

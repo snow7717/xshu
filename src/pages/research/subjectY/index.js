@@ -1,57 +1,42 @@
-import qs from 'qs'
 import ccontent from '@/components/content/index.vue'
 
 export default {
-	name: 'subjectY',
 	data() {
 		return {
 			url: {
-				index: '/subjects/page',
-				importpre: '/teacher/import/pre',
-				importsave: '/teacher/import/save',
-				exporter: '/export/subject/y',
-				show: '/teacher/info',
-				save: '/teacher/save',
-				del: '/subjects/delete'
+				index: '',
+				importpre: '',
+				importsave: '',
+				exporter: '',
+				show: '',
+				save: '',
+				del: ''
 			},
-			nameSearch: true,
-			search: {
-				xy: 'y',
-				title: ''
-			},
-			labelW: '130px',
+			labelW: '140px',
 			datas: [],
-			page: 1,
-			total: 0,
-			selects: [],
-			formshow: false,
 			fields: [],
 			form: {},
-			rules: {}
 		}
 	},
 	components: {
 		ccontent
 	},
 	created() {
+		this.fieldList()
+	},
+	mounted() {
 	},
 	methods: {
-		index(page,total,datas) {
-			[
-				this.page,
-				this.total,
-				this.datas
-			] = [
-				page,
-				total,
-				datas
-			]
+		fieldList() {
+			this.$http.get(`/form/elements/menu/${this.$route.name}`).then((res) => {
+				this.fields = res.data.result
+				console.log(this.fields)
+			})
 		},
-		handleDatas(val) {
-			this.selects = val
+		index(datas) {
+			this.datas = datas
 		},
 		showform(form) {
-			this.formshow = true
 			this.form = form
 		},
 		cancel() {

@@ -17,7 +17,8 @@ export default {
 				label: `label`      
 			},
 			form: {
-				permissions: []
+				permissions: [],
+				mpermissions: []
 			},
 			fields: [
 				{
@@ -127,6 +128,7 @@ export default {
     },
 		handleChecked(data,checkeds) {
 			this.form.permissions = checkeds.checkedKeys
+			this.form.mpermissions = checkeds.checkedKeys.concat(checkeds.halfCheckedKeys)
 		}
  	}
 }

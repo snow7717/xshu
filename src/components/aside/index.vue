@@ -1,5 +1,5 @@
 <template>
-  <el-aside v-bind:width='isCollapse ? "70px" : "206px"' class='f-pr' v-bind:style='"height:" + (windowH-80) + "px"'> 
+  <el-aside v-bind:width='isCollapse ? "52px" : "206px"' class='f-pr' v-bind:style='"height:" + (windowH-80) + "px"'> 
 	  <el-menu v-bind:default-active="active" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened v-bind:style='"min-height:" + (windowH-80) + "px"' v-bind:collapse="isCollapse" style='max-width: 200px' v-bind:collapse-transition='false' router>
 		  <section v-for='(item,index) in menus' v-bind:key='index'>
 			  <el-submenu v-bind:index='index + ""' v-if='item.children && hashowChild(item.children)'>
@@ -15,7 +15,7 @@
 				</el-menu-item>
 			</section>
     </el-menu>
-		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "64px" : "200px"}'>
+		<section class='toggle f-csp f-tac' v-on:click='isCollapse = !isCollapse' v-bind:style='{top: (windowH-60)/2 + "px",left: isCollapse ? "52px" : "200px"}'>
 			<i v-bind:class='isCollapse ? "el-icon-caret-right" : "el-icon-caret-left"'></i>
 	  </section>
 	</el-aside>
