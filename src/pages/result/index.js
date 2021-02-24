@@ -18,6 +18,11 @@ export default {
 			form: {},
 		}
 	},
+	watch:{
+		$route(to,from){
+			this.fieldList()
+		}
+	},
 	components: {
 		ccontent
 	},
@@ -30,7 +35,6 @@ export default {
 		fieldList() {
 			this.$http.get(`/form/elements/menu/${this.$route.name}`).then((res) => {
 				this.fields = res.data.result
-				console.log(this.fields)
 			})
 		},
 		index(datas) {

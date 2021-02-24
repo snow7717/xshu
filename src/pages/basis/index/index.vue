@@ -4,7 +4,9 @@
 		<el-container>
 		  <caside v-bind:active='active'></caside>
 			<el-main class='result-main'>
-			  <router-view></router-view>
+			  <keep-alive>
+			    <router-view></router-view>
+				</keep-alive>
 			</el-main>
 		</el-container>
 	</div>

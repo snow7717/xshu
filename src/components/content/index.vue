@@ -15,7 +15,7 @@
 						<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="search[item.keyer]">
 							<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 						</el-checkbox-group>
-						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.type" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.type == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : item.type == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.type == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : item.type == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
 					</el-form-item>
 					<el-form-item>
 						<el-button type="primary" v-on:click='index(1)'>查询</el-button>
@@ -66,7 +66,7 @@
 									<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 								</el-select>
 								<el-cascader v-if='item.tag == "cascader"' v-model='form[item.keyer]' v-bind:options='item.options'></el-cascader>
-								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datatype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datatype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
+								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datatype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
 								<el-upload v-if='item.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:limit="item.limit" v-bind:accept='item.accept.toString()' v-bind:disabled='item.disabled' v-bind:file-list='form[item.keyer]'>
 									<el-button size="mini" type="primary">点击上传</el-button>
 								</el-upload>

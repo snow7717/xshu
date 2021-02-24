@@ -10,6 +10,8 @@
 				<el-button v-bind:disabled='form.menu.length == 0' type='primary' size='mini' v-on:click='create("none")'>添加字段</el-button>
 			</el-col>
 		</el-row>
+		<el-alert class='alert' title="请先选择成果" type="warning" v-if='status == "init"'></el-alert>
+		<el-alert class='alert' title="该成果还未设置字段，可点击添加" type="info" v-if='status == "empty" && form.fields.length == 0'></el-alert>
 		<el-collapse v-model="actives">
 		  <el-collapse-item v-for='(item,index) in form.fields' v-bind:key='index' v-dragging="{ item: item, list: form.fields}" v-bind:name="index" class='field-collapse'>
 			  <template slot="title">
@@ -46,9 +48,9 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
-					<el-col :span='8' v-if='hasProp(item.tag,"datatype")'>
-					  <el-form-item label='日期类型' prop='datatype' v-bind:prop="'fields.' + index + '.datatype'" v-bind:rules='rules.datatype'>
-							<el-select v-model='item.datatype'>
+					<el-col :span='8' v-if='hasProp(item.tag,"datetype")'>
+					  <el-form-item label='日期类型' prop='datetype' v-bind:prop="'fields.' + index + '.datetype'" v-bind:rules='rules.datetype'>
+							<el-select v-model='item.datetype'>
 								<el-option v-for='(type,i) in dateTypes' v-bind:key='i' v-bind:value='type.value' v-bind:label='type.label'></el-option>
 							</el-select>
 						</el-form-item>
@@ -246,9 +248,9 @@
 												</el-select>
 											</el-form-item>
 										</el-col>
-										<el-col :span='8' v-if='hasProp(item1.tag,"datepicker")'>
-											<el-form-item label='日期类型' prop='type' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.type'" v-bind:rules='rules.type'>
-												<el-select v-model='item1.type'>
+										<el-col :span='8' v-if='hasProp(item1.tag,"datetype")'>
+											<el-form-item label='日期类型' prop='datetype' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.datetype'" v-bind:rules='rules.datetype'>
+												<el-select v-model='item1.datetype'>
 													<el-option v-for='(type,i) in dateTypes' v-bind:key='i' v-bind:value='type.value' v-bind:label='type.label'></el-option>
 												</el-select>
 											</el-form-item>

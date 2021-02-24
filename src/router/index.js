@@ -11,39 +11,7 @@ import Bprofession from '@/pages/basis/profession/index.vue'
 import Bteacher from '@/pages/basis/teacher/index.vue'
 import Bstudent from '@/pages/basis/student/index.vue'
 import Bstudent1 from '@/pages/basis/student1/index.vue'
-
-import Research from '@/pages/research/index/index.vue'
-import SubjectY from '@/pages/research/subjectY/index.vue'
-import SubjectX from '@/pages/research/subjectX/index.vue'
-import Award from '@/pages/research/award/index.vue'
-import Paper from '@/pages/research/paper/index.vue'
-import Book from '@/pages/research/book/index.vue'
-import Patent from '@/pages/research/patent/index.vue'
-import Soft from '@/pages/research/soft/index.vue'
-
-import Teaching from '@/pages/teaching/index/index.vue'
-import Tresearch from '@/pages/teaching/research/index.vue'
-import Taward from '@/pages/teaching/award/index.vue'
-import Course from '@/pages/teaching/course/index.vue'
-import Graduate from '@/pages/teaching/graduate/index.vue'
-import Colla from '@/pages/teaching/colla/index.vue'
-
-import Student from '@/pages/student/index/index.vue'
-import Competition from '@/pages/student/competition/index.vue'
-import Sresearch from '@/pages/student/research/index.vue'
-import Second from '@/pages/student/second/index.vue'
-import Business from '@/pages/student/business/index.vue'
-import Thesis from '@/pages/student/thesis/index.vue'
-import Honor from '@/pages/student/honor/index.vue'
-import Scholarship from '@/pages/student/scholarship/index.vue'
-
-import Visiting from '@/pages/visiting/index/index.vue'
-import Teacher from '@/pages/visiting/teacher/index.vue'
-import Vstudent from '@/pages/visiting/student/index.vue'
-import Attend from '@/pages/visiting/attend/index.vue'
-import Sattend from '@/pages/visiting/sattend/index.vue'
-import Cooperation from '@/pages/visiting/cooperation/index.vue'
-import Base from '@/pages/visiting/base/index.vue'
+import Result from '@/pages/result/index.vue'
 
 import Setting from '@/pages/setting/index/index.vue'
 import Role from '@/pages/setting/role/index.vue'
@@ -229,7 +197,7 @@ export default new Router({
 		{
 			path: '/research',
 			name: 'research',
-			component: Research,
+			component: Basis,
 			meta: {
 				label: '科研成果',
 				position: 'left',
@@ -240,7 +208,7 @@ export default new Router({
 				{
 					path: 'subjecty',
 					name: 'subjectY',
-					component: SubjectY,
+					component: Result,
 					meta: {
 						active: '2-1',
 						label: '纵向科研项目',
@@ -268,7 +236,7 @@ export default new Router({
 				{
 					path: 'subjectx',
 					name: 'subjectX',
-					component: SubjectX,
+					component: Result,
 					meta: {
 						active: '2-2',
 						label: '横向科研项目',
@@ -296,7 +264,7 @@ export default new Router({
 				{
 					path: 'award',
 					name: 'award',
-					component: Award,
+					component: Result,
 					meta: {
 						active: '2-3',
 						label: '科研奖励',
@@ -324,7 +292,7 @@ export default new Router({
 				{
 					path: 'paper',
 					name: 'paper',
-					component: Paper,
+					component: Result,
 					global: false,
 					meta: {
 						active: '2-4',
@@ -352,7 +320,7 @@ export default new Router({
 				{
 					path: 'book',
 					name: 'book',
-					component: Book,
+					component: Result,
 					meta: {
 						active: '2-5',
 						label: '著作(教材)',
@@ -380,7 +348,7 @@ export default new Router({
 				{
 					path: 'patent',
 					name: 'patent',
-					component: Patent,
+					component: Result,
 					meta: {
 						active: '2-6',
 						label: '专利',
@@ -408,7 +376,7 @@ export default new Router({
 				{
 					path: 'soft',
 					name: 'soft',
-					component: Soft,
+					component: Result,
 					meta: {
 						active: '2-7',
 						label: '软件著作权',
@@ -438,7 +406,7 @@ export default new Router({
 		{
 			path: '/teaching',
 			name: 'teaching',
-			component: Teaching,
+			component: Basis,
 			meta: {
 				label: '教学成果',
 				position: 'left',
@@ -449,7 +417,7 @@ export default new Router({
 				{
 					path: 'research',
 					name: 'tresearch',
-					component: Tresearch,
+					component: Result,
 					global: false,
 					meta: {
 						active: '3-1',
@@ -477,7 +445,7 @@ export default new Router({
 				{
 					path: 'award',
 					name: 'taward',
-					component: Taward,
+					component: Result,
 					meta: {
 						active: '3-2',
 						label: '教学奖励',
@@ -505,10 +473,10 @@ export default new Router({
 				{
 					path: 'course',
 					name: 'course',
-					component: Course,
+					component: Result,
 					meta: {
 						active: '3-3',
-						label: '本科课程',
+						label: '课程',
 						global: false,
 						permissions: [
 							{
@@ -531,57 +499,141 @@ export default new Router({
 					}
 				},
 				{
-					path: 'graduate',
-					name: 'graduate',
-					component: Graduate,
+					path: 'case',
+					name: 'case',
+					component: Result,
 					meta: {
 						active: '3-4',
-						label: '研究生课程',
+						label: '案例库',
 						global: false,
 						permissions: [
 							{
 								label: '添加',
-								name: 'graduateadd'
+								name: 'courseadd'
 							},
 							{
 								label: '删除',
-								name: 'graduatedel'
+								name: 'coursedel'
 							},
 							{
 								label: '编辑',
-								name: 'graduatemodify'
+								name: 'coursemodify'
 							},
 							{
 								label: '审批',
-								name: 'graduateapprove'
+								name: 'courseapprove'
 							}
 						]
 					}
 				},
 				{
-					path: 'colla',
-					name: 'colla',
-					component: Colla,
+					path: 'textbook',
+					name: 'textbook',
+					component: Result,
 					meta: {
 						active: '3-5',
-						label: '协同育人项目',
+						label: '教材',
 						global: false,
 						permissions: [
 							{
 								label: '添加',
-								name: 'collaadd'
+								name: 'courseadd'
 							},
 							{
 								label: '删除',
-								name: 'colladel'
+								name: 'coursedel'
 							},
 							{
 								label: '编辑',
-								name: 'collamodify'
+								name: 'coursemodify'
 							},
 							{
 								label: '审批',
-								name: 'collaapprove'
+								name: 'courseapprove'
+							}
+						]
+					}
+				},
+				{
+					path: 'building',
+					name: 'building',
+					component: Result,
+					meta: {
+						active: '3-6',
+						label: '专业建设',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'courseadd'
+							},
+							{
+								label: '删除',
+								name: 'coursedel'
+							},
+							{
+								label: '编辑',
+								name: 'coursemodify'
+							},
+							{
+								label: '审批',
+								name: 'courseapprove'
+							}
+						]
+					}
+				},
+				{
+					path: 'teachaward',
+					name: 'teachaward',
+					component: Result,
+					meta: {
+						active: '3-7',
+						label: '教学比赛获奖',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'courseadd'
+							},
+							{
+								label: '删除',
+								name: 'coursedel'
+							},
+							{
+								label: '编辑',
+								name: 'coursemodify'
+							},
+							{
+								label: '审批',
+								name: 'courseapprove'
+							}
+						]
+					}
+				},
+				{
+					path: 'title',
+					name: 'title',
+					component: Result,
+					meta: {
+						active: '3-8',
+						label: '教师称号管理',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'courseadd'
+							},
+							{
+								label: '删除',
+								name: 'coursedel'
+							},
+							{
+								label: '编辑',
+								name: 'coursemodify'
+							},
+							{
+								label: '审批',
+								name: 'courseapprove'
 							}
 						]
 					}
@@ -591,7 +643,7 @@ export default new Router({
 		{
 			path: '/student',
 			name: 'student',
-			component: Student,
+			component: Basis,
 			meta: {
 				label: '学生成果',
 				position: 'left',
@@ -602,7 +654,7 @@ export default new Router({
 				{
 					path: 'competition',
 					name: 'competition',
-					component: Competition,
+					component: Result,
 					meta: {
 						active: '4-1',
 						label: '学生竞赛获奖',
@@ -630,7 +682,7 @@ export default new Router({
 				{
 					path: 'research',
 					name: 'sresearch',
-					component: Sresearch,
+					component: Result,
 					meta: {
 						active: '4-2',
 						label: '研究成果获奖',
@@ -658,7 +710,7 @@ export default new Router({
 				{
 					path: 'second',
 					name: 'second',
-					component: Second,
+					component: Result,
 					meta: {
 						active: '4-3',
 						label: '第二课堂实践创新',
@@ -686,7 +738,7 @@ export default new Router({
 				{
 					path: 'business',
 					name: 'business',
-					component: Business,
+					component: Result,
 					meta: {
 						active: '4-4',
 						label: '实践创业成果',
@@ -714,7 +766,7 @@ export default new Router({
 				{
 					path: 'thesis',
 					name: 'thesis',
-					component: Thesis,
+					component: Result,
 					meta: {
 						active: '4-5',
 						label: '优秀学位论文',
@@ -742,7 +794,7 @@ export default new Router({
 				{
 					path: 'honor',
 					name: 'honor',
-					component: Honor,
+					component: Result,
 					meta: {
 						active: '4-6',
 						label: '学生荣誉表彰',
@@ -770,10 +822,10 @@ export default new Router({
 				{
 					path: 'scholarship',
 					name: 'scholarship',
-					component: Scholarship,
+					component: Result,
 					meta: {
 						active: '4-7',
-						label: '奖学金情况',
+						label: '奖学金',
 						global: false,
 						permissions: [
 							{
@@ -795,12 +847,68 @@ export default new Router({
 						]
 					}
 				},
+				{
+					path: 'cooperation',
+					name: 'cooperation',
+					component: Result,
+					meta: {
+						active: '4-8',
+						label: '合作协议',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'cooperationadd'
+							},
+							{
+								label: '删除',
+								name: 'cooperationdel'
+							},
+							{
+								label: '编辑',
+								name: 'cooperationmodify'
+							},
+							{
+								label: '审批',
+								name: 'copperationapprove'
+							}
+						]
+					}
+				},
+				{
+					path: 'base',
+					name: 'baser',
+					component: Result,
+					meta: {
+						active: '4-9',
+						label: '实习实践基地',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'baseradd'
+							},
+							{
+								label: '删除',
+								name: 'baserdel'
+							},
+							{
+								label: '编辑',
+								name: 'basermodify'
+							},
+							{
+								label: '审批',
+								name: 'baserapprove'
+							}
+						]
+					}
+				},
 			]
 		},
 		{
 			path: '/visiting',
 			name: 'visiting',
-			component: Visiting,
+			component: Basis,
 			meta: {
 				label: '交流访学',
 				position: 'left',
@@ -811,7 +919,7 @@ export default new Router({
 				{
 					path: 'teacher',
 					name: 'teacher',
-					component: Teacher,
+					component: Result,
 					meta: {
 						active: '5-1',
 						label: '教师访学',
@@ -839,7 +947,7 @@ export default new Router({
 				{
 					path: 'student',
 					name: 'vstudent',
-					component: Vstudent,
+					component: Result,
 					meta: {
 						active: '5-2',
 						label: '学生访学',
@@ -867,7 +975,7 @@ export default new Router({
 				{
 					path: 'attend',
 					name: 'attend',
-					component: Attend,
+					component: Result,
 					meta: {
 						active: '5-3',
 						label: '教师参会',
@@ -895,7 +1003,7 @@ export default new Router({
 				{
 					path: 'sattend',
 					name: 'sattend',
-					component: Sattend,
+					component: Result,
 					meta: {
 						active: '5-4',
 						label: '学生参会',
@@ -920,62 +1028,6 @@ export default new Router({
 							{
 								label: '审批',
 								name: 'sattendapprove'
-							}
-						]
-					}
-				},
-				{
-					path: 'cooperation',
-					name: 'cooperation',
-					component: Cooperation,
-					meta: {
-						active: '5-5',
-						label: '合作协议',
-						global: false,
-						permissions: [
-							{
-								label: '添加',
-								name: 'cooperationadd'
-							},
-							{
-								label: '删除',
-								name: 'cooperationdel'
-							},
-							{
-								label: '编辑',
-								name: 'cooperationmodify'
-							},
-							{
-								label: '审批',
-								name: 'copperationapprove'
-							}
-						]
-					}
-				},
-				{
-					path: 'base',
-					name: 'baser',
-					component: Base,
-					meta: {
-						active: '5-6',
-						label: '实习实践基地',
-						global: false,
-						permissions: [
-							{
-								label: '添加',
-								name: 'baseradd'
-							},
-							{
-								label: '删除',
-								name: 'baserdel'
-							},
-							{
-								label: '编辑',
-								name: 'basermodify'
-							},
-							{
-								label: '审批',
-								name: 'baserapprove'
 							}
 						]
 					}

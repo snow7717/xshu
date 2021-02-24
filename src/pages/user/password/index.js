@@ -66,7 +66,7 @@ export default {
 		submit(form) {
 			this.$refs[form].validate((valid) => {
         if (valid) {
-					this.$http.post('user/pwd',this.form).then((res) => {
+					this.$http.post('admin/user/pwd',this.form).then((res) => {
 						if(res.data.returnCode == '0') {
 							this.$message({
 								message: res.data.returnMsg,

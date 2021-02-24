@@ -26,6 +26,7 @@ export default {
 		return {
 			windowH: 0,
 			menus: [],
+			status: 'init',
 			form: {
 				menu: [],
 				fields: []
@@ -119,7 +120,7 @@ export default {
 						'keyer',
 						'label',
 						'placeholder',
-						'datatype',
+						'datetype',
 						'diasbled',
 						'isrequired',
 						'span',
@@ -336,6 +337,11 @@ export default {
 		menuChange(val) {
 			let mid = val[val.length - 1]
 			this.$http.get(`/form/elements/${mid}`).then((res) => {
+				if(res.data.result.length == 0){
+					this.status = 'empty'
+				}else{
+					this.status = 'success'
+				}
 				this.form.fields = res.data.result
 			})
 		},
