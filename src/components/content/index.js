@@ -71,6 +71,11 @@ export default {
 			return this.$store.state.user
 		},
 	},
+	watch:{
+		$route(to,from){
+			this.init()
+		}
+	},
 	created() {
 		this.init()
 		this.initRules()
@@ -78,7 +83,8 @@ export default {
 		this.initSearch()
 		this.index(this.page)
 	},
-	mounted() {},
+	mounted() {
+	},
 	methods: {
 		init() {
 			this.pname = this.$route.name
@@ -216,7 +222,11 @@ export default {
 			for(let item of props) {
 				this.$set(obj,item,'')
 			}
-			this.form[keyer].push(obj)
+			if(this.form[keyer]) {
+				this.form[keyer].push(obj)
+			}else{
+				this.$set(this.form,keyer,[])
+			}
 		},
 		deltable(keyer,index1) {
 			this.form[keyer].splice(index1,1)

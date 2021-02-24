@@ -43,6 +43,7 @@ export default {
 						'type',
 						'disabled',
 						'isrequired',
+						'isfilter',
 						'span',
 						'show',
 						'width',

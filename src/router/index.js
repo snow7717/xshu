@@ -685,7 +685,7 @@ export default new Router({
 					component: Result,
 					meta: {
 						active: '4-2',
-						label: '研究成果获奖',
+						label: '研究生成果获奖',
 						global: false,
 						permissions: [
 							{
@@ -708,39 +708,11 @@ export default new Router({
 					}
 				},
 				{
-					path: 'second',
-					name: 'second',
-					component: Result,
-					meta: {
-						active: '4-3',
-						label: '第二课堂实践创新',
-						global: false,
-						permissions: [
-							{
-								label: '添加',
-								name: 'secondadd'
-							},
-							{
-								label: '删除',
-								name: 'seconddel'
-							},
-							{
-								label: '编辑',
-								name: 'secondmodify'
-							},
-							{
-								label: '审批',
-								name: 'secondapprove'
-							}
-						]
-					}
-				},
-				{
 					path: 'business',
 					name: 'business',
 					component: Result,
 					meta: {
-						active: '4-4',
+						active: '4-3',
 						label: '实践创业成果',
 						global: false,
 						permissions: [
@@ -768,7 +740,7 @@ export default new Router({
 					name: 'thesis',
 					component: Result,
 					meta: {
-						active: '4-5',
+						active: '4-4',
 						label: '优秀学位论文',
 						global: false,
 						permissions: [
@@ -796,7 +768,7 @@ export default new Router({
 					name: 'honor',
 					component: Result,
 					meta: {
-						active: '4-6',
+						active: '4-5',
 						label: '学生荣誉表彰',
 						global: false,
 						permissions: [
@@ -824,7 +796,7 @@ export default new Router({
 					name: 'scholarship',
 					component: Result,
 					meta: {
-						active: '4-7',
+						active: '4-6',
 						label: '奖学金',
 						global: false,
 						permissions: [
@@ -843,6 +815,34 @@ export default new Router({
 							{
 								label: '审批',
 								name: 'scholarshipapprove'
+							}
+						]
+					}
+				},
+				{
+					path: 'second',
+					name: 'second',
+					component: Result,
+					meta: {
+						active: '4-7',
+						label: '第二课堂实践创新',
+						global: false,
+						permissions: [
+							{
+								label: '添加',
+								name: 'secondadd'
+							},
+							{
+								label: '删除',
+								name: 'seconddel'
+							},
+							{
+								label: '编辑',
+								name: 'secondmodify'
+							},
+							{
+								label: '审批',
+								name: 'secondapprove'
 							}
 						]
 					}
@@ -1093,7 +1093,7 @@ export default new Router({
 						]
 					}
 				},
-				/*{
+				{
 					path: 'menu',
 					name: 'menu',
 					component: Menu,
@@ -1116,7 +1116,7 @@ export default new Router({
 							},
 						]
 					}
-				},*/
+				},
 				{
 					path: 'field',
 					name: 'field',

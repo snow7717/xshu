@@ -12,7 +12,7 @@ export default {
 				save: '',
 				del: ''
 			},
-			labelW: '140px',
+			labelW: '100px',
 			datas: [],
 			fields: [],
 			form: {},
@@ -33,6 +33,7 @@ export default {
 	},
 	methods: {
 		fieldList() {
+			console.log(this.$options)
 			this.$http.get(`/form/elements/menu/${this.$route.name}`).then((res) => {
 				this.fields = res.data.result
 			})
