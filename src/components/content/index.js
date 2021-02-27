@@ -17,19 +17,6 @@ export default {
 				}
 			}
 		},
-		search: {
-			type: Object,
-			default() {
-				return {
-				}
-			}
-		},
-		fields: {
-			type: Array,
-			default() {
-				return []
-			}
-		},
 		selectable: {
 			type: Boolean,
 			default: true
@@ -44,12 +31,6 @@ export default {
 			type: String,
 			default: '70px'
 		},
-		form: {
-			type: Object,
-			default() {
-				return {}
-			}
-		},
 		labelWidth: {
 			type: String,
 			default: '80px'
@@ -59,36 +40,74 @@ export default {
 		return {
 			summary: '',
 			pname: '',
+			fields: [],
+			search: {},
+			searchShow: false,
+			form: {},
 			rules: {},
 			page: 1,
 			total: 0,
 			selects: [],
-			formshow: false
+			formshow: false,
+			approveshow: false,
+			menu: ''
 		}
 	},
 	computed: {
 		user() {
 			return this.$store.state.user
 		},
+		filterFields() {
+			return this.fields.filter((item) => {
+				return item.isfilter
+			})
+		},
+		menus() {
+			for(let item of this.$router.options.routes) {
+				this.$set(item,'label',item.meta.label)
+				if(item.children) {
+					for(let itemer of item.children) {
+						this.$set(itemer,'label',itemer.meta.label)
+						if(itemer.meta.permissions) {
+							this.$set(itemer,'children',itemer.meta.permissions)
+						}
+					}
+				}
+			}
+			return this.$router.options.routes.filter((item) => {
+				return item.meta.global == false
+			})
+		}
 	},
 	watch:{
 		$route(to,from){
 			this.init()
-		}
+			this.fieldIndex()
+			this.index(this.page)
+		},
+		menu(val) {
+      this.$refs.tree[0].filter(val)
+    }
 	},
 	created() {
 		this.init()
-		this.initRules()
-		this.initTableRules()
-		this.initSearch()
+		this.fieldIndex()
 		this.index(this.page)
 	},
-	mounted() {
-	},
+	mounted() {},
 	methods: {
 		init() {
 			this.pname = this.$route.name
 		  this.summary = this.$route.meta.label
+		},
+		fieldIndex() {
+			this.$http.get(`/form/elements/menu/${this.$route.name}`).then((res) => {
+				this.fields = res.data.result
+				this.initRules()
+				this.initTableRules()
+				this.initForm(this.fields,'form')
+				this.initForm(this.filterFields,'search')
+			})
 		},
 		initRules() {
 			let rqueireds = this.fields.filter((item) => {
@@ -118,13 +137,43 @@ export default {
 				}
 			}
 		},
-		initSearch() {
-			let filters = this.fields.filter((item) => {
-				return item.isfilter == true
-			})
-			for(let item of filters) {
-				this.$set(this.search,item.keyer,'')
+		initForm(fields,form) {
+			for(let item of fields) {
+				let defaulter
+				switch(item.tag) {
+					case 'input':
+						defaulter = ''
+						break
+					case 'radiogroup':
+						defaulter = ''
+						break
+					case 'checkboxgroup':
+						defaulter = []
+						break
+					case 'select':
+						if(item.multiple) {
+							defaulter = []
+						}else{
+							defaulter = ''
+						}
+						break
+					case 'datepicker':
+						defaulter = ''
+						break
+					case 'tree':
+						defaulter = []
+						break
+				}
+				this.$set(this[form],item.keyer,defaulter)
 			}
+		},
+		query() {
+			this.index(1)
+			this.searchShow = false
+		},
+		clear() {
+			this.initForm(this.filterFields,'search')
+			this.index(1)
 		},
 		index(page) {
 			this.$http.get(`${this.url.index}/${page}/10`,{params: this.search}).then((res) => {
@@ -190,14 +239,62 @@ export default {
       })
 		},
 		create() {
+			this.initForm(this.fields,'form')
 			this.formshow = true
-			this.$emit('create')
+			if(this.fields.filter((item) => {
+				return item.tag == 'tree'
+			}).length > 0) {
+				this.$set(this.form,'delyn',true)
+				this.$nextTick(() => {
+					this.$refs.tree[0].setCheckedKeys([this.form.permissions])
+				})
+			}
 		},
 		edit(id) {
 			this.formshow = true
 			this.$http.get(this.url.show + '/' + id).then((res) => {
-				this.$emit('edit',res.data.result)
+				this.form = res.data.result
+				if(this.fields.filter((item) => {
+					return item.tag == 'tree'
+				}).length > 0) {
+					this.$nextTick(() => {
+						this.$refs.tree[0].setCheckedKeys(this.form.permissions)
+					})
+				}
 			})
+		},
+		handleApprove(id) {
+			this.approveshow = true
+			this.$http.get(this.url.show + '/' + id).then((res) => {
+				this.form = res.data.result
+			})
+		},
+		approve(id,status) {
+			let approvestr = status == 2 ? '审批通过?' : '审批不通过?'
+			this.$confirm('确定' + approvestr, '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+				this.$http.post('/achieves/approve',{id: id, status: status}).then((res) => {
+					if(res.data.returnCode == '0') {
+						this.$message({
+							type: 'success',
+							message: res.data.returnMsg
+						})
+						setTimeout(() => {
+							this.index(this.page)
+						},1500)
+					}else{
+						this.$message({
+							type: 'warning',
+							message: res.data.returnMsg
+						})
+					}
+					console.log(res)
+				})
+			}).catch(() => {         
+      })
 		},
 		cancel() {
 			this.formshow = false
@@ -231,9 +328,23 @@ export default {
 		deltable(keyer,index1) {
 			this.form[keyer].splice(index1,1)
 		},
+		/*-- 处理树形空间 --*/
+		filterNode(value, data) {
+			if(value) {
+				return data.label.indexOf(value) != -1
+			}else{
+				return true
+			}
+    },
+		handleChecked(data,checkeds) {
+			this.form.permissions = checkeds.checkedKeys
+			this.form.mpermissions = checkeds.checkedKeys.concat(checkeds.halfCheckedKeys)
+		},
+		/*-- 提交表单 --*/
 		submit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+					this.$set(this.form,'_menu',this.$route.name)
           this.$http.post(this.url.save, this.form).then((res) => {
 						if(res.data.returnCode == '0') {
 							this.$message({
@@ -273,7 +384,7 @@ export default {
 						},1500)
 					}else{
 						this.$message({
-							type: 'success',
+							type: 'warning',
 							message: res.data.returnMsg
 						})
 					}

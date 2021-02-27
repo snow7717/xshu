@@ -151,7 +151,7 @@
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
-					<el-col :span='8' v-if='hasProp(item.tag,"limit") && item.multiple'>
+					<el-col :span='8' v-if='hasProp(item.tag,"limit")'>
 					  <el-form-item prop='limit' label='最大上传数' v-bind:prop="'fields.' + index + '.limit'" v-bind:rules='rules.limit'>
 						  <el-input type='number' v-model='item.limit'></el-input>
 						</el-form-item>
@@ -216,7 +216,7 @@
 								<el-collapse-item v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:name="index1" class='field-collapse'>
 									<template slot="title">
 										{{item1.label}}
-										<i class="field-delete el-icon-delete f-csp" title='删除该字段' v-on:click.stop='del(index,index1)'></i>
+										<i class="field-delete el-icon-delete f-csp" title='删除该字段' v-if='item.fields.length > 1' v-on:click.stop='del(index,index1)'></i>
 									</template>
 									<el-row>
 										<el-col :span='8'>
@@ -323,7 +323,7 @@
 												</el-radio-group>
 											</el-form-item>
 										</el-col>
-										<el-col :span='8' v-if='hasProp(item1.tag,"limit") && item1.multiple'>
+										<el-col :span='8' v-if='hasProp(item1.tag,"limit")'>
 											<el-form-item prop='limit' label='最大上传数' v-bind:prop="'fields.' + index + '.fields.' + index1 + '.limit'" v-bind:rules='rules.limit'>
 												<el-input type='number' v-model='item1.limit'></el-input>
 											</el-form-item>

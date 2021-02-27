@@ -3,8 +3,8 @@
 		<el-container class='search-bar'>
 			<el-main class='bar-main'>
 				<i class='bar-item0 f-fsn'>{{summary}}({{total}})</i>
-				<el-form :inline="true" size='small' class='search-name f-ib f-pr'>
-					<el-form-item v-for='(item,index) in fields' v-bind:key='index' v-if='item.isfilter'>
+				<el-form :model='search' :inline="true" size='small' class='search-name f-ib f-pr' v-if='filterFields.length > 0'>
+					<el-form-item v-for='(item,index) in filterFields' v-bind:key='index' v-if='index == 0' v-bind:label='item.tag == "radiogroup" || item.tag == "checkboxgroup" ? item.label : ""'>
 					  <el-input v-if='item.tag == "input"' v-model='search[item.keyer]' v-bind:placeholder='item.label'></el-input>
 						<el-select v-if='item.tag == "select"' v-model='search[item.keyer]' v-bind:placeholder='item.label' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate' clearable>
 						  <el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:value='option.value' v-bind:label='option.label'></el-option>
@@ -15,10 +15,29 @@
 						<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="search[item.keyer]">
 							<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 						</el-checkbox-group>
-						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.type == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : item.type == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
 					</el-form-item>
+					<el-popover placement="right" width="400" trigger="click" v-model='searchShow' v-if='filterFields.length > 1'>
+					  <el-form-item v-for='(item,index) in filterFields' v-bind:key='index' v-if='index > 1' class='query-item' v-bind:label='item.tag == "radiogroup" || item.tag == "checkboxgroup" ? item.label : ""'>
+							<el-input v-if='item.tag == "input"' v-model='search[item.keyer]' v-bind:placeholder='item.label'></el-input>
+							<el-select v-if='item.tag == "select"' v-model='search[item.keyer]' v-bind:placeholder='item.label' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate' clearable>
+								<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:value='option.value' v-bind:label='option.label'></el-option>
+							</el-select>
+							<el-radio-group v-if='item.tag == "radiogroup"' v-model="search[item.keyer]">
+								<el-radio v-for='(radio,i) in item.options' v-bind:key='i' v-bind:label="radio.value">{{radio.label}}</el-radio>
+							</el-radio-group>
+							<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="search[item.keyer]">
+								<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
+							</el-checkbox-group>
+							<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+						</el-form-item>
+						<el-button type="primary" v-on:click='query' size='mini'>查询</el-button>
+						<el-button type="default" size='mini' v-on:click='searchShow = false'>取消</el-button>
+						<el-link type="primary" slot="reference">更多晒选项</el-link>
+					</el-popover>
 					<el-form-item>
-						<el-button type="primary" v-on:click='index(1)'>查询</el-button>
+						<el-button class='query' type="primary" v-on:click='index(1)'>查询</el-button>
+						<el-button class='clear' type='default' v-on:click='clear'>清除</el-button>
 					</el-form-item>
 				</el-form>
 			</el-main>
@@ -34,12 +53,35 @@
 			<el-row>
 				<el-col :span='24'>
 					<el-table v-bind:data="datas" stripe class='w-100' size='small' @selection-change="handleDatas">
+						<el-table-column type="expand">
+							<template slot-scope="props">
+								<el-form label-position="left" inline size='mini'>
+									<el-row>
+										<el-col v-for='(item,index) in fields' v-bind:key='index' v-if='!item.show' v-bind:span='item.tag == "table" ? 24 : item.span'>
+											<el-form-item v-bind:label="item.label">
+												<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
+													<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
+														<template slot-scope='scope'>
+															<el-form-item>
+															  <i>{{scope.row[item1.keyer]}}</i>
+															</el-form-item>
+														</template>
+													</el-table-column>
+												</el-table>
+												<i v-else>{{form[item.keyer]}}</i>
+											</el-form-item>
+										</el-col>
+									</el-row>
+								</el-form>
+							</template>
+						</el-table-column>
 						<el-table-column v-if='selectable' type="selection" fixed width="40"></el-table-column>
 						<el-table-column v-for='(item,index) in fields' v-bind:key='index' v-if='item.show' v-bind:prop='item.keyer' v-bind:label='item.label' v-bind:width='item.width' show-overflow-tooltip></el-table-column>
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
 								<slot v-bind:data="scope.row"></slot>
-								<i v-if='hasPerm("approve")' class='approve f-csp el-icon-s-check' title='审批'></i>
+								<i v-if='hasPerm("approve") && scope.row.status == 1' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
+								<i v-if='hasPerm("approve") && scope.row.status == 1' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
 								<i v-if='hasPerm("modify") && scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
 								<i v-if='hasPerm("del") && scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>
@@ -66,7 +108,7 @@
 									<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 								</el-select>
 								<el-cascader v-if='item.tag == "cascader"' v-model='form[item.keyer]' v-bind:options='item.options'></el-cascader>
-								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datatype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
+								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
 								<el-upload v-if='item.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:limit="item.limit" v-bind:accept='item.accept.toString()' v-bind:disabled='item.disabled' v-bind:file-list='form[item.keyer]'>
 									<el-button size="mini" type="primary">点击上传</el-button>
 								</el-upload>
@@ -85,7 +127,7 @@
 													<el-option v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
 												<el-cascader v-if='item1.tag == "cascader"' v-model='scope.row[item1.keyer]' v-bind:options='item1.options'></el-cascader>
-												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datatype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='item1.disabled' v-bind:value-format='item1.datatype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
+												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='item1.disabled' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
 												<el-upload v-if='item1.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:name='item1.keyer' v-bind:multiple='item1.multiple' v-bind:limit="item1.limit" v-bind:accept='item1.accept.toString()' v-bind:disabled='item1.disabled' v-bind:file-list='scope.row[item.keyer]'>
 													<el-button size="mini" type="primary">点击上传</el-button>
 												</el-upload>
@@ -101,15 +143,18 @@
 										</template>
 									</el-table-column>
 								</el-table>
+								<section v-if='item.tag == "tree"'>
+									<el-input placeholder="输入菜单名进行过滤" v-model="menu" size='mini'></el-input>
+									<el-tree class="filter-tree" check-on-click-node node-key='name' v-bind:data="menus" v-bind:props="{children: 'children',label: 'label'}" v-bind:filter-node-method="filterNode" ref="tree" v-bind:show-checkbox='form.delyn' v-on:check='handleChecked'></el-tree>
+								</section>
 							</el-form-item>
 						</el-col>
-						<slot name='special'></slot>
 					</el-row>
 				</el-form>
-				<div slot="footer" class="dialog-footer">
+				<footer slot="footer" class="dialog-footer">
 					<el-button @click="cancel" size='mini'>取 消</el-button>
 					<el-button type="primary" size='mini' v-on:click='submit("form")' v-bind:disabled='form.delyn == false ? true : false'>确 定</el-button>
-				</div>
+				</footer>
 			</el-dialog>
 		</el-container>
 	</div>

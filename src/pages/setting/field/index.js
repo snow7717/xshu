@@ -141,7 +141,6 @@ export default {
 						'span',
 						'show',
 						'width',
-						'multiple',
 						'limit',
 						'accept'
 					]
