@@ -23,6 +23,7 @@ export default {
 			for(let item of datas) {
 				item.role = item.role.toString()
 				item.status = item.status == 1 ? '启用' : '关闭'
+				item.school = item.school_zh
 			}
 			this.datas = datas
 		},

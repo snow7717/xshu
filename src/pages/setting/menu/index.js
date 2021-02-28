@@ -23,7 +23,6 @@ export default {
 	mounted() {},
 	methods: {
 		index(datas) {
-			console.log(datas)
 			for(let item of datas) {
 				this.$set(item,'editable',true)
 				this.$set(item,'deleteable',true)

@@ -5,12 +5,8 @@ import User from '@/pages/user/index/index.vue'
 import Password from '@/pages/user/password/index.vue'
 
 import Index from '@/pages/index/index.vue'
-import Basis from '@/pages/basis/index/index.vue'
-import Bschool from '@/pages/basis/school/index.vue'
-import Bprofession from '@/pages/basis/profession/index.vue'
-import Bteacher from '@/pages/basis/teacher/index.vue'
-import Bstudent from '@/pages/basis/student/index.vue'
-import Bstudent1 from '@/pages/basis/student1/index.vue'
+import Layout from '@/pages/layout/index.vue'
+import Basis from '@/pages/basis/index.vue'
 import Result from '@/pages/result/index.vue'
 
 import Setting from '@/pages/setting/index/index.vue'
@@ -64,7 +60,7 @@ export default new Router({
 		{
 			path: '/basis',
 			name: 'basis',
-			component: Basis,
+			component: Layout,
 			meta: {
 				label: '基础信息',
 				position: 'left',
@@ -75,7 +71,7 @@ export default new Router({
 				{
 					path: 'school',
 					name: 'bschool',
-					component: Bschool,
+					component: Basis,
 					meta: {
 						active: '1-1',
 						label: '学院信息',
@@ -99,7 +95,7 @@ export default new Router({
 				{
 					path: 'profession',
 					name: 'profession',
-					component: Bprofession,
+					component: Basis,
 					meta: {
 						active: '1-2',
 						label: '专业信息',
@@ -123,7 +119,7 @@ export default new Router({
 				{
 					path: 'teacher',
 					name: 'bteacher',
-					component: Bteacher,
+					component: Basis,
 					meta: {
 						active: '1-3',
 						label: '教师信息',
@@ -147,7 +143,7 @@ export default new Router({
 				{
 					path: 'student',
 					name: 'bstudent',
-					component: Bstudent,
+					component: Basis,
 					meta: {
 						active: '1-4',
 						label: '本科生信息',
@@ -171,7 +167,7 @@ export default new Router({
 				{
 					path: 'student1',
 					name: 'bstudent1',
-					component: Bstudent1,
+					component: Basis,
 					meta: {
 						active: '1-5',
 						label: '研究生信息',
@@ -197,7 +193,7 @@ export default new Router({
 		{
 			path: '/research',
 			name: 'research',
-			component: Basis,
+			component: Layout,
 			meta: {
 				label: '科研成果',
 				position: 'left',
@@ -406,7 +402,7 @@ export default new Router({
 		{
 			path: '/teaching',
 			name: 'teaching',
-			component: Basis,
+			component: Layout,
 			meta: {
 				label: '教学成果',
 				position: 'left',
@@ -643,7 +639,7 @@ export default new Router({
 		{
 			path: '/student',
 			name: 'student',
-			component: Basis,
+			component: Layout,
 			meta: {
 				label: '学生成果',
 				position: 'left',
@@ -908,7 +904,7 @@ export default new Router({
 		{
 			path: '/visiting',
 			name: 'visiting',
-			component: Basis,
+			component: Layout,
 			meta: {
 				label: '交流访学',
 				position: 'left',
@@ -1093,7 +1089,7 @@ export default new Router({
 						]
 					}
 				},
-				/*{
+				{
 					path: 'menu',
 					name: 'menu',
 					component: Menu,
@@ -1116,7 +1112,7 @@ export default new Router({
 							},
 						]
 					}
-				},*/
+				},
 				{
 					path: 'field',
 					name: 'field',
