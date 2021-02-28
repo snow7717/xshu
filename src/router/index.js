@@ -1093,7 +1093,7 @@ export default new Router({
 						]
 					}
 				},
-				{
+				/*{
 					path: 'menu',
 					name: 'menu',
 					component: Menu,
@@ -1116,7 +1116,7 @@ export default new Router({
 							},
 						]
 					}
-				},
+				},*/
 				{
 					path: 'field',
 					name: 'field',

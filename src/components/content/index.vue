@@ -68,7 +68,7 @@
 														</template>
 													</el-table-column>
 												</el-table>
-												<i v-else>{{form[item.keyer]}}</i>
+												<i v-else>{{props.row[item.keyer]}}</i>
 											</el-form-item>
 										</el-col>
 									</el-row>

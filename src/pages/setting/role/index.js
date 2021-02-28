@@ -13,12 +13,8 @@ export default {
 			operawidth: '0px'
 		}
 	},
-	computed: {
-		
-	},
-	watch: {
-    
-  },
+	computed: {},
+	watch: {},
 	components: {
 		ccontent
 	},

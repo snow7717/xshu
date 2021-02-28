@@ -25,6 +25,7 @@ export default {
     this.windowH = document.documentElement.clientHeight || document.body.clientHeight
   },
 	created() {
+		console.log(this.user.role)
 	},
 	methods: {
 		hashowChild(children) {
