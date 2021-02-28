@@ -300,7 +300,7 @@ export default {
 		uploader(param) {
 			let formData = new FormData()
 			formData.append('files',param.file)
-			this.$http.post('/achieve/up',formData).then((res) => {
+			this.$http.post('/achieves/up',formData).then((res) => {
 				if(this.form[param.filename]) {
 					this.form[param.filename] = this.form[param.filename].concat(res.data.result)
 				}else{

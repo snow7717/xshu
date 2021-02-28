@@ -3,7 +3,7 @@ import ccontent from '@/components/content/index.vue'
 export default {
 	data() {
 		return {
-			labelW: '100px',
+			labelW: '120px',
 			datas: [],
 		}
 	},

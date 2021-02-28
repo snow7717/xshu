@@ -68,7 +68,12 @@
 														</template>
 													</el-table-column>
 												</el-table>
-												<i v-else>{{props.row[item.keyer]}}</i>
+												<el-row v-if='item.tag == "file"'>
+												  <el-col v-bind:span='12' v-for='(file,i) in props.row[item.keyer]' v-bind:key='i'>
+													  <el-link v-bind:href="file.url" target="_blank">{{file.name}}</el-link>
+													</el-col>
+												</el-row>
+												<i v-if='item.tag == "input" || item.tag == "select" || item.tag == "datepicker" || item.tag == "radiogroup" || item.tag == "checkboxgroup"'>{{props.row[item.keyer]}}</i>
 											</el-form-item>
 										</el-col>
 									</el-row>
