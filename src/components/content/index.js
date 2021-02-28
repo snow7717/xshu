@@ -81,9 +81,7 @@ export default {
 	},
 	watch:{
 		$route(to,from){
-			this.init()
-			this.fieldIndex()
-			this.index(this.page)
+			window.location.reload()
 		},
 		menu(val) {
       this.$refs.tree[0].filter(val)
