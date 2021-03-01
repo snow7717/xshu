@@ -308,6 +308,9 @@ export default {
 				}
 			})
 		},
+		fileremove(file,files,keyer) {
+			this.form[keyer] = files
+		},
 		addtable(index) {
 			let keyer = this.fields[index].keyer
 			let props = this.fields[index].fields.map((item) => {

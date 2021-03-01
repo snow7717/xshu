@@ -57,7 +57,7 @@
 							<template slot-scope="props">
 								<el-form label-position="left" inline size='mini'>
 									<el-row>
-										<el-col v-for='(item,index) in fields' v-bind:key='index' v-if='!item.show' v-bind:span='item.tag == "table" ? 24 : item.span'>
+										<el-col v-for='(item,index) in fields' v-bind:key='index' v-if='!item.show' v-bind:span='item.tag == "table" || item.tag == "file" ? 24 : item.span'>
 											<el-form-item v-bind:label="item.label">
 												<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
 													<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
@@ -69,11 +69,18 @@
 													</el-table-column>
 												</el-table>
 												<el-row v-if='item.tag == "file"'>
-												  <el-col v-bind:span='12' v-for='(file,i) in props.row[item.keyer]' v-bind:key='i'>
+												  <el-col v-bind:span='24' v-for='(file,i) in props.row[item.keyer]' v-bind:key='i'>
 													  <el-link v-bind:href="file.url" target="_blank">{{file.name}}</el-link>
 													</el-col>
 												</el-row>
 												<i v-if='item.tag == "input" || item.tag == "select" || item.tag == "datepicker" || item.tag == "radiogroup" || item.tag == "checkboxgroup"'>{{props.row[item.keyer]}}</i>
+											</el-form-item>
+										</el-col>
+									</el-row>
+									<el-row>
+									  <el-col :span='24'>
+										  <el-form-item v-if='props.row.status' label='审核状态'>
+											  {{props.row.status == 1 ? '待审核' : props.row.status == 2 ? '审核通过' : '审核不通过'}}
 											</el-form-item>
 										</el-col>
 									</el-row>
@@ -114,7 +121,7 @@
 								</el-select>
 								<el-cascader v-if='item.tag == "cascader"' v-model='form[item.keyer]' v-bind:options='item.options'></el-cascader>
 								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
-								<el-upload v-if='item.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:limit="item.limit" v-bind:accept='item.accept.toString()' v-bind:disabled='item.disabled' v-bind:file-list='form[item.keyer]'>
+								<el-upload v-if='item.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:on-remove="(file,files) => fileremove(file,files,item.keyer)" v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:limit="item.limit" v-bind:accept='item.accept.toString()' v-bind:disabled='item.disabled' v-bind:file-list='form[item.keyer]'>
 									<el-button size="mini" type="primary">点击上传</el-button>
 								</el-upload>
 								<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
