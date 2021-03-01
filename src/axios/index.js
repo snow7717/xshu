@@ -10,7 +10,9 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     config.headers = {
-		  'Access-token': store.state.user.token
+		  'Access-token': store.state.user.token ? store.state.user.token : '',
+			'Access-role': store.state.user.role ? store.state.user.role.roleid : '',
+			'Access-SCOPE': store.state.user.role ? store.state.user.role.scope == '全院' ? 1 : 0 : ''
     }
     return config
   },

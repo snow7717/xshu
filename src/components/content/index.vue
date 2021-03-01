@@ -79,8 +79,8 @@
 									</el-row>
 									<el-row>
 									  <el-col :span='24'>
-										  <el-form-item v-if='props.row.status' label='审核状态'>
-											  {{props.row.status == 1 ? '待审核' : props.row.status == 2 ? '审核通过' : '审核不通过'}}
+										  <el-form-item v-if='props.row._status' label='审核状态'>
+											  {{props.row._status == 1 ? '待审核' : props.row._status == 2 ? '审核通过' : '审核不通过'}}
 											</el-form-item>
 										</el-col>
 									</el-row>
@@ -92,8 +92,8 @@
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
 								<slot v-bind:data="scope.row"></slot>
-								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
-								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
+								<i v-if='hasPerm("approve") && scope.row.approveable && scope.row._status == 1' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
+								<i v-if='hasPerm("approve") && scope.row.approveable && scope.row._status == 1' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
 								<i v-if='hasPerm("modify") && scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
 								<i v-if='hasPerm("del") && scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>

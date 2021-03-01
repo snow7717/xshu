@@ -269,12 +269,12 @@ export default {
 		},
 		approve(id,status) {
 			let approvestr = status == 2 ? '审批通过?' : '审批不通过?'
-			this.$confirm('确定' + approvestr, '', {
+			this.$prompt('请输入审批意见', '确定' + approvestr, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-				this.$http.post('/achieves/approve',{id: id, status: status}).then((res) => {
+      }).then((value) => {
+				this.$http.post('/achieves/approve',{id: id, _status: status,suggest: value}).then((res) => {
 					if(res.data.returnCode == '0') {
 						this.$message({
 							type: 'success',

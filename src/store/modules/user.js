@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 // initial state
-const state = {	
+const state = {
 }
 
 // getters
