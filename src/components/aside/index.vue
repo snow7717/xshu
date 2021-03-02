@@ -9,7 +9,7 @@
 					</template>
 					<el-menu-item v-for='(subitem,i) in item.children' v-bind:key='i' v-if='user.role.mpermissions.indexOf(subitem.name) > -1' v-bind:index="subitem.meta.active" v-bind:route='`${item.path}/${subitem.path}`'>{{subitem.meta.label}}</el-menu-item>
 				</el-submenu>
-				<el-menu-item v-if='!item.children' v-bind:index='index + ""' v-bind:route='item.path'> 
+				<el-menu-item v-if='!item.children && user.role.mpermissions.indexOf(item.name) > -1' v-bind:index='index + ""' v-bind:route='item.path'> 
 					<i v-bind:class='active == index ? item.meta.icon + " icon-active" : item.meta.icon + " icon-default"'></i>
 					<span class='menu-text'>{{item.meta.label}}</span>
 				</el-menu-item>
