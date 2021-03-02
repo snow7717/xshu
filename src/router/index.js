@@ -78,6 +78,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'bschoolshow'
+							},
+							{
 								label: '添加',
 								name: 'bschooladd'
 							},
@@ -101,6 +105,10 @@ export default new Router({
 						label: '专业信息',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'professionshow'
+							},
 							{
 								label: '添加',
 								name: 'professionadd'
@@ -126,6 +134,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'bteachershow'
+							},
+							{
 								label: '添加',
 								name: 'bteacheradd'
 							},
@@ -150,6 +162,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'bstudentshow'
+							},
+							{
 								label: '添加',
 								name: 'bstudentadd'
 							},
@@ -173,6 +189,10 @@ export default new Router({
 						label: '研究生信息',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'bstudent1show'
+							},
 							{
 								label: '添加',
 								name: 'bstudent1add'
@@ -211,6 +231,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'subjectYshow'
+							},
+							{
 								label: '添加',
 								name: 'subjectYadd'
 							},
@@ -238,6 +262,10 @@ export default new Router({
 						label: '横向科研项目',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'subjectXshow'
+							},
 							{
 								label: '添加',
 								name: 'subjectXadd'
@@ -267,6 +295,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'awardshow'
+							},
+							{
 								label: '添加',
 								name: 'awardadd'
 							},
@@ -294,6 +326,10 @@ export default new Router({
 						active: '2-4',
 						label: '论文',
 						permissions: [
+							{
+								label: '查看',
+								name: 'papershow'
+							},
 							{
 								label: '添加',
 								name: 'paperadd'
@@ -323,6 +359,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'bookshow'
+							},
+							{
 								label: '添加',
 								name: 'bookadd'
 							},
@@ -351,6 +391,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'patentshow'
+							},
+							{
 								label: '添加',
 								name: 'patentadd'
 							},
@@ -378,6 +422,10 @@ export default new Router({
 						label: '软件著作权',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'softshow'
+							},
 							{
 								label: '添加',
 								name: 'softadd'
@@ -420,6 +468,10 @@ export default new Router({
 						label: '教研项目',
 						permissions: [
 							{
+								label: '查看',
+								name: 'tresearchshow'
+							},
+							{
 								label: '添加',
 								name: 'tresearchadd'
 							},
@@ -449,6 +501,10 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
+								name: 'tawardshow'
+							},
+							{
+								label: '添加',
 								name: 'tawardadd'
 							},
 							{
@@ -475,6 +531,10 @@ export default new Router({
 						label: '课程',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'tawardshow'
+							},
 							{
 								label: '添加',
 								name: 'courseadd'
@@ -504,6 +564,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'caseshow'
+							},
+							{
 								label: '添加',
 								name: 'caseadd'
 							},
@@ -531,6 +595,10 @@ export default new Router({
 						label: '教材',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'textbookshow'
+							},
 							{
 								label: '添加',
 								name: 'textbookadd'
@@ -560,6 +628,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'buildingshow'
+							},
+							{
 								label: '添加',
 								name: 'buildingadd'
 							},
@@ -588,6 +660,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'teachawardshow'
+							},
+							{
 								label: '添加',
 								name: 'teachawardadd'
 							},
@@ -615,6 +691,10 @@ export default new Router({
 						label: '教师称号管理',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'titleshow'
+							},
 							{
 								label: '添加',
 								name: 'titleadd'
@@ -657,6 +737,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'competitionshow'
+							},
+							{
 								label: '添加',
 								name: 'competitionadd'
 							},
@@ -684,6 +768,10 @@ export default new Router({
 						label: '研究生成果获奖',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'sresearchshow'
+							},
 							{
 								label: '添加',
 								name: 'sresearchadd'
@@ -713,6 +801,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'businessshow'
+							},
+							{
 								label: '添加',
 								name: 'businessadd'
 							},
@@ -741,6 +833,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'thesisshow'
+							},
+							{
 								label: '添加',
 								name: 'thesisadd'
 							},
@@ -768,6 +864,10 @@ export default new Router({
 						label: '学生荣誉表彰',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'honorshow'
+							},
 							{
 								label: '添加',
 								name: 'honoradd'
@@ -798,6 +898,10 @@ export default new Router({
 						permissions: [
 							{
 								label: '添加',
+								name: 'scholarshipshow'
+							},
+							{
+								label: '添加',
 								name: 'scholarshipadd'
 							},
 							{
@@ -824,6 +928,10 @@ export default new Router({
 						label: '第二课堂实践创新',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'secondshow'
+							},
 							{
 								label: '添加',
 								name: 'secondadd'
@@ -853,6 +961,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'cooperationshow'
+							},
+							{
 								label: '添加',
 								name: 'cooperationadd'
 							},
@@ -880,6 +992,10 @@ export default new Router({
 						label: '实习实践基地',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'basershow'
+							},
 							{
 								label: '添加',
 								name: 'baseradd'
@@ -922,6 +1038,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'teachershow'
+							},
+							{
 								label: '添加',
 								name: 'teacheradd'
 							},
@@ -949,6 +1069,10 @@ export default new Router({
 						label: '学生访学',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'vstudentshow'
+							},
 							{
 								label: '添加',
 								name: 'vstudentadd'
@@ -978,6 +1102,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'attendshow'
+							},
+							{
 								label: '添加',
 								name: 'attendadd'
 							},
@@ -1005,6 +1133,10 @@ export default new Router({
 						label: '学生参会',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'sattendshow'
+							},
 							{
 								label: '添加',
 								name: 'sattendadd'
@@ -1051,6 +1183,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'roleshow'
+							},
+							{
 								label: '添加',
 								name: 'roleadd'
 							},
@@ -1075,6 +1211,10 @@ export default new Router({
 						global: false,
 						permissions: [
 							{
+								label: '查看',
+								name: 'susershow'
+							},
+							{
 								label: '添加',
 								name: 'suseradd'
 							},
@@ -1098,6 +1238,10 @@ export default new Router({
 						label: '菜单管理',
 						global: false,
 						permissions: [
+							{
+								label: '查看',
+								name: 'menushow'
+							},
 							{
 								label: '添加',
 								name: 'menuadd'

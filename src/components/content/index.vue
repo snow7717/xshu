@@ -33,9 +33,9 @@
 						</el-form-item>
 						<el-form-item class='query-item' v-if='hasPerm("approve") || user.role.scope == "个人"'>
 						  <el-select v-model='search._status' placeholder='审核状态'>
-							  <el-option v-bind:value='1'>待审核</el-option>
-								<el-option v-bind:value='2'>审核通过</el-option>
-								<el-option v-bind:value='3'>审核未通过</el-option>
+							  <el-option value='1' label='待审核'></el-option>
+								<el-option value='2' label='审核通过'></el-option>
+								<el-option value='3' label='审核未通过'></el-option>
 							</el-select>
 						</el-form-item>
 						<el-button type="primary" v-on:click='query' size='mini'>查询</el-button>
