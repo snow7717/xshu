@@ -171,6 +171,7 @@ export default {
 		},
 		clear() {
 			this.initForm(this.filterFields,'search')
+			this.search._status = ''
 			this.index(1)
 		},
 		index(page) {
