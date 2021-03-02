@@ -31,6 +31,13 @@
 							</el-checkbox-group>
 							<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
 						</el-form-item>
+						<el-form-item class='query-item' v-if='hasPerm("approve") || user.role.scope == "个人"'>
+						  <el-select v-model='search._status' placeholder='审核状态'>
+							  <el-option v-bind:value='1'>待审核</el-option>
+								<el-option v-bind:value='2'>审核通过</el-option>
+								<el-option v-bind:value='3'>审核未通过</el-option>
+							</el-select>
+						</el-form-item>
 						<el-button type="primary" v-on:click='query' size='mini'>查询</el-button>
 						<el-button type="default" size='mini' v-on:click='searchShow = false'>取消</el-button>
 						<el-link type="primary" slot="reference">更多晒选项</el-link>
@@ -82,6 +89,9 @@
 										  <el-form-item v-if='props.row._status' label='审核状态'>
 											  {{props.row._status == 1 ? '待审核' : props.row._status == 2 ? '审核通过' : '审核不通过'}}
 											</el-form-item>
+										</el-col>
+										<el-col :span='24'>
+										  <el-form-item v-if='props.row.suggest' label='审核意见'>{{props.row.suggest}}</el-form-item>
 										</el-col>
 									</el-row>
 								</el-form>

@@ -289,7 +289,6 @@ export default {
 							message: res.data.returnMsg
 						})
 					}
-					console.log(res)
 				})
 			}).catch(() => {         
       })
