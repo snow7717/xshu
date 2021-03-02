@@ -79,4 +79,8 @@ h1,h2,h3,h4,h5,h6{
 .field-table-form_item,.field-table-form_item .el-form-item__content:first-child{
 	width: 100%;
 }
+
+.show-form-item .el-form-item__label{
+	font-weight: bold;
+}
 	

@@ -274,7 +274,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then((value) => {
-				this.$http.post('/achieves/approve',{id: id, _status: status,suggest: value}).then((res) => {
+				this.$http.post('/achieves/approve',{id: id, _status: status,suggest: value.value}).then((res) => {
 					if(res.data.returnCode == '0') {
 						this.$message({
 							type: 'success',

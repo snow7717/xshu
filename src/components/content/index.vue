@@ -58,12 +58,12 @@
 								<el-form label-position="left" inline size='mini'>
 									<el-row>
 										<el-col v-for='(item,index) in fields' v-bind:key='index' v-if='!item.show' v-bind:span='item.tag == "table" || item.tag == "file" ? 24 : item.span'>
-											<el-form-item v-bind:label="item.label">
+											<el-form-item v-bind:label="item.label" class='show-form-item'>
 												<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
 													<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
 														<template slot-scope='scope'>
-															<el-form-item>
-															  <i>{{scope.row[item1.keyer]}}</i>
+															<el-form-item class='show-form-item'>
+															  <i class='f-fsn'>{{scope.row[item1.keyer]}}</i>
 															</el-form-item>
 														</template>
 													</el-table-column>
@@ -73,7 +73,7 @@
 													  <el-link v-bind:href="file.url" target="_blank">{{file.name}}</el-link>
 													</el-col>
 												</el-row>
-												<i v-if='item.tag == "input" || item.tag == "select" || item.tag == "datepicker" || item.tag == "radiogroup" || item.tag == "checkboxgroup"'>{{props.row[item.keyer]}}</i>
+												<i class='f-fsn' v-if='item.tag == "input" || item.tag == "select" || item.tag == "datepicker" || item.tag == "radiogroup" || item.tag == "checkboxgroup"'>{{props.row[item.keyer]}}</i>
 											</el-form-item>
 										</el-col>
 									</el-row>
@@ -92,8 +92,8 @@
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
 								<slot v-bind:data="scope.row"></slot>
-								<i v-if='hasPerm("approve") && scope.row.approveable && scope.row._status == 1' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
-								<i v-if='hasPerm("approve") && scope.row.approveable && scope.row._status == 1' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
+								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
+								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
 								<i v-if='hasPerm("modify") && scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
 								<i v-if='hasPerm("del") && scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>
