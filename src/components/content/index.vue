@@ -84,14 +84,14 @@
 											</el-form-item>
 										</el-col>
 									</el-row>
-									<el-row>
-									  <el-col :span='24'>
-										  <el-form-item v-if='props.row._status' label='审核状态'>
+									<el-row v-if='hasPerm("approve") || props.row.createuser == user.userinfo.id'>
+									  <el-col :span='8'>
+										  <el-form-item class='approve-label' v-if='props.row._status' label='审核状态'>
 											  {{props.row._status == 1 ? '待审核' : props.row._status == 2 ? '审核通过' : '审核不通过'}}
 											</el-form-item>
 										</el-col>
-										<el-col :span='24'>
-										  <el-form-item v-if='props.row.suggest' label='审核意见'>{{props.row.suggest}}</el-form-item>
+										<el-col :span='16'>
+										  <el-form-item class='approve-label' label='审核意见'>{{props.row.suggest ? props.row.suggest : '无'}}</el-form-item>
 										</el-col>
 									</el-row>
 								</el-form>

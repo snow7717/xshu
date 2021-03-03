@@ -83,4 +83,9 @@ h1,h2,h3,h4,h5,h6{
 .show-form-item .el-form-item__label{
 	font-weight: bold;
 }
+
+.approve-label .el-form-item__label{
+	color: #409EFF;
+	font-weight: bold;
+}
 	
