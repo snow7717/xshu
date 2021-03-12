@@ -8,6 +8,7 @@ import Index from '@/pages/index/index.vue'
 import Layout from '@/pages/layout/index.vue'
 import Basis from '@/pages/basis/index.vue'
 import Result from '@/pages/result/index.vue'
+import Show from '@/pages/show/index.vue'
 
 import Setting from '@/pages/setting/index/index.vue'
 import Role from '@/pages/setting/role/index.vue'
@@ -158,7 +159,7 @@ export default new Router({
 					component: Basis,
 					meta: {
 						active: '1-4',
-						label: '本科生信息',
+						label: '学生信息',
 						global: false,
 						permissions: [
 							{
@@ -179,35 +180,7 @@ export default new Router({
 							}
 						]
 					}
-				},
-				{
-					path: 'student1',
-					name: 'bstudent1',
-					component: Basis,
-					meta: {
-						active: '1-5',
-						label: '研究生信息',
-						global: false,
-						permissions: [
-							{
-								label: '查看',
-								name: 'bstudent1show'
-							},
-							{
-								label: '添加',
-								name: 'bstudent1add'
-							},
-							{
-								label: '删除',
-								name: 'bstudent1del'
-							},
-							{
-								label: '编辑',
-								name: 'bstudent1modify'
-							}
-						]
-					}
-				},
+				}
 			]
 		},
 		{
@@ -1269,6 +1242,14 @@ export default new Router({
 					}
 				}
 			]
+		},
+		{
+			path: '/show/:name',
+			name: 'show',
+			component: Show,
+			meta: {
+				
+			}
 		}
   ]
 })

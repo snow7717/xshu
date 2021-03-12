@@ -60,43 +60,6 @@
 			<el-row>
 				<el-col :span='24'>
 					<el-table v-bind:data="datas" stripe class='w-100' size='small' @selection-change="handleDatas">
-						<el-table-column type="expand">
-							<template slot-scope="props">
-								<el-form label-position="left" inline size='mini'>
-									<el-row>
-										<el-col v-for='(item,index) in fields' v-bind:key='index' v-if='!item.show' v-bind:span='item.tag == "table" || item.tag == "file" ? 24 : item.span'>
-											<el-form-item v-bind:label="item.label" class='show-form-item'>
-												<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
-													<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
-														<template slot-scope='scope'>
-															<el-form-item class='show-form-item'>
-															  <i class='f-fsn'>{{scope.row[item1.keyer]}}</i>
-															</el-form-item>
-														</template>
-													</el-table-column>
-												</el-table>
-												<el-row v-if='item.tag == "file"'>
-												  <el-col v-bind:span='24' v-for='(file,i) in props.row[item.keyer]' v-bind:key='i'>
-													  <el-link v-bind:href="file.url" target="_blank">{{file.name}}</el-link>
-													</el-col>
-												</el-row>
-												<i class='f-fsn' v-if='item.tag == "input" || item.tag == "select" || item.tag == "datepicker" || item.tag == "radiogroup" || item.tag == "checkboxgroup"'>{{props.row[item.keyer]}}</i>
-											</el-form-item>
-										</el-col>
-									</el-row>
-									<el-row v-if='hasPerm("approve") || props.row.createuser == user.userinfo.id'>
-									  <el-col :span='8'>
-										  <el-form-item class='approve-label' v-if='props.row._status' label='审核状态'>
-											  {{props.row._status == 1 ? '待审核' : props.row._status == 2 ? '审核通过' : '审核不通过'}}
-											</el-form-item>
-										</el-col>
-										<el-col :span='16'>
-										  <el-form-item class='approve-label' label='审核意见'>{{props.row.suggest ? props.row.suggest : '无'}}</el-form-item>
-										</el-col>
-									</el-row>
-								</el-form>
-							</template>
-						</el-table-column>
 						<el-table-column v-if='selectable' type="selection" fixed width="40"></el-table-column>
 						<el-table-column v-for='(item,index) in fields' v-bind:key='index' v-if='item.show' v-bind:prop='item.keyer' v-bind:label='item.label' v-bind:width='item.width' show-overflow-tooltip></el-table-column>
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
@@ -104,6 +67,7 @@
 								<slot v-bind:data="scope.row"></slot>
 								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve f-csp el-icon-document-checked' title='审批通过' v-on:click='approve(scope.row.id,2)'></i>
 								<i v-if='hasPerm("approve") && scope.row.approveable' class='approve1 f-csp el-icon-document-delete' title='审批不通过' v-on:click='approve(scope.row.id,3)'></i>
+								<i class='view f-csp el-icon-view' v-on:click='view(scope.row)' title='查看详情'></i>
 								<i v-if='hasPerm("modify") && scope.row.editable' class='edit f-csp el-icon-edit' title='编辑' v-on:click='edit(scope.row.id || scope.row.roleid)'></i>
 								<i v-if='hasPerm("del") && scope.row.deleteable' class='delete f-csp el-icon-delete' title='删除' v-on:click='del(scope.row.id || scope.row.roleid)'></i>
 							</template>

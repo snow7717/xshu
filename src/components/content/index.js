@@ -29,7 +29,7 @@ export default {
 	  },
 		operawidth: {
 			type: String,
-			default: '70px'
+			default: '90px'
 		},
 		labelWidth: {
 			type: String,
@@ -50,7 +50,8 @@ export default {
 			selects: [],
 			formshow: false,
 			approveshow: false,
-			menu: ''
+			menu: '',
+			showurl: ''
 		}
 	},
 	computed: {
@@ -237,6 +238,11 @@ export default {
         }
       })
 		},
+		view(data) {
+			this.$store.commit('setdata',data)
+			console.log(this.$store.state.data)
+			this.$router.push("/show/" + this.$route.name)
+		}, 
 		create() {
 			this.initForm(this.fields,'form')
 			this.formshow = true

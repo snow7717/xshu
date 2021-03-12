@@ -315,7 +315,7 @@ export default {
 	methods: {
 		menuIndex() {
 			this.$http.get('/admin/menu/list').then((res) => {
-				let uneditables = ['index','basis','setting']
+				let uneditables = ['index','setting']
 				for(let item of res.data.result) {
 					this.$set(item,'value',item.id)
 				}
