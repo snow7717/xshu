@@ -48,6 +48,7 @@ export default {
 			page: 1,
 			total: 0,
 			selects: [],
+			viewshow: false,
 			formshow: false,
 			approveshow: false,
 			menu: '',
@@ -238,10 +239,18 @@ export default {
         }
       })
 		},
-		view(data) {
-			this.$store.commit('setdata',data)
-			console.log(this.$store.state.data)
-			this.$router.push("/show/" + this.$route.name)
+		view(id) {
+			this.viewshow = true
+			this.$http.get(this.url.show + '/' + id).then((res) => {
+				this.form = res.data.result
+				if(this.fields.filter((item) => {
+					return item.tag == 'tree'
+				}).length > 0) {
+					this.$nextTick(() => {
+						this.$refs.tree[0].setCheckedKeys(this.form.permissions)
+					})
+				}
+			})
 		}, 
 		create() {
 			this.initForm(this.fields,'form')

@@ -8,7 +8,6 @@ import Index from '@/pages/index/index.vue'
 import Layout from '@/pages/layout/index.vue'
 import Basis from '@/pages/basis/index.vue'
 import Result from '@/pages/result/index.vue'
-import Show from '@/pages/show/index.vue'
 
 import Setting from '@/pages/setting/index/index.vue'
 import Role from '@/pages/setting/role/index.vue'
@@ -1242,14 +1241,6 @@ export default new Router({
 					}
 				}
 			]
-		},
-		{
-			path: '/show/:name',
-			name: 'show',
-			component: Show,
-			meta: {
-				
-			}
 		}
   ]
 })
