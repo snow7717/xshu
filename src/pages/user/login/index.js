@@ -57,7 +57,21 @@ export default {
 								return item.useYn == true
 							})[0]
 							this.$store.commit('login', res.data.result)
-							this.go('/user')
+							console.log(res.data.result.role.mpermissions)
+							console.log(this.$router.options.routes)
+							let firstName = res.data.result.role.mpermissions[0]
+							let firstRoute = this.$router.options.routes.filter((item) => {
+								return item.name == firstName
+							})[0]
+							if(firstRoute.children) {
+								let firstName1 = res.data.result.role.mpermissions[1]
+								let firstRoute1 = firstRoute.children.filter((item) => {
+									return item.name == firstName1
+								})[0]
+								this.go(firstRoute.path + '/' + firstRoute1.path)
+							}else{
+								this.go(firstRoute.path)
+							}
 						}else{
 							this.$message({
 								message: res.data.returnMsg,
