@@ -94,3 +94,7 @@ h1,h2,h3,h4,h5,h6{
 	border: none;
 	color: #333;
 }
+
+.el-input--mini .el-input__inner{
+	padding-right: 40px;
+}

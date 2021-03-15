@@ -1,5 +1,5 @@
 <template>
-  <ccontent ref='ccontent' v-bind:url='url' v-bind:datas='datas' v-bind:labelWidth='labelW' v-on:index='index'>
+  <ccontent ref='ccontent' v-bind:url='url' v-bind:datas='datas' v-on:index='index'>
 	</ccontent>
 </template>
 

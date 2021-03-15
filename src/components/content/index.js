@@ -30,10 +30,6 @@ export default {
 		operawidth: {
 			type: String,
 			default: '90px'
-		},
-		labelWidth: {
-			type: String,
-			default: '80px'
 		}
 	},
 	data() {
@@ -44,6 +40,7 @@ export default {
 			search: {},
 			searchShow: false,
 			form: {},
+			labelWidth: '0',
 			rules: {},
 			page: 1,
 			total: 0,
@@ -103,11 +100,22 @@ export default {
 		fieldIndex() {
 			this.$http.get(`/form/elements/menu/${this.$route.name}`).then((res) => {
 				this.fields = res.data.result
+				this.initLableWidth()
 				this.initRules()
 				this.initTableRules()
 				this.initForm(this.fields,'form')
 				this.initForm(this.filterFields,'search')
 			})
+		},
+		initLableWidth() {
+			let labels = this.fields.map((item) => {
+				return item.label
+			})
+			let Lengths = labels.map((item) => {
+				return item.length
+			})
+			let max = Function.prototype.apply.bind(Math.max, null)(Lengths)
+			this.labelWidth = 20 * max + 'px'
 		},
 		initRules() {
 			let rqueireds = this.fields.filter((item) => {
