@@ -78,10 +78,10 @@
 					<el-pagination layout="prev, pager, next" v-bind:current-page='page' v-bind:total="total" v-on:current-change='index'></el-pagination>
 				</el-col>
 			</el-row>
-			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false'>
+			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false' width='70%'>
 			  <el-form size='mini' v-bind:label-width='labelWidth' class='view-form'>
 				  <el-row>
-					  <el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.span'>
+					  <el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
 							<el-form-item v-bind:label="item.label">
 								<el-input v-if='item.tag == "input"' v-model="form[item.keyer]" v-bind:type='item.type' v-bind:placeholder='item.placeholder' v-bind:disabled='true' v-bind:rows='item.rows' v-bind:autosize='item.autosize' v-bind:max='item.max' v-bind:min='item.min' v-bind:step='item.step'></el-input>
 								<el-radio-group v-if='item.tag == "radiogroup"' v-model="form[item.keyer]">
@@ -119,10 +119,16 @@
 								</el-table>
 							</el-form-item>
 						</el-col>
+						<el-col :span='24'>
+						  <el-form-item v-if='form._status' label='审核状态'>
+								{{form._status == 1 ? '待审核' : form._status == 2 ? '审核通过' : '审核不通过'}}
+							</el-form-item>
+							<el-form-item v-if='form.suggest' label='审核意见'>{{form.suggest}}</el-form-item>
+						</el-col>
 					</el-row>
 				</el-form>
 			</el-dialog>
-			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false'>
+			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false' width='70%'>
 				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form" >
 					<el-row>
 						<el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>

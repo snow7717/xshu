@@ -145,7 +145,7 @@ export default {
 				}
 			}
 		},
-		initForm(fields,form) {
+		initForm(fields,form,initLeader = false) {
 			for(let item of fields) {
 				let defaulter
 				switch(item.tag) {
@@ -173,6 +173,12 @@ export default {
 						break
 				}
 				this.$set(this[form],item.keyer,defaulter)
+				if(item.keyer == 'item_leader' && initLeader) {
+					this[form].item_leader = this.user.userinfo.id
+				}
+				if(item.keyer == 'leader_number' && initLeader) {
+					this[form].leader_number = this.user.userinfo.number
+				}
 			}
 		},
 		query() {
@@ -261,7 +267,7 @@ export default {
 			})
 		}, 
 		create() {
-			this.initForm(this.fields,'form')
+			this.initForm(this.fields,'form',true)
 			this.formshow = true
 			if(this.fields.filter((item) => {
 				return item.tag == 'tree'
@@ -366,6 +372,7 @@ export default {
 		},
 		/*-- 提交表单 --*/
 		submit(form) {
+			console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
 					this.$set(this.form,'_menu',this.$route.name)
