@@ -78,7 +78,7 @@
 					<el-pagination layout="prev, pager, next" v-bind:current-page='page' v-bind:total="total" v-on:current-change='index'></el-pagination>
 				</el-col>
 			</el-row>
-			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false' width='70%'>
+			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false'>
 			  <el-form size='mini' v-bind:label-width='labelWidth' class='view-form'>
 				  <el-row>
 					  <el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
@@ -128,7 +128,7 @@
 					</el-row>
 				</el-form>
 			</el-dialog>
-			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false' width='70%'>
+			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false'>
 				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form" >
 					<el-row>
 						<el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
