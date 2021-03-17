@@ -115,7 +115,7 @@ export default {
 				return item.length
 			})
 			let max = Function.prototype.apply.bind(Math.max, null)(Lengths)
-			this.labelWidth = 14 * max + 'px'
+			this.labelWidth = 18 * max + 'px'
 		},
 		initRules() {
 			let rqueireds = this.fields.filter((item) => {
