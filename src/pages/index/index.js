@@ -9,6 +9,7 @@ export default {
 	name: 'index',
 	data() {
 		return {
+			from: '',
 			name: '',
 			windowH: 0,
 			dataH: '128px',
@@ -99,9 +100,11 @@ export default {
 		cheader,
 		caside,
 	},
-	mounted() {
-		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
-	},
+	beforeRouteEnter(to, from, next) {
+    next(vm => {
+		  vm.from = from.name
+    })
+  },
 	created() {
 		this.dataIndex()
 		this.chartIndex()
@@ -110,6 +113,9 @@ export default {
 		this.topIndex(1)
 		this.topIndex(2)
 		this.topIndex(3)
+	},
+	mounted() {
+		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},
 	methods: {
 		toggleData() {

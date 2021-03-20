@@ -10,7 +10,7 @@ export default {
 				del: '/admin/user/delete'
 			},
 			datas: [],
-			operawidth: '100'
+			operawidth: '120'
 		}
 	},
 	computed: {},

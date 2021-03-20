@@ -12,7 +12,9 @@
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>
 			<el-menu-item index="">
-			  <i class='icon el-icon-message'></i>
+			  <i class='icon el-icon-message f-pr'>
+				  <el-badge is-dot class="dot" v-if='approve'></el-badge>
+				</i>
 			</el-menu-item>
 			<el-menu-item index=''>
 			  <el-form inline size='mini'>

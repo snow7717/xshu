@@ -5,6 +5,7 @@ export default {
 	name: 'layout',
 	data() {
 		return {
+			from: ''
 		}
 	},
 	computed: {
@@ -16,6 +17,11 @@ export default {
 		cheader,
 		caside
 	},
+	beforeRouteEnter(to, from, next) {
+    next(vm => {
+		  vm.from = from.name
+    })
+  },
 	created() {
 	}
 }

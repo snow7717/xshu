@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-	  <cheader></cheader>
+	  <cheader v-bind:from='from'></cheader>
 		<el-container>
 		  <caside v-bind:active='active'></caside>
 			<el-main class='result-main'>

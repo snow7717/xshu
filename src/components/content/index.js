@@ -174,7 +174,7 @@ export default {
 				}
 				this.$set(this[form],item.keyer,defaulter)
 				if(item.keyer == 'item_leader' && initLeader) {
-					this[form].item_leader = this.user.userinfo.id
+					this[form].item_leader = parseInt(this.user.userinfo.relid)
 				}
 				if(item.keyer == 'leader_number' && initLeader) {
 					this[form].leader_number = this.user.userinfo.number
@@ -368,11 +368,10 @@ export default {
     },
 		handleChecked(data,checkeds) {
 			this.form.permissions = checkeds.checkedKeys
-			this.form.mpermissions = checkeds.checkedKeys.concat(checkeds.halfCheckedKeys)
+			this.form.mpermissions = checkeds.halfCheckedKeys.concat(checkeds.checkedKeys)
 		},
 		/*-- 提交表单 --*/
 		submit(form) {
-			console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
 					this.$set(this.form,'_menu',this.$route.name)
