@@ -48,6 +48,10 @@ h1,h2,h3,h4,h5,h6{
 	padding: 0 20px;
 }
 
+.waiting-table .el-dialog__body{
+	padding: 0 10px;
+}
+
 .role-change .el-form-item__label{
 	color: white;
 }

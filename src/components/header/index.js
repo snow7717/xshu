@@ -9,7 +9,11 @@ export default {
 	data() {
 		return {
 			loading: false,
-			approve: true
+			approve: false,
+			visible: false,
+			waitings: [],
+			page: 1,
+			total: 0,
 		}
 	},
 	computed: {
@@ -19,24 +23,45 @@ export default {
 	},
 	created() {
 		this.messageing()
+		this.index(1)
 	},
 	methods: {
 		go(url) {
 			this.$router.push(url)
 		},
+		index(page) {
+			this.$http.get(`achieve/backlog/page/${page}/10`).then((res) => {
+				console.log(res)
+				this.page = page
+				this.total = res.data.result.total
+				this.waitings = res.data.result.list
+			})
+		},
 		messageing() {
 			let socket = new WebSocket("ws://39.100.236.213:12345/ws")
 			socket.onopen = () => {
 				socket.send(JSON.stringify({login: this.user.token}))
+				setInterval(() => {
+					socket.send('HeartBeat')
+				},60000)
 			}
 			socket.onmessage = (evt) => {
-				alert(evt.data)
+				if(evt.data == 'pong') {
+				}else{
+					let result = JSON.parse(evt.data)
+					if(result.msg) {
+						this.$notify({
+							title: '提示',
+							message: result.msg.msg,
+							duration: 5000
+						})
+						this.approve = true
+					}
+				}
 			}
 			socket.onerror = (err) => {
-				alert(err)
 			}
 			socket.onclose = () => { 
-        // 关闭 websocket
       }
 		},
 		handleRole(val) {

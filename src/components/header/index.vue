@@ -12,7 +12,7 @@
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>
 			<el-menu-item index="">
-			  <i class='icon el-icon-message f-pr'>
+			  <i class='icon el-icon-message f-pr' v-on:click='visible = true'>
 				  <el-badge is-dot class="dot" v-if='approve'></el-badge>
 				</i>
 			</el-menu-item>
@@ -26,6 +26,13 @@
 				</el-form>
 			</el-menu-item>
 		</el-menu>
+		<el-dialog title="待办事项" v-bind:visible.sync="visible" v-bind:modal='false' class='waiting-table'>
+			<el-table v-bind:data="waitings" >
+				<el-table-column property="menustr" label="成果类型"></el-table-column>
+				<el-table-column property="type" label="待办类型"></el-table-column>
+			</el-table>
+			<el-pagination layout="prev, pager, next" v-bind:current-page='page' class='f-tac' v-bind:total="total" v-on:current-change='index'></el-pagination>
+		</el-dialog>
 	</el-header>
 </template>
 
