@@ -31,10 +31,13 @@ export default {
 		},
 		index(page) {
 			this.$http.get(`achieve/backlog/page/${page}/10`).then((res) => {
-				console.log(res)
 				this.page = page
 				this.total = res.data.result.total
+				for(let item of res.data.result.list) {
+					
+				}
 				this.waitings = res.data.result.list
+				this.approve = this.waitings.length > 0
 			})
 		},
 		messageing() {
