@@ -23,20 +23,16 @@ export default {
 	},
 	created() {
 		this.messageing()
-		this.index(1)
+		this.index()
 	},
 	methods: {
 		go(url) {
 			this.$router.push(url)
 		},
-		index(page) {
-			this.$http.get(`achieve/backlog/page/${page}/10`).then((res) => {
-				this.page = page
-				this.total = res.data.result.total
-				for(let item of res.data.result.list) {
-					
-				}
-				this.waitings = res.data.result.list
+		index() {
+			this.$http.get(`achieve/backlog/count`).then((res) => {
+				console.log(res)
+				this.waitings = res.data.result
 				this.approve = this.waitings.length > 0
 			})
 		},

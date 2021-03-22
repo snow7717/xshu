@@ -30,8 +30,8 @@
 			<el-table v-bind:data="waitings" >
 				<el-table-column property="menustr" label="成果类型"></el-table-column>
 				<el-table-column property="type" label="待办类型"></el-table-column>
+				<el-table-column property="counts" label="待办数量"></el-table-column>
 			</el-table>
-			<el-pagination layout="prev, pager, next" v-bind:current-page='page' class='f-tac' v-bind:total="total" v-on:current-change='index'></el-pagination>
 		</el-dialog>
 	</el-header>
 </template>
