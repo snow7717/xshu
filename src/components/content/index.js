@@ -146,6 +146,7 @@ export default {
 			}
 		},
 		initForm(fields,form,initLeader = false) {
+			this[form] = {}
 			for(let item of fields) {
 				let defaulter
 				switch(item.tag) {
