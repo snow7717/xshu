@@ -33,6 +33,20 @@ export default {
 		}
 	},
 	data() {
+		let valibegintime = (rule, value, callback) => {
+			if (this.form.endtime) {
+				if(new Date(value) > new Date(this.form.endtime)) {
+					callback(new Error('开始日期不能大于结束日期'))
+				}
+      }
+		}
+		let valiendtime = (rule, value, callback) => {
+			if (this.form.begintime) {
+				if(new Date(value) < new Date(this.form.begintime)) {
+					callback(new Error('结束日期不能小于开始日期'))
+				}
+      }
+		}
 		return {
 			summary: '',
 			pname: '',
@@ -41,7 +55,20 @@ export default {
 			searchShow: false,
 			form: {},
 			labelWidth: '0',
-			rules: {},
+			rules: {
+				begintime: [
+					{
+						validator: valibegintime,
+						trigger: 'blur'
+					}
+				],
+				endtime: [
+					{
+						validator: valiendtime,
+						trigger: 'blur'
+					}
+				]
+			},
 			page: 1,
 			total: 0,
 			selects: [],
@@ -76,7 +103,7 @@ export default {
 			return this.$router.options.routes.filter((item) => {
 				return item.meta.global == false
 			})
-		}
+		},
 	},
 	watch:{
 		$route(to,from){
@@ -205,6 +232,20 @@ export default {
 		},
 		hasPerm(perm) {
 			return this.user.role.permissions.indexOf(this.pname + perm) > -1
+		},
+		leaderChange($event,keyer) {
+			if(keyer == 'item_leader') {
+				this.$http.get(`/bteacher/get/${$event}`).then((res) => {
+					if(this.form.leader_number == null) {
+					}else{
+						this.form.leader_number = res.data.result.number
+					}
+					if(this.form.item_college == null) {
+					}else{
+						this.form.item_college = res.data.result.schoolid
+					}
+				})
+			}
 		},
 		importer(param) {
 			let formData = new FormData()

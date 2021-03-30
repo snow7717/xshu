@@ -15,7 +15,7 @@
 						<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="search[item.keyer]">
 							<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 						</el-checkbox-group>
-						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+						<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
 					</el-form-item>
 					<el-popover placement="right" width="400" trigger="click" v-model='searchShow' v-if='filterFields.length > 1'>
 					  <el-form-item v-for='(item,index) in filterFields' v-bind:key='index' v-if='index > 0' class='query-item' v-bind:label='item.tag == "radiogroup" || item.tag == "checkboxgroup" ? item.label : ""'>
@@ -61,7 +61,7 @@
 				<el-col :span='24'>
 					<el-table v-bind:data="datas" stripe class='w-100' size='small' @selection-change="handleDatas">
 						<el-table-column v-if='selectable' type="selection" fixed width="40"></el-table-column>
-						<el-table-column v-for='(item,index) in fields' v-bind:key='index' v-if='item.show' v-bind:prop='item.keyer' v-bind:label='item.label' v-bind:width='item.width' show-overflow-tooltip></el-table-column>
+						<el-table-column v-for='(item,index) in fields' v-bind:key='index' v-if='item.show' v-bind:prop='item.keyer' v-bind:label='item.label' show-overflow-tooltip></el-table-column>
 						<el-table-column fixed="right" label='操作' v-bind:width='operawidth'>
 							<template slot-scope='scope'>
 								<slot v-bind:data="scope.row"></slot>
@@ -110,7 +110,7 @@
 												<el-select v-if='item1.tag == "select"' v-model='scope.row[item1.keyer]' v-bind:multiple='item1.multiple' v-bind:disabled='true' v-bind:placeholder='item1.placeholder' v-bind:filterable='item1.filterable' v-bind:allowCreate='item1.allowCreate'>
 													<el-option v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
-												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='true' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='true' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
 												<el-upload v-if='item1.tag == "file"' action="#" v-bind:name='item1.keyer' v-bind:disabled='true' v-bind:file-list='scope.row[item.keyer]'>
 												</el-upload>
 											</el-form-item>
@@ -129,7 +129,7 @@
 				</el-form>
 			</el-dialog>
 			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false'>
-				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form" >
+				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form">
 					<el-row>
 						<el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
 							<el-form-item v-bind:label="item.label" v-bind:prop='item.keyer'>
@@ -140,11 +140,11 @@
 								<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="form[item.keyer]">
 									<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 								</el-checkbox-group>
-								<el-select v-if='item.tag == "select"' v-model='form[item.keyer]' v-bind:multiple='item.multiple' v-bind:disabled='item.disabled' v-bind:placeholder='item.placeholder' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate'>
+								<el-select v-if='item.tag == "select"' v-model='form[item.keyer]' v-bind:multiple='item.multiple' v-bind:disabled='item.disabled' v-bind:placeholder='item.placeholder' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate' v-on:change='leaderChange($event,item.keyer)'>
 									<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 								</el-select>
 								<el-cascader v-if='item.tag == "cascader"' v-model='form[item.keyer]' v-bind:options='item.options'></el-cascader>
-								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
+								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker>
 								<el-upload v-if='item.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:on-remove="(file,files) => fileremove(file,files,item.keyer)" v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:limit="item.limit" v-bind:accept='item.accept.toString()' v-bind:disabled='item.disabled' v-bind:file-list='form[item.keyer]'>
 									<el-button size="mini" type="primary">点击上传</el-button>
 								</el-upload>
@@ -163,7 +163,7 @@
 													<el-option v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
 												<el-cascader v-if='item1.tag == "cascader"' v-model='scope.row[item1.keyer]' v-bind:options='item1.options'></el-cascader>
-												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='item1.disabled' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='item1.disabled' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
 												<el-upload v-if='item1.tag == "file"' action="#" v-bind:http-request='uploader' v-bind:name='item1.keyer' v-bind:multiple='item1.multiple' v-bind:limit="item1.limit" v-bind:accept='item1.accept.toString()' v-bind:disabled='item1.disabled' v-bind:file-list='scope.row[item.keyer]'>
 													<el-button size="mini" type="primary">点击上传</el-button>
 												</el-upload>

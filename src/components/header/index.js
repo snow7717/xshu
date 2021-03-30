@@ -31,7 +31,6 @@ export default {
 		},
 		index() {
 			this.$http.get(`achieve/backlog/count`).then((res) => {
-				console.log(res)
 				this.waitings = res.data.result
 				this.approve = this.waitings.length > 0
 			})
