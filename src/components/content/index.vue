@@ -48,12 +48,13 @@
 					</el-form-item>
 				</el-form>
 			</el-main>
-			<el-aside width='220px' class='aside f-tar'>
+			<el-aside width='306px' class='aside f-tar'>
 				<el-button type='default' size='mini' class='f-ib' v-if='hasPerm("add")' v-on:click='create'>添加</el-button>
 				<el-upload v-if='hasPerm("add")' action="#" v-bind:show-file-list='false' list-type="text" v-bind:http-request='importer' accept=".xls,.xlsx" class='import f-ib'>
 					<el-button slot='default' type="primary" size='mini'>导入</el-button>
-				</el-upload>	
-				<el-button type="success" size='mini' class='export f-ib' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
+				</el-upload>
+				<el-button type="primary" size='mini' class='f-ib' v-on:click='templatedownload'>模版下载</el-button>
+				<el-button type="success" size='mini' class='f-ib' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
 			</el-aside>
 	  </el-container>
     <el-container>
@@ -119,11 +120,19 @@
 								</el-table>
 							</el-form-item>
 						</el-col>
+						<el-col :span='12'>
+						  <el-form-item label='提交人' class='approve-label'>{{form._submituser}}</el-form-item>
+						</el-col>
+						<el-col :span='12'>
+						  <el-form-item label='审核人' class='approve-label'>{{form._approveuser}}</el-form-item>
+						</el-col>
 						<el-col :span='24'>
 						  <el-form-item v-if='form._status' label='审核状态' class='approve-label'>
 								{{form._status == 1 ? '待审核' : form._status == 2 ? '审核通过' : '审核不通过'}}
 							</el-form-item>
-							<el-form-item v-if='form.suggest' label='审核意见' class='approve-label'>{{form.suggest}}</el-form-item>
+						</el-col>
+						<el-col :span='24'>
+						  <el-form-item v-if='form.suggest' label='审核意见' class='approve-label'>{{form.suggest}}</el-form-item>
 						</el-col>
 					</el-row>
 				</el-form>

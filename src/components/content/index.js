@@ -1,5 +1,13 @@
 import qs from 'qs'
 
+let valinumber = (rule, value, callback) => {  
+  if (new RegExp('^[1-9][0-9]*$').test(value) || value == '') {
+	  callback()
+  }else{
+		callback(new Error('该字段必须为大于0的数字'))
+	}
+}
+
 export default {
 	name: 'ccontent',
 	props: {
@@ -8,6 +16,7 @@ export default {
 			default() {
 				return {
 					index: '',
+					template: '',
 					importpre: '',
 					importsave: '',
 					exporter: '',
@@ -47,6 +56,26 @@ export default {
 				}
       }
 		}
+		let valigrade = (rule, value, callback) => {
+			let options = this.fields.filter((item) => {
+				return item.keyer == 'stu_class'
+			})[0].options
+			let stulabel = options.filter((item) => {
+				return item.value == this.form.stu_class
+			})[0].label
+			if(stulabel.substring(0,4) == value) {
+				callback()
+			}else{
+				callback(new Error('班级和年级不匹配'))
+			}
+		}
+		let valiyear = (rule, value, callback) => {
+			if(this.form.begintime) {
+				if(value > this.form.begintime.substring(0,4)) {
+					callback(new Error('立项年度不能晚于项目开始时间'))
+				}
+			}
+		}
 		return {
 			summary: '',
 			pname: '',
@@ -59,13 +88,25 @@ export default {
 				begintime: [
 					{
 						validator: valibegintime,
-						trigger: 'blur'
+						trigger: 'change'
 					}
 				],
 				endtime: [
 					{
 						validator: valiendtime,
-						trigger: 'blur'
+						trigger: 'change'
+					}
+				],
+				stu_grade: [
+					{
+						validator: valigrade,
+						trigger: 'change'
+					}
+				],
+				item_year: [
+					{
+						validator: valiyear,
+						trigger: 'change'
 					}
 				]
 			},
@@ -154,6 +195,22 @@ export default {
 					message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
 					trigger: item.tag == 'input' ? 'blur' : 'change'
 				}])
+			}
+			let numbers = this.fields.filter((item) => {
+				return item.type == 'number'
+			})
+			for(let item of numbers) {
+				if(this.rules[item.keyer]) {
+					this.rules[item.keyer].push({
+						validator: valinumber,
+						trigger: item.tag == 'input' ? 'blur' : 'change'
+					})
+				}else{
+					this.$set(this.rules,item.keyer,[{
+						validator: valinumber,
+						trigger: item.tag == 'input' ? 'blur' : 'change'
+					}])
+				}
 			}
 		},
 		initTableRules() {
@@ -246,6 +303,11 @@ export default {
 					}
 				})
 			}
+		},
+		templatedownload() {
+			this.$http.get(this.url.template).then((res) => {
+				window.location.href = res.data
+			})
 		},
 		importer(param) {
 			let formData = new FormData()

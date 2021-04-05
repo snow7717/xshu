@@ -10,6 +10,7 @@ export default {
 		url() {
 			return {
 				index: `/${this.$route.name}/page`,
+				template: `/import/get/template/${this.$route.name}`,
 				importpre: `/${this.$route.name}/import/pre`,
 				importsave: `/${this.$route.name}/import/save`,
 				exporter: `/export/${this.$route.name}`,
