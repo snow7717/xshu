@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 let valinumber = (rule, value, callback) => {  
-  if (new RegExp('^[1-9][0-9]*$').test(value) || value == '') {
+  if (new RegExp(/^[1-9]\d*(\.\d+)?$/).test(value) || value == '') {
 	  callback()
   }else{
 		callback(new Error('该字段必须为大于0的数字'))
@@ -46,15 +46,23 @@ export default {
 			if (this.form.endtime) {
 				if(new Date(value) > new Date(this.form.endtime)) {
 					callback(new Error('开始日期不能大于结束日期'))
+				}else{
+					callback()
 				}
-      }
+      }else{
+				callback()
+			}
 		}
 		let valiendtime = (rule, value, callback) => {
 			if (this.form.begintime) {
 				if(new Date(value) < new Date(this.form.begintime)) {
 					callback(new Error('结束日期不能小于开始日期'))
+				}else{
+					callback()
 				}
-      }
+      }else{
+				callback()
+			}
 		}
 		let valigrade = (rule, value, callback) => {
 			let options = this.fields.filter((item) => {
@@ -73,7 +81,11 @@ export default {
 			if(this.form.begintime) {
 				if(value > this.form.begintime.substring(0,4)) {
 					callback(new Error('立项年度不能晚于项目开始时间'))
+				}else{
+					callback()
 				}
+			}else{
+				callback()
 			}
 		}
 		return {
