@@ -63,6 +63,14 @@
 							</el-radio-group>
 						</el-form-item>
 					</el-col>
+					<el-col :span='8'>
+					  <el-form-item label='是否唯一' prop='unique'>
+						  <el-radio-group v-model="item.unique">
+								<el-radio v-bind:label="true">是</el-radio>
+								<el-radio v-bind:label="false">否</el-radio>
+							</el-radio-group>
+						</el-form-item>
+					</el-col>
 					<el-col :span='8' v-if='hasProp(item.tag,"isrequired") && !item.disabled'>
 					  <el-form-item label='是否必填' prop='isrequired'>
 						  <el-radio-group v-model="item.isrequired">

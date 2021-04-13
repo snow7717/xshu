@@ -11,8 +11,8 @@ export default {
 			return {
 				index: `/achieves/page/${this.$route.name}`,
 				template: `/import/get/template/${this.$route.name}`,
-				importpre: ``,
-				importsave: ``,
+				importpre: `/import/${this.$route.name}/pre`,
+				importsave: `/import/${this.$route.name}/save`,
 				exporter: `/export/achieve/${this.$route.name}`,
 				show: `/achieves/get`,
 				save: `/achieves/save`,

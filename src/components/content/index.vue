@@ -29,7 +29,7 @@
 							<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="search[item.keyer]">
 								<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 							</el-checkbox-group>
-							<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker></el-date-picker>
+							<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
 						</el-form-item>
 						<el-form-item class='query-item' v-if='hasPerm("approve") || user.role.scope == "个人"'>
 						  <el-select v-model='search._status' placeholder='审核状态'>
@@ -37,6 +37,9 @@
 								<el-option value='2' label='审核通过'></el-option>
 								<el-option value='3' label='审核未通过'></el-option>
 							</el-select>
+						</el-form-item>
+						<el-form-item class='query-item' v-if='hasTeamer'>
+						  <el-input placeholder='请输入成员名称' v-model='search.teamers'></el-input>
 						</el-form-item>
 						<el-button type="primary" v-on:click='query' size='mini'>查询</el-button>
 						<el-button type="default" size='mini' v-on:click='searchShow = false'>取消</el-button>
@@ -54,7 +57,7 @@
 					<el-button slot='default' type="primary" size='mini'>导入</el-button>
 				</el-upload>
 				<el-button type="primary" size='mini' class='f-ib' v-on:click='templatedownload'>模版下载</el-button>
-				<el-button type="success" size='mini' class='f-ib' v-bind:disabled='selects.length == 0' v-on:click='exporter'>导出Excel</el-button>
+				<el-button type="success" size='mini' class='f-ib' v-bind:disabled='datas.length == 0' v-on:click='exporter'>导出Excel</el-button>
 			</el-aside>
 	  </el-container>
     <el-container>
@@ -149,7 +152,7 @@
 								<el-checkbox-group v-if='item.tag == "checkboxgroup"' v-model="form[item.keyer]">
 									<el-checkbox v-for='(checkbox,i) in item.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 								</el-checkbox-group>
-								<el-select v-if='item.tag == "select"' v-model='form[item.keyer]' v-bind:multiple='item.multiple' v-bind:disabled='item.disabled' v-bind:placeholder='item.placeholder' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate' v-on:change='leaderChange($event,item.keyer)'>
+								<el-select v-if='item.tag == "select"' v-model='form[item.keyer]' v-bind:multiple='item.multiple' v-bind:disabled='item.disabled' v-bind:placeholder='item.placeholder' v-bind:filterable='item.filterable' v-bind:allowCreate='item.allowCreate' v-on:change='selectChange($event,item.keyer)'>
 									<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 								</el-select>
 								<el-cascader v-if='item.tag == "cascader"' v-model='form[item.keyer]' v-bind:options='item.options'></el-cascader>

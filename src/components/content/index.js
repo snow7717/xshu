@@ -157,6 +157,11 @@ export default {
 				return item.meta.global == false
 			})
 		},
+		hasTeamer() {
+			return this.fields.filter((item) => {
+				return item.keyer == 'teamers'
+			}).length > 0
+		}
 	},
 	watch:{
 		$route(to,from){
@@ -276,6 +281,9 @@ export default {
 				if(item.keyer == 'leader_number' && initLeader) {
 					this[form].leader_number = this.user.userinfo.number
 				}
+				if(item.keyer == 'item_college' && initLeader) {
+					this[form].item_college = this.user.userinfo.school
+				}
 			}
 		},
 		query() {
@@ -302,7 +310,7 @@ export default {
 		hasPerm(perm) {
 			return this.user.role.permissions.indexOf(this.pname + perm) > -1
 		},
-		leaderChange($event,keyer) {
+		selectChange($event,keyer) {
 			if(keyer == 'item_leader') {
 				this.$http.get(`/bteacher/get/${$event}`).then((res) => {
 					if(this.form.leader_number == null) {
@@ -313,6 +321,13 @@ export default {
 					}else{
 						this.form.item_college = res.data.result.schoolid
 					}
+				})
+			}else if(keyer == 'zxitem_type') {
+				this.$http.get(`/achieves/prosource/get/${$event}`).then((res) => {
+					let source = this.fields.filter((item) => {
+						return item.keyer == 'item_source'
+					})[0]
+					source.options = res.data.result
 				})
 			}
 		},
@@ -385,6 +400,11 @@ export default {
 		create() {
 			this.initForm(this.fields,'form',true)
 			this.formshow = true
+			if(this.fields.filter((item) => {
+				return item.keyer == 'teamers'
+			}).length > 0) {
+				console.log(this.form.teamers)
+			}
 			if(this.fields.filter((item) => {
 				return item.tag == 'tree'
 			}).length > 0) {

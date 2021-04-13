@@ -24,6 +24,11 @@ export default {
 		ccontent
 	},
 	created() {
+		var a = 2;
+function a() {
+    console.log(3);
+}
+console.log(typeof a);
 	},
 	mounted() {
 	},
