@@ -43,7 +43,7 @@
 						</el-form-item>
 						<el-button type="primary" v-on:click='query' size='mini'>查询</el-button>
 						<el-button type="default" size='mini' v-on:click='searchShow = false'>取消</el-button>
-						<el-link type="primary" slot="reference">更多晒选项</el-link>
+						<el-link type="primary" slot="reference">更多筛选项</el-link>
 					</el-popover>
 					<el-form-item>
 						<el-button class='query' type="primary" v-on:click='index(1)'>查询</el-button>
@@ -121,16 +121,20 @@
 										</template>
 									</el-table-column>
 								</el-table>
+								<section v-if='item.tag == "tree"'>
+									<el-input placeholder="输入菜单名进行过滤" v-model="menu" size='mini'></el-input>
+									<el-tree class="filter-tree" check-on-click-node node-key='name' v-bind:data="menus" v-bind:props="{children: 'children',label: 'label'}" v-bind:filter-node-method="filterNode" ref="tree" v-bind:show-checkbox='false' v-on:check='handleChecked'></el-tree>
+								</section>
 							</el-form-item>
 						</el-col>
-						<el-col :span='12'>
+						<el-col :span='12' v-if='form._submituser'>
 						  <el-form-item label='提交人' class='approve-label'>{{form._submituser}}</el-form-item>
 						</el-col>
-						<el-col :span='12'>
+						<el-col :span='12' v-if='form._approveuser'>
 						  <el-form-item label='审核人' class='approve-label'>{{form._approveuser}}</el-form-item>
 						</el-col>
-						<el-col :span='24'>
-						  <el-form-item v-if='form._status' label='审核状态' class='approve-label'>
+						<el-col :span='24' v-if='form._status'>
+						  <el-form-item label='审核状态' class='approve-label'>
 								{{form._status == 1 ? '待审核' : form._status == 2 ? '审核通过' : '审核不通过'}}
 							</el-form-item>
 						</el-col>
@@ -171,7 +175,7 @@
 												<el-checkbox-group v-if='item1.tag == "checkboxgroup"' v-model="scope.row[item1.keyer]">
 													<el-checkbox v-for='(checkbox,i) in item1.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 												</el-checkbox-group>
-												<el-select v-if='item1.tag == "select"' v-model='scope.row[item1.keyer]' v-bind:multiple='item1.multiple' v-bind:disabled='item1.disabled' v-bind:placeholder='item1.placeholder' v-bind:filterable='item1.filterable' v-bind:allowCreate='item1.allowCreate'>
+												<el-select v-if='item1.tag == "select"' v-model='scope.row[item1.keyer]' v-bind:multiple='item1.multiple' v-bind:disabled='item1.disabled' v-bind:placeholder='item1.placeholder' v-bind:filterable='item1.filterable' v-bind:allowCreate='item1.allowCreate' v-on:change='selectChange($event,item1.keyer)'>
 													<el-option v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
 												<el-cascader v-if='item1.tag == "cascader"' v-model='scope.row[item1.keyer]' v-bind:options='item1.options'></el-cascader>

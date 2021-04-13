@@ -329,6 +329,35 @@ export default {
 					})[0]
 					source.options = res.data.result
 				})
+			}else if(keyer == 'shenfen') {
+				let table = this.fields.filter((item) => {
+					return item.tag == 'table'
+				})[0]
+				let name = table.fields.filter((item) => {
+					return item.keyer == 'xingming'
+				})[0]
+				if($event == '本校教师' || $event == '本校学生') {
+					name.tag = 'select'
+				}else if($event == '院内学生') {
+					name.tag = 'select'
+					name.filterable = true
+					name.allowCreate = true
+				}else if($event == '校外人员' || $event == '院外学生') {
+					name.tag == 'input'
+				}
+				if($event == '本校教师') {
+					this.$http.get("/bteacher/all").then((res) => {
+						name.options = res.data.result.map((item) => {
+							return {value: item.id, label: item.name}
+						})
+					})
+				}else if($event == '本校学生') {
+					this.$http.get('/bstudent/all').then((res) => {
+						name.options = res.data.result.map((item) => {
+							return {value: item.id, label: item.name}
+						})
+					})
+				}
 			}
 		},
 		templatedownload() {
@@ -400,10 +429,12 @@ export default {
 		create() {
 			this.initForm(this.fields,'form',true)
 			this.formshow = true
-			if(this.fields.filter((item) => {
-				return item.keyer == 'teamers'
-			}).length > 0) {
-				console.log(this.form.teamers)
+			let table = this.fields.filter((item) => {
+				return item.tag == 'table'
+			})[0]
+		  if(table) {
+				let i = this.fields.indexOf(table)
+			  this.addtable(i)
 			}
 			if(this.fields.filter((item) => {
 				return item.tag == 'tree'
@@ -486,10 +517,10 @@ export default {
 				this.$set(obj,item,'')
 			}
 			if(this.form[keyer]) {
-				this.form[keyer].push(obj)
 			}else{
 				this.$set(this.form,keyer,[])
 			}
+			this.form[keyer].push(obj)
 		},
 		deltable(keyer,index1) {
 			this.form[keyer].splice(index1,1)
