@@ -175,8 +175,9 @@
 												<el-checkbox-group v-if='item1.tag == "checkboxgroup"' v-model="scope.row[item1.keyer]">
 													<el-checkbox v-for='(checkbox,i) in item1.options' v-bind:key='i' v-bind:label="checkbox.value">{{checkbox.label}}</el-checkbox>
 												</el-checkbox-group>
-												<el-select v-if='item1.tag == "select"' v-model='scope.row[item1.keyer]' v-bind:multiple='item1.multiple' v-bind:disabled='item1.disabled' v-bind:placeholder='item1.placeholder' v-bind:filterable='item1.filterable' v-bind:allowCreate='item1.allowCreate' v-on:change='selectChange($event,item1.keyer)'>
-													<el-option v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
+												<el-select v-if='item1.tag == "select"' v-model='scope.row[item1.keyer]' v-bind:multiple='item1.multiple' v-bind:disabled='item1.disabled' v-bind:placeholder='item1.placeholder' v-bind:filterable='item1.filterable' v-bind:allowCreate='item1.allowCreate' v-on:change='selectChange($event,item1.keyer,scope.$index)'>
+													<el-option v-if='item1.keyer == "xingming"' v-for='(option,i) in scope.row.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
+													<el-option v-if='item1.keyer != "xingming"' v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
 												<el-cascader v-if='item1.tag == "cascader"' v-model='scope.row[item1.keyer]' v-bind:options='item1.options'></el-cascader>
 												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='item1.disabled' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>

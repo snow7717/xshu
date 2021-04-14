@@ -11,8 +11,8 @@ export default {
 			return {
 				index: `/${this.$route.name}/page`,
 				template: `/import/get/template/${this.$route.name}`,
-				importpre: `/${this.$route.name}/import/pre`,
-				importsave: `/${this.$route.name}/import/save`,
+				importpre: `/import/${this.$route.name}/pre`,
+				importsave: `/import/${this.$route.name}/save`,
 				exporter: `/export/${this.$route.name}`,
 				show: `/${this.$route.name}/get`,
 				save: `/${this.$route.name}/post`,

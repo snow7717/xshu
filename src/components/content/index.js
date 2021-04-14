@@ -310,7 +310,7 @@ export default {
 		hasPerm(perm) {
 			return this.user.role.permissions.indexOf(this.pname + perm) > -1
 		},
-		selectChange($event,keyer) {
+		selectChange($event,keyer,index = 0) {
 			if(keyer == 'item_leader') {
 				this.$http.get(`/bteacher/get/${$event}`).then((res) => {
 					if(this.form.leader_number == null) {
@@ -330,32 +330,44 @@ export default {
 					source.options = res.data.result
 				})
 			}else if(keyer == 'shenfen') {
-				let table = this.fields.filter((item) => {
-					return item.tag == 'table'
-				})[0]
-				let name = table.fields.filter((item) => {
-					return item.keyer == 'xingming'
-				})[0]
-				if($event == '本校教师' || $event == '本校学生') {
-					name.tag = 'select'
-				}else if($event == '院内学生') {
-					name.tag = 'select'
-					name.filterable = true
-					name.allowCreate = true
-				}else if($event == '校外人员' || $event == '院外学生') {
-					name.tag == 'input'
-				}
+				let teamer = this.form.teamers[index]
 				if($event == '本校教师') {
+					this.$set(teamer,'options',[])
 					this.$http.get("/bteacher/all").then((res) => {
-						name.options = res.data.result.map((item) => {
+						this.$set(teamer,'options',res.data.result.map((item) => {
 							return {value: item.id, label: item.name}
-						})
+						}))
 					})
-				}else if($event == '本校学生') {
+				}else if($event == '本校学生' || $event == '院内学生') {
+					this.$set(teamer,'options',[])
+					const loading = this.$loading({
+						lock: true,
+						text: '加载中...',
+						spinner: 'el-icon-loading',
+						background: 'rgba(0, 0, 0, 0.7)'
+					})
 					this.$http.get('/bstudent/all').then((res) => {
-						name.options = res.data.result.map((item) => {
+						loading.close()
+						this.$set(teamer,'options',res.data.result.map((item) => {
 							return {value: item.id, label: item.name}
-						})
+						}))
+					})
+				}else{
+					this.$set(teamer,'options', [])
+				}
+			}else if(keyer == 'xingming') {
+				if(this.form.teamers[index].shenfen == '本校教师') {
+					this.$http.get(`/bteacher/get/${$event}`).then((res) => {
+						this.form.teamers[index].danwei = res.data.result.school
+					})
+				}else if(this.form.teamers[index].shenfen == '本校学生' || this.form.teamers[index].shenfen == '院内学生') {
+					this.$http.get(`/bstudent/get/${$event}`).then((res) => {
+						console.log(res)
+						this.form.teamers[index].danwei = res.data.result.school
+						this.form.teamers[index].xuehao = res.data.result.number
+						this.form.teamers[index].banji = res.data.result.stu_class
+						this.form.teamers[index].zhuanye = res.data.result.profession
+						this.form.teamers[index].xueweileixing = res.data.result.bachelor
 					})
 				}
 			}
@@ -370,7 +382,7 @@ export default {
 			formData.append('files',param.file)
 			this.$http.post(this.url.importpre,formData).then((res) => {
 				if(res.data.returnCode == '0') {
-					this.$http.post(this.url.importsave, {datas: res.data.result}).then((res1) => {
+					this.$http.post(this.url.importsave,  res.data.result).then((res1) => {
 						if(res1.data.returnCode == '0') {
 							this.$message({
 								message: res1.data.returnMsg,
@@ -393,8 +405,9 @@ export default {
 			})
 		},
 		exporter() {
+			this.$set(this.search,'datas',this.selects)
 			this.$http.get(this.url.exporter, {
-        params: {datas: this.selects},
+        params: this.search,
         paramsSerializer: (params) => {
           return qs.stringify(params, { arrayFormat: 'repeat' })
         }
