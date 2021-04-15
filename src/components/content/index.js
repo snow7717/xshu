@@ -431,6 +431,30 @@ export default {
 		view(id) {
 			this.viewshow = true
 			this.$http.get(this.url.show + '/' + id).then((res) => {
+				if(res.data.result.teamers) {
+					for(let item of res.data.result.teamers) {
+						if(item.shenfen == '本校学生' || item.shenfen == '院内学生') {
+							let loading = this.$loading({
+								lock: true,
+								text: '加载中...',
+								spinner: 'el-icon-loading',
+								background: 'rgba(0, 0, 0, 0.7)'
+							})
+							this.$http.get(`/bstudent/all`).then((res) => {
+								loading.close()
+								item.options = res.data.result.map((itemer) => {
+									return {value: itemer.id, label: itemer.name}
+								})
+							})
+						}else if(item.shenfen == '本校教师') {
+							this.$http.get(`/bteacher/all`).then((res) => {
+								item.options = res.data.result.map((itemer) => {
+									return {value: itemer.id, label: itemer.name}
+								})
+							})
+						}
+					}
+				}
 				this.form = res.data.result
 				if(this.fields.filter((item) => {
 					return item.tag == 'tree'
@@ -463,6 +487,30 @@ export default {
 		edit(id) {
 			this.formshow = true
 			this.$http.get(this.url.show + '/' + id).then((res) => {
+				if(res.data.result.teamers) {
+					for(let item of res.data.result.teamers) {
+						if(item.shenfen == '本校学生' || item.shenfen == '院内学生') {
+							let loading = this.$loading({
+								lock: true,
+								text: '加载中...',
+								spinner: 'el-icon-loading',
+								background: 'rgba(0, 0, 0, 0.7)'
+							})
+							this.$http.get(`/bstudent/all`).then((res) => {
+								loading.close()
+								item.options = res.data.result.map((itemer) => {
+									return {value: itemer.id, label: itemer.name}
+								})
+							})
+						}else if(item.shenfen == '本校教师') {
+							this.$http.get(`/bteacher/all`).then((res) => {
+								item.options = res.data.result.map((itemer) => {
+									return {value: itemer.id, label: itemer.name}
+								})
+							})
+						}
+					}
+				}
 				this.form = res.data.result
 				if(this.fields.filter((item) => {
 					return item.tag == 'tree'
