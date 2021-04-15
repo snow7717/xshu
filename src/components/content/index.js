@@ -175,6 +175,8 @@ export default {
 		this.init()
 		this.fieldIndex()
 		this.index(this.page)
+		
+		
 	},
 	mounted() {},
 	methods: {
@@ -359,10 +361,10 @@ export default {
 				if(this.form.teamers[index].shenfen == '本校教师') {
 					this.$http.get(`/bteacher/get/${$event}`).then((res) => {
 						this.form.teamers[index].danwei = res.data.result.school
+						this.form.teamers[index].xuehao = res.data.result.number
 					})
 				}else if(this.form.teamers[index].shenfen == '本校学生' || this.form.teamers[index].shenfen == '院内学生') {
 					this.$http.get(`/bstudent/get/${$event}`).then((res) => {
-						console.log(res)
 						this.form.teamers[index].danwei = res.data.result.school
 						this.form.teamers[index].xuehao = res.data.result.number
 						this.form.teamers[index].banji = res.data.result.stu_class
@@ -555,6 +557,11 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
 					this.$set(this.form,'_menu',this.$route.name)
+					if(this.form.teamers) {
+						for(let item of this.form.teamers) {
+							item.options = []
+						}
+					}
           this.$http.post(this.url.save, this.form).then((res) => {
 						if(res.data.returnCode == '0') {
 							this.$message({
