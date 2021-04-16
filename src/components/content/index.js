@@ -1,7 +1,7 @@
 import qs from 'qs'
 
 let valinumber = (rule, value, callback) => {  
-  if (new RegExp(/^[1-9]\d*(\.\d+)?$/).test(value) || value == '') {
+  if (new RegExp(/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/).test(value) || value == '') {
 	  callback()
   }else{
 		callback(new Error('该字段必须为大于0的数字'))
@@ -129,7 +129,9 @@ export default {
 			formshow: false,
 			approveshow: false,
 			menu: '',
-			showurl: ''
+			showurl: '',
+			teachers: [],
+			students: []
 		}
 	},
 	computed: {
@@ -175,8 +177,7 @@ export default {
 		this.init()
 		this.fieldIndex()
 		this.index(this.page)
-		
-		
+		this.teacherIndex()
 	},
 	mounted() {},
 	methods: {
@@ -302,6 +303,23 @@ export default {
 				this.page = page
 				this.total = res.data.result.total
         this.$emit('index', res.data.result.list)
+				if(this.students.length == 0) {
+					this.studentIndex()
+				}
+			})
+		},
+		teacherIndex() {
+			this.$http.get("/bteacher/all").then((res) => {
+				this.teachers = res.data.result.map((item) => {
+					return {value: item.id, label: item.name}
+				})
+			})
+		},
+		studentIndex() {
+			this.$http.get('/bstudent/all').then((res) => {
+				this.students = res.data.result.map((item) => {
+					return {value: item.id, label: item.name}
+				})
 			})
 		},
 		handleDatas(val) {
@@ -334,26 +352,9 @@ export default {
 			}else if(keyer == 'shenfen') {
 				let teamer = this.form.teamers[index]
 				if($event == '本校教师') {
-					this.$set(teamer,'options',[])
-					this.$http.get("/bteacher/all").then((res) => {
-						this.$set(teamer,'options',res.data.result.map((item) => {
-							return {value: item.id, label: item.name}
-						}))
-					})
+					this.$set(teamer,'options',this.teachers)
 				}else if($event == '本校学生' || $event == '院内学生') {
-					this.$set(teamer,'options',[])
-					const loading = this.$loading({
-						lock: true,
-						text: '加载中...',
-						spinner: 'el-icon-loading',
-						background: 'rgba(0, 0, 0, 0.7)'
-					})
-					this.$http.get('/bstudent/all').then((res) => {
-						loading.close()
-						this.$set(teamer,'options',res.data.result.map((item) => {
-							return {value: item.id, label: item.name}
-						}))
-					})
+					this.$set(teamer,'options',this.students)
 				}else{
 					this.$set(teamer,'options', [])
 				}
@@ -362,6 +363,7 @@ export default {
 					this.$http.get(`/bteacher/get/${$event}`).then((res) => {
 						this.form.teamers[index].danwei = res.data.result.school
 						this.form.teamers[index].xuehao = res.data.result.number
+						this.form.teamers[index].showname = res.data.result.name
 					})
 				}else if(this.form.teamers[index].shenfen == '本校学生' || this.form.teamers[index].shenfen == '院内学生') {
 					this.$http.get(`/bstudent/get/${$event}`).then((res) => {
@@ -370,6 +372,7 @@ export default {
 						this.form.teamers[index].banji = res.data.result.stu_class
 						this.form.teamers[index].zhuanye = res.data.result.profession
 						this.form.teamers[index].xueweileixing = res.data.result.bachelor
+						this.form.teamers[index].showname = res.data.result.name
 					})
 				}
 			}
@@ -384,20 +387,27 @@ export default {
 			formData.append('files',param.file)
 			this.$http.post(this.url.importpre,formData).then((res) => {
 				if(res.data.returnCode == '0') {
-					this.$http.post(this.url.importsave,  res.data.result).then((res1) => {
-						if(res1.data.returnCode == '0') {
-							this.$message({
-								message: res1.data.returnMsg,
-								type: 'success'
-							})
-							this.index(this.page)
-						}else{
-							this.$message({
-								message: res1.data.returnMsg,
-								type: 'warning'
-							})
-						}
-					})
+					if(res.data.result.msgs.length > 0) {
+						this.$message({
+							message: res.data.result.msgs[0],
+							type: 'warning'
+						})
+					}else{
+						this.$http.post(this.url.importsave,  res.data.result).then((res1) => {
+							if(res1.data.returnCode == '0') {
+								this.$message({
+									message: res1.data.returnMsg,
+									type: 'success'
+								})
+								this.index(this.page)
+							}else{
+								this.$message({
+									message: res1.data.returnMsg,
+									type: 'warning'
+								})
+							}
+						})
+					}
 				}else{
 					this.$message({
 						message: res.data.returnMsg,
@@ -433,25 +443,13 @@ export default {
 			this.$http.get(this.url.show + '/' + id).then((res) => {
 				if(res.data.result.teamers) {
 					for(let item of res.data.result.teamers) {
-						if(item.shenfen == '本校学生' || item.shenfen == '院内学生') {
-							let loading = this.$loading({
-								lock: true,
-								text: '加载中...',
-								spinner: 'el-icon-loading',
-								background: 'rgba(0, 0, 0, 0.7)'
-							})
-							this.$http.get(`/bstudent/all`).then((res) => {
-								loading.close()
-								item.options = res.data.result.map((itemer) => {
-									return {value: itemer.id, label: itemer.name}
-								})
-							})
+						if(item.shenfen == '本校学生' || item.shenfen == '院内学生') {	  this.$http.get(`/bstudent/get/`+item.xingming).then((res) =>{
+							 item.options = [{value: res.data.result.id, label: res.data.result.name}]
+						 })
 						}else if(item.shenfen == '本校教师') {
-							this.$http.get(`/bteacher/all`).then((res) => {
-								item.options = res.data.result.map((itemer) => {
-									return {value: itemer.id, label: itemer.name}
-								})
-							})
+						  this.$http.get(`/bteacher/get/`+item.xingming).then((res) => {
+							  item.options = [{value: res.data.result.id, label: res.data.result.name}]
+						  })
 						}
 					}
 				}

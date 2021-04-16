@@ -82,7 +82,7 @@
 					<el-pagination layout="prev, pager, next" v-bind:current-page='page' v-bind:total="total" v-on:current-change='index'></el-pagination>
 				</el-col>
 			</el-row>
-			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false'>
+			<el-dialog title="" class='form' :visible.sync="viewshow" v-bind:close-on-click-modal='false' width='80%'>
 			  <el-form size='mini' v-bind:label-width='labelWidth' class='view-form' :model='form'>
 				  <el-row>
 					  <el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
@@ -98,8 +98,9 @@
 									<el-option v-for='(option,i) in item.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 								</el-select>
 								<el-date-picker v-if='item.tag == "datepicker"' v-model="form[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.placeholder" v-bind:readonly='item.readonly' v-bind:disabled='true' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.type == "month" ? "yyyy-MM" : item.type == "week" ? "yyyy 第 WW 周" : "yyyy-MM-dd"'></el-date-picker></el-date-picker>
-								<el-upload v-if='item.tag == "file"' action="#" v-bind:name='item.keyer' v-bind:multiple='item.multiple' v-bind:disabled='true' v-bind:file-list='form[item.keyer]'>
-								</el-upload>
+								<section v-if='item.tag == "file"'>
+									<el-link v-for='(link,linkindex) in form[item.keyer]' v-bind:key='linkindex' v-bind:href="link.url" target="_blank" class='f-db' type='primary'>{{link.name}}</el-link>
+								</section>
 								<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
 									<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
 										<template slot-scope='scope'>
@@ -116,8 +117,7 @@
 													<el-option v-if='item1.keyer != "xingming"' v-for='(option,i) in item1.options' v-bind:key='i' v-bind:label='option.label' v-bind:value='option.value'></el-option>
 												</el-select>
 												<el-date-picker v-if='item1.tag == "datepicker"' v-model="scope.row[item1.keyer]" v-bind:type="item1.datetype" v-bind:placeholder="item1.placeholder" v-bind:readonly='item1.readonly' v-bind:disabled='true' v-bind:value-format='item1.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
-												<el-upload v-if='item1.tag == "file"' action="#" v-bind:name='item1.keyer' v-bind:disabled='true' v-bind:file-list='scope.row[item.keyer]'>
-												</el-upload>
+												<el-upload v-if='item1.tag == "file"' action="#" v-bind:name='item1.keyer' v-bind:disabled='true' v-bind:file-list='scope.row[item.keyer]'></el-upload>
 											</el-form-item>
 										</template>
 									</el-table-column>
@@ -145,7 +145,7 @@
 					</el-row>
 				</el-form>
 			</el-dialog>
-			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false'>
+			<el-dialog title="" class='form' :visible.sync="formshow" v-bind:show-close='false' v-bind:close-on-click-modal='false' width='80%'>
 				<el-form :model="form" v-bind:label-width='labelWidth' size='mini' v-bind:rules="rules" ref="form">
 					<el-row>
 						<el-col v-for='(item,index) in fields' v-bind:key='index' v-bind:span='item.tag == "table" ? 24 : item.span'>
