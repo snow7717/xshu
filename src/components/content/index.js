@@ -163,6 +163,14 @@ export default {
 			return this.fields.filter((item) => {
 				return item.keyer == 'teamers'
 			}).length > 0
+		},
+		isresult() {
+			let basis = ['bschool','profession','bteacher','bstudent','mstudent']
+			if(basis.indexOf(this.$route.name) == -1) {
+				return true
+			}else{
+				return false
+			}
 		}
 	},
 	watch:{
@@ -206,12 +214,9 @@ export default {
 			this.labelWidth = 18 * max + 'px'
 		},
 		initRules() {
-			let rqueireds = this.fields.filter((item) => {
-				return item.isrequired == true
-			})
-			for(let item of rqueireds) {
+			for(let item of this.fields) {
 				this.$set(this.rules,item.keyer,[{
-					required: true,
+					required: item.isrequired,
 					message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
 					trigger: item.tag == 'input' ? 'blur' : 'change'
 				}])
@@ -349,6 +354,31 @@ export default {
 					})[0]
 					source.options = res.data.result
 				})
+			}else if(keyer == 'lwzzleibie') {
+				let options
+				if($event == '本校教师') {
+					options = this.teachers
+				}else if($event == '本校学生' || $event == '院内学生'){
+					options = this.students
+				}else{
+					options = []
+				}
+				let author = this.fields.filter((item) => {
+					return item.keyer == 'lwdyzz'
+				})[0]
+				this.$set(author,'options',options)
+			}else if(keyer == 'lwdyzz') {
+				if(this.form.lwzzleibie == '本校教师') {
+					this.$http.get(`/bteacher/get/${$event}`).then((res) => {
+						this.form.lwdyzzgh = res.data.result.number
+						this.form.lwzzxueyuan = res.data.result.school
+					})
+				}else if(this.form.lwzzleibie == '本校学生' || $event == '院内学生') {
+					this.$http.get(`/bstudent/get/${$event}`).then((res) => {
+						this.form.lwdyzzgh = res.data.result.number
+						this.form.lwzzxueyuan = res.data.result.school
+					})
+				}
 			}else if(keyer == 'shenfen') {
 				let teamer = this.form.teamers[index]
 				if($event == '本校教师') {
@@ -375,6 +405,25 @@ export default {
 						this.form.teamers[index].showname = res.data.result.name
 					})
 				}
+			}else if(keyer == 'xueshengxm') {
+				this.$http.get(`/bstudent/get/${$event}`).then((res) => {
+					this.form.xueshengxueli = res.data.result.education
+					this.form.xueshengbanji = res.data.result.stu_class
+					this.form.xueshengnianji = res.data.result.stu_grade
+					this.form.xueshengzhuanye = res.data.result.profession
+					this.form.xueshengxueyuan = res.data.result.school
+				})
+			}else if(keyer == 'level' && this.$route.name == 'menu') {
+				if(this.form.level == 1) {
+					this.fields.filter((item) => {
+						return item.keyer == 'parent'
+					})[0].isrequired = false
+				}else{
+					this.fields.filter((item) => {
+						return item.keyer == 'parent'
+					})[0].isrequired = true
+				}
+				this.initRules()
 			}
 		},
 		templatedownload() {
@@ -600,6 +649,23 @@ export default {
 		},
 		/*-- 提交表单 --*/
 		submit(form) {
+			if(this.form.teamers) {
+				let orders = this.form.teamers.map((item) => {
+					return item.paixu
+				})
+				let teamers = this.form.teamers.map((item) => {
+					return item.shenfen + '' + item.xingming
+				})
+				if(new Set(orders).size == orders.length && new Set(teamers).size == teamers.length) {
+				}else{
+					this.$message({
+						message: '团队成员的序号和所选的团队成员不可重复',
+						type: 'warning'
+					})
+					return false
+				}
+			}
+			
       this.$refs[form].validate((valid) => {
         if (valid) {
 					this.$set(this.form,'_menu',this.$route.name)

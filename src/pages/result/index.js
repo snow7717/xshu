@@ -31,8 +31,8 @@ export default {
 	methods: {
 		index(datas) {
 			for(let item of datas) {
-				this.$set(item,'editable',this.user.userinfo.id == item.createuser)
-				this.$set(item,'deleteable',this.user.userinfo.id == item.createuser)
+				this.$set(item,'editable',this.user.userinfo.id == item.createuser && item._status != 2)
+				this.$set(item,'deleteable',this.user.userinfo.id == item.createuser && item._status != 2)
 				this.$set(item,'approveable',item._status == 1)
 			}
 			this.datas = datas

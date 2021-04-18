@@ -31,7 +31,7 @@
 							</el-checkbox-group>
 							<el-date-picker v-if='item.tag == "datepicker"' v-model="search[item.keyer]" v-bind:type="item.datetype" v-bind:placeholder="item.label" v-bind:readonly='item.readonly' v-bind:disabled='item.disabled' v-bind:value-format='item.datetype == "year" ? "yyyy" : item.datetype == "month" ? "yyyy-MM" : item.datetype == "week" ? "yyyy 第 WW 周" : item.datetype == "date" ? "yyyy-MM-dd" : ""'></el-date-picker>
 						</el-form-item>
-						<el-form-item class='query-item' v-if='hasPerm("approve") || user.role.scope == "个人"'>
+						<el-form-item class='query-item' v-if='(isresult && hasPerm("approve")) || (isresult && user.role.scope == "个人")'>
 						  <el-select v-model='search._status' placeholder='审核状态'>
 							  <el-option value='1' label='待审核'></el-option>
 								<el-option value='2' label='审核通过'></el-option>
@@ -56,7 +56,7 @@
 				<el-upload v-if='hasPerm("add")' action="#" v-bind:show-file-list='false' list-type="text" v-bind:http-request='importer' accept=".xls,.xlsx" class='import f-ib'>
 					<el-button slot='default' type="primary" size='mini'>导入</el-button>
 				</el-upload>
-				<el-button type="primary" size='mini' class='f-ib' v-on:click='templatedownload'>模版下载</el-button>
+				<el-button v-if='hasPerm("add")' type="primary" size='mini' class='f-ib' v-on:click='templatedownload'>模版下载</el-button>
 				<el-button type="success" size='mini' class='f-ib' v-bind:disabled='datas.length == 0' v-on:click='exporter'>导出Excel</el-button>
 			</el-aside>
 	  </el-container>
@@ -168,7 +168,7 @@
 								<el-table v-if='item.tag == "table"' v-bind:data='form[item.keyer]' class='option-table'>
 									<el-table-column v-for='(item1,index1) in item.fields' v-bind:key='index1' v-bind:label="item1.label">
 										<template slot-scope='scope'>
-										  <el-form-item v-bind:prop='item.keyer + "." + scope.$index + "." + item1.keyer' v-bind:rules='rules[item1.keyer]'>
+										  <el-form-item v-bind:prop='item.keyer + "." + scope.$index + "." + item1.keyer' v-bind:rules=' rules[item1.keyer]'>
 											  <el-input v-if='item1.tag == "input"' v-model="scope.row[item1.keyer]" v-bind:type='item1.type' v-bind:placeholder='item1.placeholder' v-bind:disabled='item1.disabled' v-bind:rows='item1.rows' v-bind:autosize='item1.autosize' v-bind:max='item1.max' v-bind:min='item1.min' v-bind:step='item1.step'></el-input>
 												<el-radio-group v-if='item1.tag == "radiogroup"' v-model="scope.row[item1.keyer]">
 													<el-radio v-for='(radio,i) in item1.options' v-bind:key='i' v-bind:label="radio.value">{{radio.label}}</el-radio>

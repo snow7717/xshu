@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/pages/user/login/index.vue'
-import User from '@/pages/user/index/index.vue'
-import Password from '@/pages/user/password/index.vue'
 
 import Index from '@/pages/index/index.vue'
 import Layout from '@/pages/layout/index.vue'
@@ -15,6 +13,11 @@ import Suser from '@/pages/setting/user/index.vue'
 import Menu from '@/pages/setting/menu/index.vue'
 import Field from '@/pages/setting/field/index.vue'
 
+import User from '@/pages/user/index/index.vue'
+import Info from '@/pages/user/info/index.vue'
+import Password from '@/pages/user/password/index.vue'
+import Mstudent from '@/pages/user/student/index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -25,24 +28,6 @@ export default new Router({
       component: Login,
 			meta: {
 				label: '登录',
-				global: true
-			}
-		},
-		{
-			path: '/user',
-			name: 'user',
-			component: User,
-			meta: {
-				label: '个人信息',
-				global: true
-			}
-		},
-		{
-			path: '/password',
-			name: 'password',
-			component: Password,
-			meta: {
-				label: '修改密码',
 				global: true
 			}
 		},
@@ -1240,6 +1225,50 @@ export default new Router({
 						permissions: []
 					}
 				}
+			]
+		},
+		{
+			path: '/user',
+			name: 'user',
+			component: User,
+			meta: {
+				label: '个人中心',
+				position: 'left',
+				icon: 'el-icon-user-solid',
+				global: false
+			},
+			children: [
+				{
+					path: 'info',
+					name: 'userinfo',
+					component: Info,
+					meta: {
+						active: '7-1',
+						label: '个人信息修改',
+						global: true
+					}
+				},
+				
+				{
+					path: 'student',
+					name: 'mstudent',
+					component: Mstudent,
+					meta: {
+						active: '7-3',
+						label: '指导学生信息',
+						global: true
+					}
+				},
+				{
+					path: 'password',
+					name: 'password',
+					component: Password,
+					meta: {
+						active: '7-2',
+						label: '修改密码',
+				    global: true
+					}
+				},
 			]
 		}
   ]

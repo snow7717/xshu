@@ -118,13 +118,15 @@ export default {
 		this.windowH = document.documentElement.clientHeight || document.body.clientHeight
 	},
 	methods: {
+		go(url) {
+			this.$router.push(url)
+		},
 		toggleData() {
 			this.dataH == 'auto' ? this.dataH = '128px' : this.dataH = 'auto'
 		},
 		dataIndex() {
 			this.$http.post("/achieve/type/analysis").then(res => {
 				this.datas = res.data.result
-				console.log(this.datas)
 			})
 		},
 		chartIndex() {
