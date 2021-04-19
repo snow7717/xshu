@@ -33,7 +33,7 @@ export default {
 	},
 	created() {
 		this.fieldIndex()
-		this.show(this.user.id)
+		this.show(this.user.relid)
 	},
 	methods: {
 		fieldIndex() {
