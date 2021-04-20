@@ -15,6 +15,7 @@ export default {
 			dataH: '128px',
 			datas: [],
 			series: [],
+			barseries: [],
 			option: {
 				tooltip: {
 					trigger: 'axis'
@@ -149,9 +150,12 @@ export default {
 		},
 		barIndex() {
 			this.$http.get('/achieve/type/chart/bar',{params: {year: this.year}}).then((res) => {
-				this.option1.xAxis.data = res.data.result.map((item) => {
-					return item.name
-				})
+				this.barseries = res.data.result
+				this.option1.xAxis.data = [
+					res.data.result[0].name,
+					res.data.result[1].name,
+					res.data.result[2].name
+				]
 				this.option1.series[0].data = res.data.result.map((item) => {
 					return item.value
 				})
@@ -177,6 +181,8 @@ export default {
 		},
 		seriesChange(val) {
 			this.$refs.chart.clear()
+		},
+		resultChange(val) {
 		},
 		yearChange(val) {
 			this.barIndex()

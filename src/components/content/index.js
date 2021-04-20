@@ -215,11 +215,19 @@ export default {
 		},
 		initRules() {
 			for(let item of this.fields) {
-				this.$set(this.rules,item.keyer,[{
-					required: item.isrequired,
-					message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
-					trigger: item.tag == 'input' ? 'blur' : 'change'
-				}])
+				if(this.rules[item.keyer]) {
+					this.rules[item.keyer].push({
+						required: item.isrequired,
+						message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
+						trigger: item.tag == 'input' ? 'blur' : 'change'
+					})
+				}else{
+					this.$set(this.rules,item.keyer,[{
+						required: item.isrequired,
+						message: item.tag == 'input' ? `请输入${item.label}` : `请选择${item.label}`,
+						trigger: item.tag == 'input' ? 'blur' : 'change'
+					}])
+				}
 			}
 			let numbers = this.fields.filter((item) => {
 				return item.type == 'number'
@@ -346,6 +354,7 @@ export default {
 					}else{
 						this.form.item_college = res.data.result.schoolid
 					}
+					this.form.field = res.data.result.professionid
 				})
 			}else if(keyer == 'zxitem_type') {
 				this.$http.get(`/achieves/prosource/get/${$event}`).then((res) => {
@@ -412,6 +421,7 @@ export default {
 					this.form.xueshengnianji = res.data.result.stu_grade
 					this.form.xueshengzhuanye = res.data.result.profession
 					this.form.xueshengxueyuan = res.data.result.school
+					this.form.xueshengxuehao = res.data.result.number
 				})
 			}else if(keyer == 'level' && this.$route.name == 'menu') {
 				if(this.form.level == 1) {
