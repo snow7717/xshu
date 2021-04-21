@@ -39,7 +39,7 @@ export default {
 				xAxis: {
 					type: 'category',
 					boundaryGap: false,
-					data: ['2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+					data: ['2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020','2021']
 				},
 				yAxis: {
 					type: 'value'
@@ -132,20 +132,14 @@ export default {
 		},
 		chartIndex() {
 			this.$http.post('/achieve/type/chart/line').then(res => {
+				console.log(res.data.result)
 				this.option.legend.data = res.data.result.legend
 				this.option.xAxis.data = res.data.result.years
 				for(let item of res.data.result.series) {
 					this.$set(item,'type','line')
-					this.$set(item,'stack','总量')
-					this.$set(item,'label',{
-						normal: {
-              show: true,
-              position: 'top'
-            }
-					})
 				}
 				this.series = res.data.result.series
-				this.$set(this.option.series,0,this.series[0])
+				this.option.series.push(this.series[1])
 			})
 		},
 		barIndex() {
@@ -180,6 +174,7 @@ export default {
 			})
 		},
 		seriesChange(val) {
+			console.log(val)
 			this.$refs.chart.clear()
 		},
 		resultChange(val) {

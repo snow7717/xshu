@@ -7,7 +7,7 @@
 			</el-menu-item>
 			<el-submenu index="0" class='f-fr'>
 				<template slot="title">{{user.userinfo.name}}</template>
-				<el-menu-item index="0-2" route='/password'>修改密码</el-menu-item>
+				<el-menu-item index="0-2" route='/user/password'>修改密码</el-menu-item>
 				<el-menu-item v-on:click='logout'>退出登录</el-menu-item>
 			</el-submenu>
 			<el-menu-item index="">

@@ -13,7 +13,7 @@
 					  </el-button>
 					</header>
 					<el-row :gutter="20" class='f-oh' v-bind:style='"height:" + dataH'>
-					  <el-col :xl='3' :lg='4' :md="4" :sm='6' :xs='12' v-for='(item,index) in datas' v-bind:key='index'>
+					  <el-col :xl='3' :lg='4' :md="4" :sm='6' :xs='12' v-for='(item,index) in datas' v-bind:key='index' v-if='user.role.scope == "全院" || item.title != "所有成员"'>
 						  <div v-on:click='go(item.route ? item.route : "/")'>
 								<el-card class='subcard f-csp' v-bind:class='"subcard" + index' shadow='hover' >
 									<header slot="header" class="clearfix f-db">
