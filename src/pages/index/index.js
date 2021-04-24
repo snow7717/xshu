@@ -174,7 +174,6 @@ export default {
 			})
 		},
 		seriesChange(val) {
-			console.log(val)
 			this.$refs.chart.clear()
 		},
 		resultChange(val) {

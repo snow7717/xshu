@@ -186,6 +186,7 @@ export default {
 		this.fieldIndex()
 		this.index(this.page)
 		this.teacherIndex()
+		console.log(this.user)
 	},
 	mounted() {},
 	methods: {
@@ -296,6 +297,9 @@ export default {
 				}
 				if(item.keyer == 'leader_number' && initLeader) {
 					this[form].leader_number = this.user.userinfo.number
+				}
+				if(item.keyer == 'field' && initLeader) {
+					this[form].field = this.user.professionid
 				}
 				if(item.keyer == 'item_college' && initLeader) {
 					this[form].item_college = this.user.userinfo.school
